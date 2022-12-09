@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//!DEPRECATED; DONT USE THIS YOU MANCHILD
 public class TestPlayableScript : MonoBehaviour
 {
     private CharacterController controller;
@@ -16,6 +18,11 @@ public class TestPlayableScript : MonoBehaviour
         controller = gameObject.GetComponent<CharacterController>();
     }
 
+    bool Grounded()
+    {
+        return false;
+       // return Physics2D.OverlapCircle(controller);
+    }
     void Update()
     {
         groundedPlayer = controller.isGrounded;
