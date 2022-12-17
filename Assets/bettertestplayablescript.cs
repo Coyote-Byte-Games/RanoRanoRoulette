@@ -17,6 +17,7 @@ public class bettertestplayablescript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        groundCheck = transform.GetChild(0).gameObject.transform;
     }
 
    
