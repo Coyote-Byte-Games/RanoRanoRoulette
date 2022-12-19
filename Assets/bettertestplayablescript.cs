@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bettertestplayablescript : MonoBehaviour
+public class bettertestplayablescript : MonoBehaviour, IPlayerScript
 {
     // Start is called before the first frame update
     Rigidbody2D rb;
@@ -10,6 +10,7 @@ public class bettertestplayablescript : MonoBehaviour
     [SerializeField]
     public Transform groundCheck;
     public int speed;
+    public System.Func<int, int> func;
     public LayerMask groundLayer;
     public int jumpPower;
      bool grounded;
