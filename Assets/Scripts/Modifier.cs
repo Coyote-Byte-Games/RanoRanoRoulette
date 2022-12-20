@@ -13,11 +13,15 @@ public class Modifier : ScriptableObject
     *
     */
     //public string name; //already there
-    public Modifier(Action<IPlayerScript> onstart, Action<IPlayerScript> onend)
+    //todo figure out where we do the null check
+    #nullable enable
+    
+    public Modifier(Action<IPlayerScript>? onstart, Func<IPlayerScript, IEnumerable>? continuous, Action<IPlayerScript>? onend)
     {
         this.OnStartEffect = onstart;
         this.OnEndEffect = onend;
     }
+    #nullable disable
     public int difficulty;
     //for interacting with any player class
     public IPlayerScript playerScript;
