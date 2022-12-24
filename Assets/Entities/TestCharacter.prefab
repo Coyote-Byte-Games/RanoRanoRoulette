@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce1127d7f7db5042a3399fc94d6a26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   groundCheck: {fileID: 0}
   speed: 267
   groundLayer:
@@ -277,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce1127d7f7db5042a3399fc94d6a26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   groundCheck: {fileID: 401191875}
   speed: 267
   groundLayer:

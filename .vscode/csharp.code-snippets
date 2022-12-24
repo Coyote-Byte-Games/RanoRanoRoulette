@@ -1,0 +1,19 @@
+{
+	"Multi-line Comment": {
+		"prefix": "multicomment",
+		"body": [
+			"/*",
+			"*$1",
+			"*/"
+		],
+		"description": "lotsa line comment"
+	},
+    "modshorthand": {
+		"prefix": "modshort",
+		"body": [
+			"public static Modifier $1 = new Modifier(${2:BlankSingle}, ${3:BlankCont}, ${4:BlankSingle}, ${5:BlankDescription}, ${6:-1});f"
+			
+		],
+		"description": "lotsa line comment"
+	}
+}

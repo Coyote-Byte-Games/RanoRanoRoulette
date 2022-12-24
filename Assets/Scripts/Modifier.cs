@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Modifier : ScriptableObject
-{
+public class Modifier{
     /*questions to ask:
     * -When is an instance of this class given a method? 
     *   functions cannot be held at the engine level, meaning the code along must pass along these functions.
@@ -16,15 +15,27 @@ public class Modifier : ScriptableObject
     //todo figure out where we do the null check
     #nullable enable
     
-    public Modifier(Action<IPlayerScript>? onstart, Func<IPlayerScript, IEnumerable>? continuous, Action<IPlayerScript>? onend)
+    public Modifier(Action<bettertestplayablescript>? onstart, Func<bettertestplayablescript, IEnumerator>? continuous, Action<bettertestplayablescript>? onend, string description = "unregistered", int difficulty = 1)
     {
         this.OnStartEffect = onstart;
+        this.ContinuousEffect = continuous;//i hate myself
+        this.OnEndEffect = onend;
+        this.description = description;
+        this.difficulty = difficulty;
+    }
+    public Modifier(Action<bettertestplayablescript>? onstart, Func<bettertestplayablescript, IEnumerator>? continuous, Action<bettertestplayablescript>? onend)
+    {
+        this.OnStartEffect = onstart;
+        this.ContinuousEffect = continuous;//i hate myself
         this.OnEndEffect = onend;
     }
     #nullable disable
+   
     public int difficulty;
+    public string description;
     //for interacting with any player class
-    public IPlayerScript playerScript;
-    public Action<IPlayerScript> OnStartEffect;
-    public Action<IPlayerScript> OnEndEffect;
+    public bettertestplayablescript playerScript;
+    public Action<bettertestplayablescript> OnStartEffect;
+    public Func<bettertestplayablescript, IEnumerator> ContinuousEffect;
+    public Action<bettertestplayablescript> OnEndEffect;
 }
