@@ -11,7 +11,7 @@
     "modshorthand": {
 		"prefix": "modshort",
 		"body": [
-			"public static Modifier $1 = new Modifier(${2:BlankSingle}, ${3:BlankCont}, ${4:BlankSingle}, ${5:BlankDescription}, ${6:-1});f"
+			"public static Modifier $1 = new Modifier($1OnStart, $1Continuous, $1OnEnd $1Description, ${6:-1});f"
 			
 		],
 		"description": "lotsa line comment"
