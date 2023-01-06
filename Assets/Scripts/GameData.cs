@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "My Assets/Game Data")]
 public class GameData : ScriptableObject
 {
+    #region Prefabs
+
+    [SerializeField]
+        public  GameObject BerserkSword;
+
+    #endregion
     //the mods the data starts with
     [SerializeField]
     private int StartingModNumber;
@@ -13,7 +19,7 @@ public class GameData : ScriptableObject
     public int numOfMods;
     
     
-    public List<Modifier> mods = new List<Modifier>();
+    public List<IModifier> mods = new List<IModifier>();
     public void OnEnable()
     {
         numOfMods = StartingModNumber;

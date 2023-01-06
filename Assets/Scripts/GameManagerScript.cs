@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
@@ -31,8 +29,7 @@ public int modifierInterval;
     void Awake()
     {
       
-      data.mods = Modifier.GenerateRandomMods(4);
-      
+      data.mods = ModifierManager.GenerateRandomMods(4);
     
     }
 
@@ -55,7 +52,7 @@ public int modifierInterval;
     {
       var wheelInstance = Instantiate(WheelPrefab, Vector3.zero, Quaternion.identity);
       Destroy(wheelInstance, 3);
-      Modifier newMod = wheelScript.Launch();
+      IModifier newMod = wheelScript.Launch();
       //:the modifier is null at this point
       player.GetComponent<bettertestplayablescript>().AddModifier(newMod);
 

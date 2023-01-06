@@ -233,7 +233,7 @@ public GameData data;
     mesh.transform.position.Set(0, 0, transform.position.z);
     return mesh;
    }
-    public Modifier Launch()
+    public IModifier Launch()
     {
       
         //?will this disrupt things, as the mod is returned?
@@ -241,7 +241,7 @@ public GameData data;
        int index = UnityEngine.Random.Range(0, data.numOfMods);//exclusive 2nd?
      
        
-       Modifier selectedMod = data.mods[index];
+       IModifier selectedMod = data.mods[index];
      
 
 
@@ -256,7 +256,7 @@ public GameData data;
        
        return selectedMod;
     
-      
+      //why are you copying the files you dumb slut
 
 
     }

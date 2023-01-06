@@ -149,13 +149,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 52486009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97907c65ec62c7047b4a6aa42ba8e246, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
-  WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
-  modifierInterval: 15
-  player: {fileID: 324652571}
 --- !u!4 &52486011
 Transform:
   m_ObjectHideFlags: 0
@@ -271,11 +267,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &324652571 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1952295967668447974, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
-  m_PrefabInstance: {fileID: 1543954863}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +547,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1125366860 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1952295967668447974, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+  m_PrefabInstance: {fileID: 1543954863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1125366861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125366860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0f4fae44f4af647b93a9d26c09831f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  data: {fileID: 0}
+  jumpRadius: 0
+  groundCheck: {fileID: 0}
+  speed: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpPower: 0
 --- !u!1 &1466890601
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +742,10 @@ PrefabInstance:
       value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 1543954867, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: m_Simulated
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543954867, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
@@ -820,7 +841,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2652411524347521747, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
 --- !u!1 &1591836363
 GameObject:
