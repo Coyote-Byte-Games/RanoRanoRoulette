@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameData : ScriptableObject
 {
     #region Prefabs
+    public BerserkModifier BerserkModifier;
 
     [SerializeField]
         public  GameObject BerserkSword;
@@ -23,5 +24,6 @@ public class GameData : ScriptableObject
     public void OnEnable()
     {
         numOfMods = StartingModNumber;
+       
     }
 }

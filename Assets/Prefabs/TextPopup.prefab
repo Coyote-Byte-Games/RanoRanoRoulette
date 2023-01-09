@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7117085740854083541}
   - component: {fileID: 7117085740854083542}
   - component: {fileID: 7117085740854083543}
-  - component: {fileID: 7117085740854083539}
+  - component: {fileID: 6355194060385641625}
   m_Layer: 5
   m_Name: TextPopup
   m_TagString: Untagged
@@ -119,7 +119,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7117085740854083539
+--- !u!114 &6355194060385641625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,6 +128,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7117085740854082600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10df7f0dc76da3844b42940fd16345e5, type: 3}
+  m_Script: {fileID: 11500000, guid: eeed0f4b3cf5c7340a41aafd5d13d844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

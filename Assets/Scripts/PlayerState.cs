@@ -1,15 +1,20 @@
 using System;
+using System.Collections.Generic;
 
 public class PlayerState
 {
     //the actions the player has collected, swapable at any time.
-    private PlayerAction[] actions;
-    private int currentActionIndex;
-    internal PlayerAction GetAction()
+    private List<IPlayerAction> actions = new List<IPlayerAction>();
+    private int currentActionIndex = 0;
+    public void AddAction(IPlayerAction action)
+    {
+        this.actions.Add(action);
+    }
+    internal IPlayerAction GetAction()
     {
        return actions[currentActionIndex];
     }
-    internal PlayerAction GetAction(int index)
+    internal IPlayerAction GetAction(int index)
     {
         currentActionIndex  = index;
        return actions[index];

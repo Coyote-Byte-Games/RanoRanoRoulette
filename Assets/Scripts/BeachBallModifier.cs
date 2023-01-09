@@ -17,6 +17,11 @@ class BeachBallModifier : IModifier, IMovementModifier, IJumpModifier, ISpriteMo
         throw new System.NotImplementedException();
     }
 
+    public void SetPlayer(bettertestplayablescript player)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void SetPlayerEffects(bettertestplayablescript player)
     {
         throw new System.NotImplementedException();

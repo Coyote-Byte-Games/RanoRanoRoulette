@@ -29,7 +29,8 @@ public int modifierInterval;
     void Awake()
     {
       
-      data.mods = ModifierManager.GenerateRandomMods(4);
+      data.mods = ModifierManager.GenerateRandomMods(data.numOfMods);
+      Debug.Log(data.mods[0]);
     
     }
 

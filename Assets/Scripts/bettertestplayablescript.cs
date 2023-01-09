@@ -17,7 +17,7 @@ public class bettertestplayablescript : MonoBehaviour{
     public LayerMask groundLayer;
     public int jumpPower;
     bool grounded;
-    private PlayerState playerState;
+    private PlayerState playerState = new PlayerState();
 
 //why interfaces
    
@@ -56,10 +56,14 @@ public class bettertestplayablescript : MonoBehaviour{
         groundCheck = transform.GetChild(0).gameObject.transform;
        
     }
+    public void AddAction(IPlayerAction action)
+    {
+        this.playerState.AddAction(action);
+    }
     void Action()
     {
         //when the player clicks the action key, we launch the current action
-        PlayerAction action = playerState.GetAction();
+        IPlayerAction action = playerState.GetAction();
         action.Run();
     }
     void ChangeAction()
@@ -70,11 +74,13 @@ public class bettertestplayablescript : MonoBehaviour{
     {
 
             this.mods.Add(mod);
+            mod.SetPlayer(this);
             mod.OnStartEffect(this);
+            mod.SetPlayerEffects(this);//yes i know this is terrible it smells like garbage but blame unity for no
+
             StartCoroutine(mod.ContinuousEffect(this));
             //todo end effect
             //find a way to set the player effects in the player script
-            mod.SetPlayerEffects(this);//yes i know this is terrible it smells like garbage but blame unity for no
        
 
     }
@@ -92,6 +98,17 @@ public class bettertestplayablescript : MonoBehaviour{
             rb.AddForce(Vector2.up * jumpPower * Time.deltaTime);
         }
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Action();
+            Debug.Log("used action");
+
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            ChangeAction();
+            Debug.Log("changed action");
+        }
         
     }
 }
