@@ -7,6 +7,8 @@ public class GameData : ScriptableObject
 {
     #region Prefabs
     public BerserkModifier BerserkModifier;
+    public PhysicsMaterial2D bouncyMat;
+
 
     [SerializeField]
         public  GameObject BerserkSword;

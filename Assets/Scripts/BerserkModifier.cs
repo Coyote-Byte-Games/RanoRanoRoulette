@@ -50,6 +50,7 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
        sword = Instantiate( player.data.BerserkSword);
        sword.transform.SetParent(player.transform); 
        sword.transform.Rotate(0, 0, -90);
+       //adds the action of swinging the sword
        player.AddAction(action);
     }
 }

@@ -47,10 +47,22 @@ public class bettertestplayablescript : MonoBehaviour{
     ////         }
     ////     }
         
-
+    void SetCircleCollider()
+    {
+        gameObject.AddComponent<CircleCollider2D>();
+        Destroy(GetComponent<BoxCollider2D>());
+    }
+    public Collider2D GetCollider()
+    {
+        return GetComponent<Collider2D>();
+    }
+    public float GetVel()
+    {
+        return rb.velocity.x;
+    }
     void Start()
     {
-        jumpRadius=.2f;
+        
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         groundCheck = transform.GetChild(0).gameObject.transform;
@@ -84,7 +96,7 @@ public class bettertestplayablescript : MonoBehaviour{
        
 
     }
-    bool Grounded()
+    public bool Grounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
     }
@@ -93,7 +105,7 @@ public class bettertestplayablescript : MonoBehaviour{
         //handle horizontal movement
         rb.AddForce(new Vector2(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0f));
 
-        if(Grounded() && Input.GetButtonDown("Jump"))
+        if(Grounded() && Input.GetButtonUp("Jump"))
         {
             rb.AddForce(Vector2.up * jumpPower * Time.deltaTime);
         }

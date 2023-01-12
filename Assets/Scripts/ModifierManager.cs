@@ -18,9 +18,8 @@ public class ModifierManager
     private static IModifier[] commonMods = new IModifier[]
     {
         new BerserkModifier(),
-        new BerserkModifier(),
-        new BerserkModifier(),
         new BerserkModifier()
+        
     };
 
     public static List<IModifier> GenerateRandomMods(int numOfMods)

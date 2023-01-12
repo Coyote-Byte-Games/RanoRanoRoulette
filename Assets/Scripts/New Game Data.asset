@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431f2b8a4ade24b41931fca6ff8dac0e, type: 3}
   m_Name: New Game Data
   m_EditorClassIdentifier: 
+  BerserkModifier: {fileID: 0}
+  bouncyMat: {fileID: 6200000, guid: 5bbd1dbfc5842ca4ba411b48d8524694, type: 2}
   BerserkSword: {fileID: 3949176563716016812, guid: f9646756d06907443ac0c9182a780f2a, type: 3}
-  StartingModNumber: 4
-  numOfMods: 4
+  StartingModNumber: 2
+  numOfMods: 1
