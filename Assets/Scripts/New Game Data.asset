@@ -14,6 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BerserkModifier: {fileID: 0}
   bouncyMat: {fileID: 6200000, guid: 5bbd1dbfc5842ca4ba411b48d8524694, type: 2}
+  FatRano: {fileID: 21300000, guid: e3d6b1d8c962fb144ac1aa085282861c, type: 3}
   BerserkSword: {fileID: 3949176563716016812, guid: f9646756d06907443ac0c9182a780f2a, type: 3}
-  StartingModNumber: 2
-  numOfMods: 1
+  AdoptionDog: {fileID: 5515144230729076906, guid: 1a146e29823803246977da629eab57fa, type: 3}
+  StartingModNumber: 4
+  numOfMods: 4
+  modToggles: 01010001
+  inspectorModToggles:
+  - name: 
+    enabled: 0
+  - name: 
+    enabled: 0
+  - name: 
+    enabled: 0

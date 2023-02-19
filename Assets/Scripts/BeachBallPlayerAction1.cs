@@ -7,7 +7,13 @@ public class BeachBallPlayerAction1 : IPlayerAction
     {
         this.mod = modSource;
     }
-     void IPlayerAction.Run()
+
+    public Sprite GetIcon()
+    {
+        return mod.GetIcon();
+    }
+
+    void IPlayerAction.Run()
     {
         //When the action is run, in this case, slamming the player to the ground.
 

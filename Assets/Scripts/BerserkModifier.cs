@@ -20,24 +20,16 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
 
     public IEnumerator ContinuousEffect(bettertestplayablescript player)
     {
-        for (;;)
-        {
-            
-         
-         player.transform.GetComponent<SpriteRenderer>().color += new Color(0,1/225f,0,1);
-         yield return null;
-        }
+        yield break;
     }
 
     public void OnEndEffect(bettertestplayablescript player)
     {
-              player.transform.GetComponent<SpriteRenderer>().color = Color.blue;
 
     }
 
     public void OnStartEffect(bettertestplayablescript player)
     {
-        player.transform.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public override string ToString()
@@ -47,10 +39,17 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     public void SetPlayerEffects(bettertestplayablescript player)
     {
         //adds berserk sword//!this may be an issue, as it relies on being a scriptable object
-       sword = Instantiate( player.data.BerserkSword);
+       sword = Instantiate( player.data.BerserkSword,(player.transform.position+ Vector3.up*1), Quaternion.identity );
        sword.transform.SetParent(player.transform); 
        sword.transform.Rotate(0, 0, -90);
        //adds the action of swinging the sword
        player.AddAction(action);
+       player.rb.mass += 2f;
+       player.jumpPower /= 20;
+    }
+
+    public Sprite GetIcon()
+    {
+       return player.data.BerserkSword.GetComponentInChildren<SpriteRenderer>().sprite;
     }
 }

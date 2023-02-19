@@ -2,5 +2,6 @@ using System;
 
 public interface IPlayerAction
 {
-     void Run();
+    void Run();
+    UnityEngine.Sprite GetIcon();
 }

@@ -12,6 +12,7 @@ public class PlayerState
     }
     internal IPlayerAction GetAction()
     {
+        
        return actions[currentActionIndex];
     }
     internal IPlayerAction GetAction(int index)
@@ -21,7 +22,11 @@ public class PlayerState
     }
     public int ChangeAction()//basic behaviour
     {
-        return ++currentActionIndex;
+        if (++currentActionIndex >= actions.Count)
+        {
+            currentActionIndex = 0;
+        }
+        return currentActionIndex;
     }
 
     internal void UpdateWithNewModifier(IModifier mod)

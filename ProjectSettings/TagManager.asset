@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FriendlyAttack
   layers:
   - Default
   - TransparentFX
@@ -14,10 +15,10 @@ TagManager:
   - ground
   - UI Overlay
   - BG
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Friendly Attack NoClip
+  - Player
+  - Ally
   - 
   - 
   - 

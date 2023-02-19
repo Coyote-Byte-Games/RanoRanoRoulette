@@ -3,10 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class bettertestplayablescript : MonoBehaviour{
     // Start is called before the first frame update
+    public GameObject ModBox;
+    public GameObject hotBarBox;
+    //todo make hotbar box spawn multiple
     public Rigidbody2D rb;
+    public short controlInversion = 1;
+    public int maxHP;
+    //for the tags that are to be excepted from damage collisons
+    public string[] tagList;
+    public LayerMask enemyLayer;
+    public GameManagerScript gameManager;
+    
+    public Image[] hearts;
     public GameData data;
     public float jumpRadius;
     List<IModifier> mods = new List<IModifier>();
@@ -38,7 +50,7 @@ public class bettertestplayablescript : MonoBehaviour{
     ////             //I didn't care about "modularity," or "Solid Principles."
     ////             //no seriously screw this engine im coding in assembly seeya team 
     ////             case IJumpModifier:
-    ////                 //just gotta see what exactly we need to deal with here
+    ////                 //just gotta see what excircleactly we need to deal with here
     ////             break;
     ////             case IMovementModifier:
     ////             break;
@@ -47,9 +59,17 @@ public class bettertestplayablescript : MonoBehaviour{
     ////         }
     ////     }
         
+     void Awake()
+    {
+       
+    }
     void SetCircleCollider()
     {
-        gameObject.AddComponent<CircleCollider2D>();
+        var col = gameObject.AddComponent<CircleCollider2D>();
+       
+        GetComponent<CircleCollider2D>().radius = 2;
+        GetComponent<CircleCollider2D>().offset.Set(0,-1.5f);
+
         Destroy(GetComponent<BoxCollider2D>());
     }
     public Collider2D GetCollider()
@@ -66,8 +86,50 @@ public class bettertestplayablescript : MonoBehaviour{
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         groundCheck = transform.GetChild(0).gameObject.transform;
+        this.Health = maxHP;
        
     }
+    private int _hp;
+    private float jumpCooldown;
+
+    public int Health
+    {
+        
+        set {
+             
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                if (value <= 0)
+                {
+                    die();
+                }
+                if (i < value)
+                {
+                    hearts[i].enabled = true;
+                    
+                }
+                else
+                {
+                     hearts[i].enabled = false;
+                }
+            }
+
+             _hp = value; 
+            }
+            get {return _hp;}
+    }
+
+    private void die()
+    {
+        rb.AddForce(Vector2.up * 99999999999);
+
+        #region Scene Change
+            gameManager.GameOver();
+        #endregion
+
+
+    }
+
     public void AddAction(IPlayerAction action)
     {
         this.playerState.AddAction(action);
@@ -80,8 +142,38 @@ public class bettertestplayablescript : MonoBehaviour{
     }
     void ChangeAction()
     {
+        
         playerState.ChangeAction();
+        try
+        {
+              ActionHotbarAnimate(playerState.GetAction().GetIcon());
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+           return;
+        }
+      
+        
     }
+
+///<summary>Animates the mod action popup. 
+///</summary>
+///<param name="icon"> Used for the display of the new mod.</param> 
+    private void ActionHotbarAnimate(Sprite icon)
+    {
+    //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
+    //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
+    ModBox.GetComponent<Animator>().SetTrigger("Activate");
+    ModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
+    // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
+
+
+    //   box.//:set the position upwards
+   
+    //   Destroy(box, 1);
+    }
+
     public void AddModifier(IModifier mod)//! this may be broken, idk
     {
 
@@ -98,23 +190,43 @@ public class bettertestplayablescript : MonoBehaviour{
     }
     public bool Grounded()
     {
+        
         return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
+    }
+     void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.otherCollider.gameObject.CompareTag("FriendlyAttack"))
+        {
+            return;
+        }
+        var script = col.gameObject.GetComponent<IEnemy>();
+       if(script is not null)
+       {
+        TakeDamage(script.GetDamage());
+        Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
+        rb.AddForce(directionToEnemy*99999*Time.deltaTime);
+       }
     }
     void Update()
     {
-        //handle horizontal movement
-        rb.AddForce(new Vector2(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0f));
 
-        if(Grounded() && Input.GetButtonUp("Jump"))
-        {
-            rb.AddForce(Vector2.up * jumpPower * Time.deltaTime);
-        }
+        //handle horizontal movement
+        MovementMethod();
+        jumpCooldown -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Action();
-            Debug.Log("used action");
-
+            
+            try
+            {
+             Action();
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+            Debug.Log("No actions?");
+            return;
+            }
+          
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -122,6 +234,52 @@ public class bettertestplayablescript : MonoBehaviour{
             Debug.Log("changed action");
         }
         
+    }
+
+    private void MovementMethod()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+         rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
+
+
+            var renderer = GetComponent<SpriteRenderer>();
+
+        switch (horizontal)
+        {
+            case 1:
+            renderer.flipX = false;
+            break;
+            case -1:
+            renderer.flipX = true;
+            break;
+            default: 
+            //do not modify the turn if no input
+            return;
+        }
+    
+        
+        if(Grounded() && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0))
+        {
+            rb.AddForce(Vector2.up * jumpPower*2000 * Time.deltaTime);
+            Debug.Log("the jumper");
+            jumpCooldown += 2;
+        }
+    }
+
+   
+    private void TakeDamage(int v)
+    {
+       Health -= v;
+    }
+
+    internal void UpdateSprite(Sprite sprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = sprite;
+        var outlineSprites = this.transform.GetChild(0).GetComponentsInChildren<SpriteRenderer>();
+        foreach (var item in outlineSprites)
+        {
+            item.sprite = sprite;
+        }
     }
 }
 

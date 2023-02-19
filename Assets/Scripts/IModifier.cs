@@ -9,4 +9,5 @@ public interface IModifier
     public void OnStartEffect(bettertestplayablescript player);
     public IEnumerator ContinuousEffect(bettertestplayablescript bettertestplayablescript);
     public void SetPlayer(bettertestplayablescript player);
+    public Sprite GetIcon();
 }

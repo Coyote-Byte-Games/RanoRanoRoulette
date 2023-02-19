@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1613538062411801008}
   - component: {fileID: 2465687164430718116}
-  - component: {fileID: 2255408757458059763}
-  m_Layer: 0
+  - component: {fileID: -3906262331154539971}
+  m_Layer: 10
   m_Name: Berserk Sword
-  m_TagString: Untagged
+  m_TagString: FriendlyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,15 +25,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3949176563716016812}
-  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 758265843499979721}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: -180}
 --- !u!61 &2465687164430718116
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60,26 +60,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17847738, y: 0.5810779}
   m_EdgeRadius: 0
---- !u!95 &2255408757458059763
-Animator:
-  serializedVersion: 4
+--- !u!114 &-3906262331154539971
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3949176563716016812}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f7254403d74b7c34588e32a1274defbd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155df88322d14a940922839945ae622b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5346919212641859611
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +82,8 @@ GameObject:
   m_Component:
   - component: {fileID: 758265843499979721}
   - component: {fileID: 1003146056442871744}
-  m_Layer: 0
+  - component: {fileID: 7242445834680176704}
+  m_Layer: 10
   m_Name: Sprite-0001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 5346919212641859611}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 2.06}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1613538062411801008}
@@ -153,7 +146,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f2e09814b6742e141a56d030175d307e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cba5f2686a5d1f64a87c68e119950d56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,3 +157,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7242445834680176704
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346919212641859611}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7254403d74b7c34588e32a1274defbd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

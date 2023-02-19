@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7117085740854083542}
   - component: {fileID: 7117085740854083543}
   - component: {fileID: 6355194060385641625}
+  - component: {fileID: 1490925460}
   m_Layer: 5
   m_Name: TextPopup
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 08998c9992ff5a64595ed54ee79a91aa, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,10 +93,10 @@ TextMesh:
   m_Anchor: 0
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 150
+  m_FontSize: 220
   m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 0}
+  m_RichText: 0
+  m_Font: {fileID: 12800000, guid: 08998c9992ff5a64595ed54ee79a91aa, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -120,6 +121,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6355194060385641625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7117085740854082600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeed0f4b3cf5c7340a41aafd5d13d844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1490925460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -20,6 +20,11 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
        }
     }
 
+    public Sprite GetIcon()
+    {
+               return player.data.FatRano;
+    }
+
     public void OnEndEffect(bettertestplayablescript player)
     {
         player.rb.constraints = UnityEngine.RigidbodyConstraints2D.FreezeRotation;
@@ -47,13 +52,17 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
 
         
 
-        player.jumpRadius += 1f;
-        player.rb.mass /= 2;
+        player.jumpRadius += 2;
+        // player.rb.mass /= 2;
+        
         player.rb.constraints = UnityEngine.RigidbodyConstraints2D.None;
-        player.gameObject.transform.localScale += new UnityEngine.Vector3(3,1,0);
+        player.UpdateSprite(player.data.FatRano); 
         player.rb.sharedMaterial = player.data.bouncyMat;
         player.GetCollider().sharedMaterial = player.data.bouncyMat;
-        player.GetComponent<CircleCollider2D>().radius = 0.7f;
+        player.GetComponent<CircleCollider2D>().radius = 2f;
+        
+        player.GetComponent<CircleCollider2D>().offset += new Vector2(0,-1.5f);
+
 
         player.AddAction(slamAction);
         

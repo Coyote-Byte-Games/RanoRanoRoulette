@@ -251,12 +251,25 @@ public GameData data;
        var popup = Instantiate(textPopup, new Vector3(999,0,100), Quaternion.identity);
        popup.GetComponent<PopUpScript>().SetText(selectedMod.ToString());
        Destroy(popup, 4);
-       data.mods.Remove(selectedMod);
+
+        foreach (var item in data.mods)
+       {
+        Debug.Log(item);
+       }
+       //! removal just gets rid of the first mod?
+
+       data.mods.RemoveAt(index);
+        
+         Debug.Log("then...");
+        foreach (var item in data.mods)
+       {
+        Debug.Log(item);
+       }
     
        
        return selectedMod;
     
-      //why are you copying the files you dumb slut
+      //why are you copying the files you dumb guy
 
 
     }
