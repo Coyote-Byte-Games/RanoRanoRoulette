@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostScript : MonoBehaviour, IEnemy
+public class EnemyTraitScript : MonoBehaviour, IEnemy
 {
+    public float knockBack;
+    public int damage;
+
     public int GetDamage()
     {
-       return 1;
+       return damage;
+    }
+
+    public float GetKB()
+    {
+      return knockBack;
     }
 
     public void OnCollisionEnter2D(Collision2D other)
@@ -18,26 +26,11 @@ public class GhostScript : MonoBehaviour, IEnemy
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void TakeDamage(int v)
     {
         Destroy(gameObject);
     }
-
-    public float GetKB()
-    {
-      return 100;
-    }
+    // Start is called before the first frame update
+  }
 
   
-}

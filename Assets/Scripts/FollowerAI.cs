@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Pathfinding;
-public class AdoptionDogScript : MonoBehaviour
+using UnityEngine;
+
+public class FollowerAI : MonoBehaviour
 {
+   
     public Transform target;
     public float speed = 200;
 
-    public float knockBack =100; //placeholder
+     //placeholder
     public float nextWaypointDistance;//threshold to ge tthere
 
     Path path;
@@ -35,15 +37,6 @@ public class AdoptionDogScript : MonoBehaviour
        return 1;
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
-    {
-        if(other.collider.CompareTag("FriendlyAttack"))
-        {
-            TakeDamage(1);//TODO change damage
-            Debug.Log("ghost took damage");
-        }
-    }
-
     public void SetTarget(bettertestplayablescript player)
     {
         target = player.transform;
@@ -52,7 +45,8 @@ public class AdoptionDogScript : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            // float playerDir = Mathf.Sign(target.position.x - rb.position.x);
+            seeker.StartPath(rb.position, new Vector2( target.position.x, target.position.y-1), OnPathComplete);
 
         }
     }
@@ -62,6 +56,10 @@ public class AdoptionDogScript : MonoBehaviour
         {
             path = p;
             currentWaypoint = 0;
+        }
+        else
+        {
+            Debug.Log("path killed itself");
         }
     }
 
@@ -80,11 +78,16 @@ public class AdoptionDogScript : MonoBehaviour
         {
             reachedEndOfPath = false;
         }
-        Vector2 direction = (((Vector2)path.vectorPath[currentWaypoint] - rb.position)*Vector2.right).normalized ;
+        Vector2 direction = (((Vector2)path.vectorPath[currentWaypoint] - rb.position)).normalized ;
         //TODO Create better code for navigating in a straight line, jumping, and others
         Vector2 force = (direction * speed * Time.deltaTime);
-
-        rb.AddForce(force);
+        Debug.Log("force "+force.x);
+        if (force.x == 0)
+        {
+            //force it to reconsider
+            UpdatePath();
+        }
+        rb.velocity += (force);
           var renderer = GetComponent<SpriteRenderer>();
 
         switch (force.x > 0)

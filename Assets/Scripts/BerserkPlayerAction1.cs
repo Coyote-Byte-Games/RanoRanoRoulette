@@ -57,21 +57,25 @@ public class BerserkPlayerAction1 : IPlayerAction
                             ((Mathf.Atan(end.y / end.x) + Mathf.PI * .5) 
                             * Mathf.Rad2Deg)));
                             
-        Quaternion quat = Quaternion.Euler(mainVector + (Vector3)secondVector);
+        Quaternion quat = Quaternion.Euler(mainVector + (Vector3)secondVector );//- Vector3.forward*mod.player.rb.rotation
+
                             
                             
         //wrong way when rightward
 
         for (int i = 0; i < 5; i++)
         {//TODO CLEAN THIS 
-            sword.transform.position += end / 5;
-
+            // var thing = mod.player.rb.transform
+            sword.transform.position += end / 5;//* (thing) 
+            sword.GetComponent<BoxCollider2D>().enabled = true;
             //by the end of the 5 seconds, have the thing rotated 90 degrees
 
             sword.transform.rotation = (quat);
 
             yield return new WaitForSeconds(.0125f);
         }
+        Debug.Log($"The datas you wanted bossman: Rotation { mod.player.rb.rotation}, and the resulting base {(mainVector).z}. The actual sword rotation: ");
+
         yield break;
 
 

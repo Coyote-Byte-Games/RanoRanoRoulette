@@ -9,6 +9,7 @@ public class GameData : ScriptableObject
 {
     #region Prefabs
     public BerserkModifier BerserkModifier;
+    public Sprite FatRanoIcon;
     public PhysicsMaterial2D bouncyMat;
     public Sprite FatRano;
 

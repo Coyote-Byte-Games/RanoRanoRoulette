@@ -20,12 +20,12 @@ public class ModifierManager
 
     {
          new BerserkModifier(),
-         new BerserkModifier(),
-         new BerserkModifier(),
-         new BerserkModifier(),
-         new BerserkModifier(),
-        //  new BeachBallModifier(),
-        //  new InvertedControlsModifier(),
+        //  new BerserkModifier(),
+        //  new BerserkModifier(),
+        //  new BerserkModifier(),
+        //  new BerserkModifier(),
+         new BeachBallModifier(),
+         new InvertedControlsModifier(),
         //  new AdoptionModifier()
 
     };

@@ -21,6 +21,7 @@ public class bettertestplayablescript : MonoBehaviour{
     public Image[] hearts;
     public GameData data;
     public float jumpRadius;
+    public bool GKeyToggle;
     List<IModifier> mods = new List<IModifier>();
     BoxCollider2D bc;
     [SerializeField]
@@ -29,7 +30,7 @@ public class bettertestplayablescript : MonoBehaviour{
     public LayerMask groundLayer;
     public int jumpPower;
     bool grounded;
-    private PlayerState playerState = new PlayerState();
+    private PlayerInfo playerState = new PlayerInfo();
 
 //why interfaces
    
@@ -133,6 +134,15 @@ public class bettertestplayablescript : MonoBehaviour{
     public void AddAction(IPlayerAction action)
     {
         this.playerState.AddAction(action);
+        try
+        {
+              ActionHotbarAnimate(playerState.GetAction().GetIcon());
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+           return;
+        }
     }
     void Action()
     {
@@ -204,12 +214,13 @@ public class bettertestplayablescript : MonoBehaviour{
        {
         TakeDamage(script.GetDamage());
         Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
-        rb.AddForce(directionToEnemy*99999*Time.deltaTime);
+        rb.AddForce(directionToEnemy*99999/100*script.GetKB()*Time.deltaTime);
        }
     }
     void Update()
     {
 
+Debug.Log(GKeyToggle);
         //handle horizontal movement
         MovementMethod();
         jumpCooldown -= Time.deltaTime;
@@ -233,6 +244,11 @@ public class bettertestplayablescript : MonoBehaviour{
             ChangeAction();
             Debug.Log("changed action");
         }
+         if(Input.GetKeyUp(KeyCode.G))
+        {
+         GKeyToggle = !GKeyToggle;  
+        }
+        
         
     }
 
@@ -257,10 +273,13 @@ public class bettertestplayablescript : MonoBehaviour{
             return;
         }
     
+        //for toggling bounce on the thing
+       
         
         if(Grounded() && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0))
         {
-            rb.AddForce(Vector2.up * jumpPower*2000 * Time.deltaTime);
+            // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
+            rb.AddForce( Vector2.up* jumpPower, ForceMode2D.Impulse);
             Debug.Log("the jumper");
             jumpCooldown += 2;
         }
@@ -280,6 +299,11 @@ public class bettertestplayablescript : MonoBehaviour{
         {
             item.sprite = sprite;
         }
+    }
+
+    internal void AddState(IPlayerState state)
+    {
+      this.playerState.AddState(state);
     }
 }
 

@@ -4,25 +4,32 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
 {
     public bettertestplayablescript player;
     private BeachBallPlayerAction1 slamAction;
+     private BeachBallPlayerState1 bounceToggle;
+     public bool bounceEnabled; 
     public IEnumerator ContinuousEffect(bettertestplayablescript player)
     {
        for(;;)
        {
-        if (player.Grounded() && player.rb.sharedMaterial == null) //if the player isnt bouncy but grounded
+        if (player.Grounded() && player.rb.sharedMaterial == null && bounceEnabled) //if the player isnt bouncy but grounded
         {
             yield return new WaitForSeconds(.2f);
             player.rb.sharedMaterial =  player.data.bouncyMat;
            
         }
+        if (bounceEnabled)
+        {
+             player.rb.sharedMaterial = null;
+        }
 
         player.transform.Rotate(0, 0, -0.02f * player.GetVel());
          yield return null;
+
        }
     }
 
     public Sprite GetIcon()
     {
-               return player.data.FatRano;
+               return player.data.FatRanoIcon;
     }
 
     public void OnEndEffect(bettertestplayablescript player)
@@ -47,6 +54,7 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
     public void SetPlayerEffects(bettertestplayablescript player)
     {
         slamAction = new BeachBallPlayerAction1(this);
+        // bounceToggle = new BeachBallPlayerState1(this);
         player.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         player.gameObject.GetComponent<CircleCollider2D>().enabled =true;
 
@@ -65,6 +73,7 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
 
 
         player.AddAction(slamAction);
+        player.AddState(bounceToggle);
         
         
     }
