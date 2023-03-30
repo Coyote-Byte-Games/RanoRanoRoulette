@@ -220,7 +220,7 @@ public class bettertestplayablescript : MonoBehaviour{
     void Update()
     {
 
-Debug.Log(GKeyToggle);
+// Debug.Log(GKeyToggle);
         //handle horizontal movement
         MovementMethod();
         jumpCooldown -= Time.deltaTime;

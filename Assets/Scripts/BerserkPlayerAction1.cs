@@ -29,12 +29,28 @@ public class BerserkPlayerAction1 : IPlayerAction
         //we need to change the actual position of the sword to reflect the hitbox, and change the rotation of the model to make it look good
 
         sword.transform.rotation = (Quaternion.AngleAxis(angle - 20, Vector3.forward));
-        var inbet = (mod.player.transform.InverseTransformVector(camDir).normalized);
+        //problem child
+
+
+        var inbet =((mod.player.transform.InverseTransformVector(camDir)) ).normalized;
+
+//1/I WOULD try to do something clever with tangent here, but its best we keep to using vectors
+//2/ We get the error measured of the player's angle, then apply that error. IE + ((1, 0) - (.7, .3)) 
+        Vector3 rotationCompensationVect = 
+            new Vector3
+                ( 
+                1 - Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad),
+                0 - Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad),
+                0
+                );
+            
+
+
         //unpacking for .Set()
         int consta = 10;//:change this for the good changes?
                         //todo charge up i think
 
-        mod.player.StartCoroutine(MoveSwordInDir(inbet * consta));
+        mod.player.StartCoroutine(MoveSwordInDir((inbet + rotationCompensationVect) * consta));
 
         // sword.transform.localPosition = inbet * consta;
         sword.transform.GetChild(0).GetComponentInChildren<Animator>().SetTrigger("Swing");
@@ -65,12 +81,18 @@ public class BerserkPlayerAction1 : IPlayerAction
 
         for (int i = 0; i < 5; i++)
         {//TODO CLEAN THIS 
+        //1 at 180, 0 at 0
+        // var kms = 1- mod.player.transform.rotation.z*2;
             // var thing = mod.player.rb.transform
-            sword.transform.position += end / 5;//* (thing) 
+            var vari = 1;//Mathf.Cos((mod.player.rb.rotation*Mathf.PI/180));
+            sword.transform.position += end * vari / 5;//* (thing) 
+            
+            Debug.Log("tag " +vari + " lol " + mod.player.transform.rotation.z + "rb version:" + mod.player.rb.rotation);
             sword.GetComponent<BoxCollider2D>().enabled = true;
             //by the end of the 5 seconds, have the thing rotated 90 degrees
 
-            sword.transform.rotation = (quat);
+            // sword.transform.rotation = (quat) * mod.player.transform.rotation;
+            sword.transform.rotation = (quat) * mod.player.transform.rotation;
 
             yield return new WaitForSeconds(.0125f);
         }

@@ -245,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modTimeMessage: New mod in
   TMProModTimeRemaining: {fileID: 1384630905}
+  testEnemy: {fileID: 1222238375}
   numberOfChunks: 29
   gameOverFade: {fileID: 1249331824}
   delayTimeElapsed: 0
@@ -252,12 +253,10 @@ MonoBehaviour:
   Tilemap: {fileID: 1037304686}
   sliceTextures:
   - {fileID: 2800000, guid: 02437a035f8bdf54ca534966a3f76b1a, type: 3}
-  - {fileID: 2800000, guid: 02437a035f8bdf54ca534966a3f76b1a, type: 3}
-  - {fileID: 2800000, guid: 02437a035f8bdf54ca534966a3f76b1a, type: 3}
   startUpDelayFinished: 0
   data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
-  modifierInterval: 10
+  modifierInterval: 1
   player: {fileID: 1125366860}
   modStartupTime: 2.85
 --- !u!1 &140046269
@@ -272,7 +271,7 @@ GameObject:
   - component: {fileID: 140046270}
   - component: {fileID: 140046273}
   - component: {fileID: 140046272}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AutoScroller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69fdd716ca9ad0649a89205b6edda021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 0
   screenWidth: 0
   player: {fileID: 1125366860}
   momentum: 1
@@ -974,49 +973,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 638042010561638938, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1773304396935740637, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3659676175375692776, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391547129787686231, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: speed
-      value: 1000
+    - target: {fileID: 1222238388, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1125366866}
+    - target: {fileID: 1222238388, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4391547129787686231, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1125366866}
-    - target: {fileID: 4391547129787686231, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391547129787686231, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: nextWaypointDistance
-      value: 1.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 4731838667441678602, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084943854552259500, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 6402847552631776416, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
       propertyPath: m_Name
       value: WheelRobot
       objectReference: {fileID: 0}
     - target: {fileID: 6402847552631776416, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-      propertyPath: m_Layer
-      value: 9
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8024789403357579323, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
       propertyPath: m_RootOrder
@@ -1028,7 +1003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8024789403357579323, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -173.5
       objectReference: {fileID: 0}
     - target: {fileID: 8024789403357579323, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1062,7 +1037,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4391547129787686231, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
 --- !u!1 &1037304683
 GameObject:
@@ -1639,7 +1615,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6402847552631776416, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
   m_PrefabInstance: {fileID: 784563415}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1222238381
+--- !u!114 &1222238376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1648,55 +1624,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1222238375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Script: {fileID: 11500000, guid: 683ac28cd89c4994ab74f3332f28b629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
---- !u!114 &1222238387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222238375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 100
-  damage: 1
---- !u!114 &1222238388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222238375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17885f9152dd699479be8c8b053e6058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1125366866}
-  speed: 10
-  nextWaypointDistance: 3
-  enemy: 1
+  target: {fileID: 1125366860}
+  speed: 6
 --- !u!1 &1249331820
 GameObject:
   m_ObjectHideFlags: 0

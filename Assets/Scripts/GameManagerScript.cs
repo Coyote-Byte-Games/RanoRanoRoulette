@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour
 public string modTimeMessage  = "Time until New Mod";
     private UIManagerScript uiManager;
     public GameObject TMProModTimeRemaining;
+    public GameObject testEnemy;
     public LevelGenerator LevelGenerator;
     public int numberOfChunks;
     public Image gameOverFade;
@@ -31,13 +32,19 @@ public string modTimeMessage  = "Time until New Mod";
       
       element.text = $"{defaultTextVal} {timeRemaining.ToString("F1")}";
     }
-    void GenerateLevelChunks(LevelGenerator levelGenerator, int numOfChunks)
+  
+    public void SpawnEnemy(int x, int y)
     {
-
-        for (int i = 0; i < numOfChunks; i++)
+        try
         {
-            levelGenerator.GenerateLevelChunks(numOfChunks);
+             Instantiate(testEnemy, new Vector3(x,y,0) ,Quaternion.identity);
         }
+        catch (System.Exception e)
+        {
+            
+            throw e;
+        }
+       
     }
     void GetCurrentLevelTheme()
     {
@@ -73,6 +80,7 @@ public string modTimeMessage  = "Time until New Mod";
     // Start is called before the first frame update
     void Start()
     {
+        LevelGenerator.manager = this;
         wheelScript = WheelPrefab.GetComponent<WheelScript>();
         StartCoroutine(nameof(BeginNewMod));
 
@@ -107,7 +115,7 @@ public string modTimeMessage  = "Time until New Mod";
         Debug.Log(data.mods[0]);
         Debug.Log(Color.white.ToString("F2"));
 
-        LevelGenerator = new LevelGenerator(Tilemap, currentLevelTile, sliceTextures);
+        LevelGenerator = new LevelGenerator(this, Tilemap, currentLevelTile, sliceTextures);
         LevelGenerator.GenerateLevelChunks(numberOfChunks);
     }
 
