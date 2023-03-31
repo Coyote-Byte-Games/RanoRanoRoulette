@@ -16,7 +16,7 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
             player.rb.sharedMaterial =  player.data.bouncyMat;
            
         }
-        if (bounceEnabled)
+        if (!bounceEnabled)
         {
              player.rb.sharedMaterial = null;
         }

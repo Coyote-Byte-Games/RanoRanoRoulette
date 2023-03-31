@@ -175,7 +175,12 @@ public class bettertestplayablescript : MonoBehaviour{
         playerStates.ChangeItem();
         try
         {
-              StateHotbarAnimate(playerStates.GetItem().GetIcon());
+            var icon = playerStates.GetItem().GetIcon();
+           
+              StateHotbarAnimate
+                (
+                icon
+                );
         }
         catch (System.Exception e)
         {
@@ -209,11 +214,21 @@ public class bettertestplayablescript : MonoBehaviour{
     //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
     StateModBox.GetComponent<Animator>().SetTrigger("Activate");
     StateModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
-    // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
+    
+    
+ //if the toggle is off
+            if (!playerStates.GetItem().GetToggleState())
+            {
+               StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255,255,255,.5f);
+                // StateModBox.transform.GetChild(0).GetComponent<Image>().color + 
+                
+            }
+            else
+            {
+               StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255,255,255,1f);
+                
+            }
 
-
-    //   box.//:set the position upwards
-   
     //   Destroy(box, 1);
     }
     public void AddModifier(IModifier mod)//! this may be broken, idk
@@ -294,7 +309,7 @@ public class bettertestplayablescript : MonoBehaviour{
         {
         //  HKeyToggle = !HKeyToggle;
         Debug.Log("Changed State");
-        playerStates.GetItem().Toggle();
+        ChangeState();
          //Maybe right here, get the current modifier and use the toggle boolean to alter the effects.
           
         }
@@ -305,6 +320,7 @@ public class bettertestplayablescript : MonoBehaviour{
     private void ToggleState()
     {
        this.playerStates.GetItem().Toggle();
+        StateHotbarAnimate(playerStates.GetItem().GetIcon());
     }
 
     private void MovementMethod()

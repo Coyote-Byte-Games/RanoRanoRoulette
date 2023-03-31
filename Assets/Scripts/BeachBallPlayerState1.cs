@@ -2,12 +2,13 @@ using UnityEngine;
 
 internal class BeachBallPlayerState1 : IPlayerState
 {
-    private bool internalState;
+    
 
     private BeachBallModifier mod;
     public BeachBallPlayerState1(BeachBallModifier modSource)
     {
         this.mod = modSource;
+        mod.bounceEnabled = true;
     }
 
     public Sprite GetIcon()
@@ -17,7 +18,7 @@ internal class BeachBallPlayerState1 : IPlayerState
 
     public void NegativeToggle()
     {
-        internalState = false;
+       
         mod.bounceEnabled = false;
 
     }
@@ -26,14 +27,18 @@ internal class BeachBallPlayerState1 : IPlayerState
     void IPlayerState.PositiveToggle()
     {
         //When the action is run, in this case, slamming the player to the ground.
-        internalState = true;
-
+        
         //bind to the sword
         mod.bounceEnabled = true;
 
     }
     public void Toggle()
     {
-        internalState = mod.bounceEnabled = !mod.bounceEnabled;
+       mod.bounceEnabled = !mod.bounceEnabled;
+    }
+
+    public bool GetToggleState()
+    {
+       return  mod.bounceEnabled;
     }
 }

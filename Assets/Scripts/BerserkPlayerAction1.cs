@@ -32,17 +32,18 @@ public class BerserkPlayerAction1 : IPlayerAction
         //problem child
 
 
-        var inbet =((mod.player.transform.InverseTransformVector(camDir)) ).normalized;
+        var inbet =((mod.player.transform.InverseTransformVector(camDir)) );
 
 //1/I WOULD try to do something clever with tangent here, but its best we keep to using vectors
 //2/ We get the error measured of the player's angle, then apply that error. IE + ((1, 0) - (.7, .3)) 
         Vector3 rotationCompensationVect = 
             new Vector3
                 ( 
-                1 - Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad),
-                0 - Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad),
+                1 + Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad),
+                0 + Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad),
                 0
-                ).normalized;
+                );
+                Debug.Log($"cos {Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad)} \n sin {Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad)} \n Inbets: {inbet.x}, {inbet.y} \n resulting:{(inbet + rotationCompensationVect).normalized} \n player rotation(deg: mod.player.rb.rotation ");
             
 
 
@@ -96,7 +97,7 @@ public class BerserkPlayerAction1 : IPlayerAction
 
             yield return new WaitForSeconds(.0125f);
         }
-        Debug.Log($"The datas you wanted bossman: Rotation { mod.player.rb.rotation}, and the resulting base {(mainVector).z}. The actual sword rotation: ");
+        // Debug.Log($"The datas you wanted bossman: Rotation { mod.player.rb.rotation}, and the resulting base {(mainVector).z}. The actual sword rotation: ");
 
         yield break;
 
