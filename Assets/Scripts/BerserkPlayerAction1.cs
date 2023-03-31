@@ -42,15 +42,15 @@ public class BerserkPlayerAction1 : IPlayerAction
                 1 - Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad),
                 0 - Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad),
                 0
-                );
+                ).normalized;
             
 
 
         //unpacking for .Set()
-        int consta = 10;//:change this for the good changes?
+        int consta = 5;//:change this for the good changes?
                         //todo charge up i think
 
-        mod.player.StartCoroutine(MoveSwordInDir((inbet + rotationCompensationVect) * consta));
+        mod.player.StartCoroutine(MoveSwordInDir((inbet + rotationCompensationVect).normalized * consta));
 
         // sword.transform.localPosition = inbet * consta;
         sword.transform.GetChild(0).GetComponentInChildren<Animator>().SetTrigger("Swing");

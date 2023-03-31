@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class bettertestplayablescript : MonoBehaviour{
     // Start is called before the first frame update
-    public GameObject ModBox;
-    public GameObject hotBarBox;
+    public GameObject ActionModBox;
+    public GameObject StateModBox;
     //todo make hotbar box spawn multiple
     public Rigidbody2D rb;
     public short controlInversion = 1;
@@ -21,7 +21,7 @@ public class bettertestplayablescript : MonoBehaviour{
     public Image[] hearts;
     public GameData data;
     public float jumpRadius;
-    public bool GKeyToggle;
+    public bool HKeyToggle;
     List<IModifier> mods = new List<IModifier>();
     BoxCollider2D bc;
     [SerializeField]
@@ -30,7 +30,9 @@ public class bettertestplayablescript : MonoBehaviour{
     public LayerMask groundLayer;
     public int jumpPower;
     bool grounded;
-    private PlayerInfo playerState = new PlayerInfo();
+    private PlayerInfoV2<IPlayerAction> playerActions = new PlayerInfoV2<IPlayerAction>();
+    private PlayerInfoV2<IPlayerState> playerStates = new PlayerInfoV2<IPlayerState>();
+
 
 //why interfaces
    
@@ -133,10 +135,10 @@ public class bettertestplayablescript : MonoBehaviour{
 
     public void AddAction(IPlayerAction action)
     {
-        this.playerState.AddAction(action);
+        this.playerActions.AddItem(action);
         try
         {
-              ActionHotbarAnimate(playerState.GetAction().GetIcon());
+              ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
         catch (System.Exception e)
         {
@@ -144,19 +146,36 @@ public class bettertestplayablescript : MonoBehaviour{
            return;
         }
     }
+   
     void Action()
     {
         //when the player clicks the action key, we launch the current action
-        IPlayerAction action = playerState.GetAction();
+        IPlayerAction action = playerActions.GetItem();
         action.Run();
     }
     void ChangeAction()
     {
         
-        playerState.ChangeAction();
+        playerActions.ChangeItem();
         try
         {
-              ActionHotbarAnimate(playerState.GetAction().GetIcon());
+              ActionHotbarAnimate(playerActions.GetItem().GetIcon());
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+           return;
+        }
+      
+        
+    }
+     void ChangeState()
+    {
+        
+        playerStates.ChangeItem();
+        try
+        {
+              StateHotbarAnimate(playerStates.GetItem().GetIcon());
         }
         catch (System.Exception e)
         {
@@ -174,8 +193,8 @@ public class bettertestplayablescript : MonoBehaviour{
     {
     //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
     //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
-    ModBox.GetComponent<Animator>().SetTrigger("Activate");
-    ModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
+    ActionModBox.GetComponent<Animator>().SetTrigger("Activate");
+    ActionModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
     // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
 
 
@@ -184,6 +203,19 @@ public class bettertestplayablescript : MonoBehaviour{
     //   Destroy(box, 1);
     }
 
+ private void StateHotbarAnimate(Sprite icon)
+    {
+    //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
+    //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
+    StateModBox.GetComponent<Animator>().SetTrigger("Activate");
+    StateModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
+    // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
+
+
+    //   box.//:set the position upwards
+   
+    //   Destroy(box, 1);
+    }
     public void AddModifier(IModifier mod)//! this may be broken, idk
     {
 
@@ -239,17 +271,40 @@ public class bettertestplayablescript : MonoBehaviour{
             }
           
         }
+         if (Input.GetKeyDown(KeyCode.C))
+        {
+            
+            try
+            {
+             ToggleState();
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+            Debug.Log("No states? idk this is gonna be real buggy bro");
+            return;
+            }
+          
+        }
         if (Input.GetKeyDown(KeyCode.G))
         {
             ChangeAction();
             Debug.Log("changed action");
         }
-         if(Input.GetKeyUp(KeyCode.G))
+         if(Input.GetKeyUp(KeyCode.V))
         {
-         GKeyToggle = !GKeyToggle;  
+        //  HKeyToggle = !HKeyToggle;
+        Debug.Log("Changed State");
+        playerStates.GetItem().Toggle();
+         //Maybe right here, get the current modifier and use the toggle boolean to alter the effects.
+          
         }
         
         
+    }
+
+    private void ToggleState()
+    {
+       this.playerStates.GetItem().Toggle();
     }
 
     private void MovementMethod()
@@ -301,9 +356,23 @@ public class bettertestplayablescript : MonoBehaviour{
         }
     }
 
-    internal void AddState(IPlayerState state)
+    public void AddState(IPlayerState state)
     {
-      this.playerState.AddState(state);
+        this.playerStates.AddItem(state);
+        try
+        {
+              StateHotbarAnimate(playerStates.GetItem().GetIcon());
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log( "the error when adding the state was " + e );
+           return;
+        }
+    }
+    internal void AddActionAndState(IPlayerAction action, IPlayerState state)
+    {
+        this.AddState(state);
+        this.AddAction(action);
     }
 }
 

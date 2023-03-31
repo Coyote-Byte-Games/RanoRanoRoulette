@@ -41,7 +41,7 @@ public class ModifierManager
                 output.Add(mods[i]); 
             }
         }
-        Debug.Log(output);
+        // Debug.Log(output);
          return output.ToArray<IModifier>();
     }
     public void OnEnabled()

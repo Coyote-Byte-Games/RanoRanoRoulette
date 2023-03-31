@@ -1,8 +1,11 @@
 using System;
 
-public interface IPlayerState
+public interface IPlayerState : IModifierTrait
 {
- 
- void PositiveToggle();
- void NegativeToggle();
+
+
+    void PositiveToggle();
+    void NegativeToggle();
+    void Toggle();
+    UnityEngine.Sprite GetIcon();
 }

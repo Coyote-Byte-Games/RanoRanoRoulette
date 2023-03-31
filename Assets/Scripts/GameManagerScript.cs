@@ -112,8 +112,8 @@ public string modTimeMessage  = "Time until New Mod";
     {
 
         data.mods = ModifierManager.GenerateRandomMods(data.numOfMods);
-        Debug.Log(data.mods[0]);
-        Debug.Log(Color.white.ToString("F2"));
+        // Debug.Log(data.mods[0]);
+        // Debug.Log(Color.white.ToString("F2"));
 
         LevelGenerator = new LevelGenerator(this, Tilemap, currentLevelTile, sliceTextures);
         LevelGenerator.GenerateLevelChunks(numberOfChunks);
@@ -150,7 +150,7 @@ public string modTimeMessage  = "Time until New Mod";
         //if out of mods
         if (data.numOfMods < 1)
         {
-            Debug.Log("NO MORE MODS FOR YOU AAHAHAHAHAHAHAAAAAA  there wer e none to begin with.");
+            // Debug.Log("NO MORE MODS FOR YOU AAHAHAHAHAHAHAAAAAA  there wer e none to begin with.");
             modTimeMessage = "Nightmare ends in:";
             return;
         }

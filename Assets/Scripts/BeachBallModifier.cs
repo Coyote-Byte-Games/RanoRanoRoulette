@@ -54,7 +54,7 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
     public void SetPlayerEffects(bettertestplayablescript player)
     {
         slamAction = new BeachBallPlayerAction1(this);
-        // bounceToggle = new BeachBallPlayerState1(this);
+        bounceToggle = new BeachBallPlayerState1(this);
         player.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         player.gameObject.GetComponent<CircleCollider2D>().enabled =true;
 
@@ -73,6 +73,7 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
 
 
         player.AddAction(slamAction);
+        Debug.Log("ADDING THE STATE NOW");
         player.AddState(bounceToggle);
         
         

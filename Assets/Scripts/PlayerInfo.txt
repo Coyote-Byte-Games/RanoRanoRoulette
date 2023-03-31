@@ -8,6 +8,13 @@ public class PlayerInfo
     private List<IPlayerState> states = new List<IPlayerState>();
     private int currentActionIndex = 0;
     private int currentStateIndex = 0;
+    ////we had states independent of actions, but it would be better to combine the two, to modify the states and actions of mod A, rather than having two seperate dialogues.
+    //SEPERATE BUT EQUAL jkkjkjkjkjk dont kill me plz ANYHOW seperate trackers for both actions and states. We'll make it nice after we get the underside done and nice!
+//I WOULD try to make a generic version and make a state and action version but we're too deep in now.
+    public void ToggleCurrentState()
+    {
+        this.states[currentStateIndex].Toggle();
+    }
     public void AddAction(IPlayerAction action)
     {
         this.actions.Add(action);
