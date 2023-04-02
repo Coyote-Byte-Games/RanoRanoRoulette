@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BerserkPlayerAction1 : IPlayerAction
@@ -28,34 +29,38 @@ public class BerserkPlayerAction1 : IPlayerAction
 
         //we need to change the actual position of the sword to reflect the hitbox, and change the rotation of the model to make it look good
 
-        sword.transform.rotation = (Quaternion.AngleAxis(angle - 20, Vector3.forward));
+        // sword.transform.rotation = (Quaternion.AngleAxis(angle - 20, Vector3.forward));
         //problem child
 
 
-        var inbet =((mod.player.transform.InverseTransformVector(camDir)) );
+        var inbet = ((mod.player.transform.InverseTransformVector(camDir)));
 
-//1/I WOULD try to do something clever with tangent here, but its best we keep to using vectors
-//2/ We get the error measured of the player's angle, then apply that error. IE + ((1, 0) - (.7, .3)) 
-        Vector3 rotationCompensationVect = 
+        //1/I WOULD try to do something clever with tangent here, but its best we keep to using vectors
+        //2/ We get the error measured of the player's angle, then apply that error. IE + ((1, 0) - (.7, .3)) 
+        //!Gross!
+        Vector3 rotationCompensationVect =
             new Vector3
-                ( 
+                (
                 1 + Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad),
                 0 + Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad),
                 0
                 );
-                Debug.Log($"cos {Mathf.Cos(mod.player.rb.rotation * Mathf.Deg2Rad)} \n sin {Mathf.Sin(mod.player.rb.rotation * Mathf.Deg2Rad)} \n Inbets: {inbet.x}, {inbet.y} \n resulting:{(inbet + rotationCompensationVect).normalized} \n player rotation(deg: mod.player.rb.rotation ");
-            
+        //angle sum theorm go brrr
+        //maybe overkill but meh
+        float cursorRadians = Mathf.Atan2(inbet.y, inbet.x);
 
 
-        //unpacking for .Set()
+        var firstAngle = cursorRadians;
+        var secondAngle = mod.player.rb.rotation * Mathf.Deg2Rad;
+        var finalCosine = Mathf.Cos(firstAngle) * Mathf.Cos(secondAngle) - (Mathf.Sin(firstAngle) * Mathf.Sin(secondAngle));
+        var finalSine = Mathf.Sin(firstAngle) * Mathf.Cos(secondAngle) + Mathf.Sin(secondAngle) * Mathf.Cos(firstAngle);
+        var finalAngle = new Vector2(finalCosine, finalSine).normalized;
+
         int consta = 5;//:change this for the good changes?
-                        //todo charge up i think
+        mod.player.StartCoroutine(MoveSwordInDir(finalAngle * consta));
 
-        mod.player.StartCoroutine(MoveSwordInDir((inbet + rotationCompensationVect).normalized * consta));
-
-        // sword.transform.localPosition = inbet * consta;
         sword.transform.GetChild(0).GetComponentInChildren<Animator>().SetTrigger("Swing");
-        Debug.Log(camDir);
+        //  (camDir);
 
 
 
@@ -65,49 +70,37 @@ public class BerserkPlayerAction1 : IPlayerAction
 
     private IEnumerator MoveSwordInDir(Vector3 end)
     {
-        
+
         sword.transform.localPosition = Vector3.zero;
-        sword.transform.rotation = Quaternion.Euler(0, 0, -180);
-        Vector2 secondVector =  (end.x > 0 ? new Vector2(180, 180) : new Vector2(0,0));
-
         Vector3 mainVector = new Vector3(0, 0, (float)(
-                            ((Mathf.Atan(end.y / end.x) + Mathf.PI * .5) 
+                            ((Mathf.Atan2(end.y, end.x) + Mathf.PI * .5)
                             * Mathf.Rad2Deg)));
-                            
-        Quaternion quat = Quaternion.Euler(mainVector + (Vector3)secondVector );//- Vector3.forward*mod.player.rb.rotation
+        var end2 = end.normalized;
+        var thing1 = Mathf.Atan2(end2.y, end2.x) * Mathf.Rad2Deg;
 
-                            
-                            
-        //wrong way when rightward
+
+
 
         for (int i = 0; i < 5; i++)
         {//TODO CLEAN THIS 
-        //1 at 180, 0 at 0
-        // var kms = 1- mod.player.transform.rotation.z*2;
-            // var thing = mod.player.rb.transform
-            var vari = 1;//Mathf.Cos((mod.player.rb.rotation*Mathf.PI/180));
-            sword.transform.position += end * vari / 5;//* (thing) 
-            
-            Debug.Log("tag " +vari + " lol " + mod.player.transform.rotation.z + "rb version:" + mod.player.rb.rotation);
+            sword.transform.position += end / 5;//* (thing) 
+
             sword.GetComponent<BoxCollider2D>().enabled = true;
             //by the end of the 5 seconds, have the thing rotated 90 degrees
 
-            // sword.transform.rotation = (quat) * mod.player.transform.rotation;
-            sword.transform.rotation = (quat) * mod.player.transform.rotation;
-
+            Debug.Log(thing1 + " " + sword.GetComponent<Rigidbody2D>().rotation);
             yield return new WaitForSeconds(.0125f);
         }
-        // Debug.Log($"The datas you wanted bossman: Rotation { mod.player.rb.rotation}, and the resulting base {(mainVector).z}. The actual sword rotation: ");
+        sword.GetComponent<Rigidbody2D>().SetRotation(thing1);
+        sword.transform.rotation = Quaternion.Euler(end2.x, end2.y, 0);
 
         yield break;
-
-
-
 
     }
 
     public Sprite GetIcon()
 
-    {return mod.GetIcon();
+    {
+        return mod.GetIcon();
     }
 }

@@ -54,7 +54,7 @@ public class GroundedAI : MonoBehaviour
             break;
             default: 
             //do not modify the turn if no input
-            break;
+         
         }
         rb.velocity += Vector2.right * force;
         

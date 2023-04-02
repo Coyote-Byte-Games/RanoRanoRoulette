@@ -100,7 +100,7 @@ public class FollowerAI : MonoBehaviour
             break;
             default: 
             //do not modify the turn if no input
-            break;
+          
         }
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);

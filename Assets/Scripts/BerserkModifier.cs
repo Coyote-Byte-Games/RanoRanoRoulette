@@ -39,7 +39,7 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     public void SetPlayerEffects(bettertestplayablescript player)
     {
         //adds berserk sword//!this may be an issue, as it relies on being a scriptable object
-       sword = Instantiate( player.data.BerserkSword,(player.transform.position+ Vector3.up*1), Quaternion.identity );
+       sword = Instantiate( player.data.BerserkSword,(player.transform.position), Quaternion.identity );
        sword.transform.SetParent(player.transform); 
        sword.transform.Rotate(0, 0, -90);
        //adds the action of swinging the sword
