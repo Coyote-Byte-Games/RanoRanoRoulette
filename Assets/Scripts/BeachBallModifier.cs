@@ -29,7 +29,8 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
 
     public Sprite GetIcon()
     {
-               return player.data.FatRanoIcon;
+            //    return player.data.FatRanoIcon;
+            return (Sprite)Resources.Load("Mod Icons\\BeachBall");
     }
 
     public void OnEndEffect(bettertestplayablescript player)

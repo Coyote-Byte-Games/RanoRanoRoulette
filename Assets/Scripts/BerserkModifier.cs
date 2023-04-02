@@ -50,6 +50,7 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
 
     public Sprite GetIcon()
     {
-       return player.data.BerserkSword.GetComponentInChildren<SpriteRenderer>().sprite;
+    //    return player.data.
+    return (Sprite)Resources.Load("Mod Icons\\berserk");
     }
 }
