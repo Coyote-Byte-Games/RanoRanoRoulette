@@ -37,7 +37,7 @@ public class FollowerAI : MonoBehaviour
        return 1;
     }
 
-    public void SetTarget(bettertestplayablescript player)
+    public void SetTarget(RanoScript player)
     {
         target = player.transform;
     }

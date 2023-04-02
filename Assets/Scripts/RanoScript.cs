@@ -5,16 +5,21 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class bettertestplayablescript : MonoBehaviour{
+public class RanoScript : MonoBehaviour{
     // Start is called before the first frame update
     public GameObject ActionModBox;
     public GameObject StateModBox;
+    //the threshold at which slam effects occur during beach ball
+    public float crashThreshold;
     //todo make hotbar box spawn multiple
     public Rigidbody2D rb;
     public short controlInversion = 1;
     public int maxHP;
+    public int maxSpeed;
+
     //for the tags that are to be excepted from damage collisons
     public string[] tagList;
+    public GameObject jumpEffect;
     public LayerMask enemyLayer;
     public GameManagerScript gameManager;
     
@@ -256,9 +261,10 @@ public class bettertestplayablescript : MonoBehaviour{
         {
             return;
         }
-        var script = col.gameObject.GetComponent<IEnemy>();
+        var script = col.gameObject.GetComponent<EnemyTraitScript>();
        if(script is not null)
        {
+        Debug.Log("WOMAN?!?! " +  script.GetDamage());
         TakeDamage(script.GetDamage());
         Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
         rb.AddForce(directionToEnemy*99999/100*script.GetKB()*Time.deltaTime);
@@ -267,6 +273,11 @@ public class bettertestplayablescript : MonoBehaviour{
     void Update()
     {
 
+
+                if(rb.velocity.magnitude > maxSpeed)
+         {
+                rb.velocity = rb.velocity.normalized * maxSpeed;
+         }
 // Debug.Log(GKeyToggle);
         //handle horizontal movement
         MovementMethod();
@@ -326,7 +337,12 @@ public class bettertestplayablescript : MonoBehaviour{
     private void MovementMethod()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-         rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            //creating dust effect
+            Instantiate(jumpEffect, groundCheck.position, Quaternion.identity);
+        }
+        rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
 
 
             var renderer = GetComponent<SpriteRenderer>();

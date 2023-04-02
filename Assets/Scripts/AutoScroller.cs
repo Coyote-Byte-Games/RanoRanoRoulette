@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class AutoScroller : MonoBehaviour
@@ -8,6 +9,9 @@ public class AutoScroller : MonoBehaviour
     public int screenWidth; //for setting bounds
     public GameObject player;
     public float momentum; 
+    CinemachineBrain brain;
+    public GameObject vcamHolder;
+CinemachineVirtualCamera vcam ;
     private float momentumAccumulated;
     //for configuring how fast the game can get
     public int momentumCaps;
@@ -35,6 +39,11 @@ public class AutoScroller : MonoBehaviour
     void Start()
     {
      edge = GetComponent<EdgeCollider2D>();
+
+vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
+    
+// brain = (cam == null) ? null : cam.GetComponent<CinemachineBrain>();
+// vcam = (brain == null) ? null : brain.ActiveVirtualCamera as CinemachineVirtualCamera;
         
     }
     void Setbounds()
@@ -50,12 +59,20 @@ public class AutoScroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //a scalar to determine how much zoom we need
+            float zoomDemand =  player.transform.position.y;
+        var zoomVariable = Mathf.Clamp((zoomDemand/2), 0, 25);
+        Debug.Log(zoomVariable);
+
+        vcam.m_Lens.OrthographicSize = 25 + zoomVariable;
         momentumAccumulated += momentum*Time.deltaTime; 
         FindBoundaries();
-        transform.position += new Vector3(speed * momentum, 0, 0) * Time.deltaTime;
-        transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().position.y- transform.position.y, 0) *2* Time.deltaTime;
+        transform.position += new Vector3(speed + momentumAccumulated, 0, 0) * Time.deltaTime;
+        transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().position.y- transform.position.y, 0) *10* Time.deltaTime;
         
+
+
+
         Setbounds();
        
 

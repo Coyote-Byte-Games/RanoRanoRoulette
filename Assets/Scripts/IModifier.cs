@@ -5,9 +5,9 @@ using UnityEngine;
 public interface IModifier
 {
     //todo fix this garbage
-    public void SetPlayerEffects(bettertestplayablescript player);
-    public void OnStartEffect(bettertestplayablescript player);
-    public IEnumerator ContinuousEffect(bettertestplayablescript bettertestplayablescript);
-    public void SetPlayer(bettertestplayablescript player);
+    public void SetPlayerEffects(RanoScript player);
+    public void OnStartEffect(RanoScript player);
+    public IEnumerator ContinuousEffect(RanoScript RanoScript);
+    public void SetPlayer(RanoScript player);
     public Sprite GetIcon();
 }

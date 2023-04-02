@@ -158,7 +158,7 @@ public string modTimeMessage  = "Time until New Mod";
         Destroy(wheelInstance, 3);
         IModifier newMod = wheelScript.Launch();
         //:the modifier is null at this point
-        player.GetComponent<bettertestplayablescript>().AddModifier(newMod);
+        player.GetComponent<RanoScript>().AddModifier(newMod);
 
         data.numOfMods--;
         // i am having a stroke

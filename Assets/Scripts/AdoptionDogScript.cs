@@ -44,7 +44,7 @@ public class AdoptionDogScript : MonoBehaviour
         }
     }
 
-    public void SetTarget(bettertestplayablescript player)
+    public void SetTarget(RanoScript player)
     {
         target = player.transform;
     }
