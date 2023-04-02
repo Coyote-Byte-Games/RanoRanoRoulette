@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovementModifier
 {
-    public bettertestplayablescript player;
-    public IEnumerator ContinuousEffect(bettertestplayablescript bettertestplayablescript)
+    public RanoScript player;
+    public IEnumerator ContinuousEffect(RanoScript RanoScript)
     {
        yield break;
     }
 
-    public void OnStartEffect(bettertestplayablescript player)
+    public void OnStartEffect(RanoScript player)
     {
         player.controlInversion *= -1;
     }
@@ -19,12 +19,12 @@ public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovement
         return "Inverted Chaos!";
     }
 
-    public void SetPlayer(bettertestplayablescript player)
+    public void SetPlayer(RanoScript player)
     {
           this.player = player;
     }
 
-    public void SetPlayerEffects(bettertestplayablescript player)
+    public void SetPlayerEffects(RanoScript player)
     {
        return;
     }

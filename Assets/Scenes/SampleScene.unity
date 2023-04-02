@@ -258,7 +258,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 49569208702c63248b991b92dd7cd7e7, type: 3}
   - {fileID: 2800000, guid: 49569208702c63248b991b92dd7cd7e7, type: 3}
   - {fileID: 2800000, guid: b2614ddd82bd2c24e81277cb637edc13, type: 3}
-  startUpDelayFinished: 1
+  startUpDelayFinished: 0
   data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
   modifierInterval: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69fdd716ca9ad0649a89205b6edda021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 0
   screenWidth: 0
   player: {fileID: 1125366860}
   momentum: 1
@@ -496,6 +496,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186878639}
   m_CullTransparentMesh: 1
+--- !u!4 &343659749 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 401191875, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+  m_PrefabInstance: {fileID: 1543954863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &344972912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,6 +2599,18 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: maxHP
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: speed
+      value: 3075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
       propertyPath: ModBox
       value: 
       objectReference: {fileID: 351971520}
@@ -2601,6 +2618,10 @@ PrefabInstance:
       propertyPath: jumpPower
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: jumpEffect
+      value: 
+      objectReference: {fileID: 13614053474268261, guid: d8324afa8b3946b4b908295f95ac8385, type: 3}
     - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
       propertyPath: jumpRadius
       value: 3.6
@@ -2614,9 +2635,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 52486012}
     - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 343659749}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
       propertyPath: ActionModBox
       value: 
       objectReference: {fileID: 351971520}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: crashThreshold
+      value: 15.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
       propertyPath: hearts.Array.data[0]
       value: 

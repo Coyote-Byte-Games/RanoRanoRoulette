@@ -5,30 +5,30 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
 {
     //the sword
     public GameObject sword = null;
-    public bettertestplayablescript player;
+    public RanoScript player;
     //todo fix actions, array?
     private BerserkPlayerAction1 action;
     public BerserkModifier()
     {
         action = new BerserkPlayerAction1(this);
     }
-    public void SetPlayer(bettertestplayablescript player)
+    public void SetPlayer(RanoScript player)
     {
         this.player = player;
     }
   
 
-    public IEnumerator ContinuousEffect(bettertestplayablescript player)
+    public IEnumerator ContinuousEffect(RanoScript player)
     {
         yield break;
     }
 
-    public void OnEndEffect(bettertestplayablescript player)
+    public void OnEndEffect(RanoScript player)
     {
 
     }
 
-    public void OnStartEffect(bettertestplayablescript player)
+    public void OnStartEffect(RanoScript player)
     {
     }
 
@@ -36,17 +36,21 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     {
         return "Berserk!";
     }
-    public void SetPlayerEffects(bettertestplayablescript player)
+    public void SetPlayerEffects(RanoScript player)
     {
         //adds berserk sword//!this may be an issue, as it relies on being a scriptable object
        sword = Instantiate( player.data.BerserkSword,(player.transform.position), Quaternion.identity );
        sword.transform.SetParent(player.transform); 
-       sword.transform.Rotate(0, 0, -90);
+    //    sword.transform.Rotate(0, 0, -90);
        //adds the action of swinging the sword
        player.AddAction(action);
        player.rb.mass += 2f;
        player.jumpPower /= 20;
     }
+    public void SetRotation(int arg)
+     {
+        sword.transform.Rotate(0,0,arg - sword.GetComponent<Rigidbody2D>().rotation );
+     }
 
     public Sprite GetIcon()
     {

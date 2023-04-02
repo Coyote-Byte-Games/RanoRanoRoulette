@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -6555589969292928576}
   - component: {fileID: 3539874049054664707}
   - component: {fileID: 6279647173308496456}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DustCloud1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 13614053474268261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82f50011f6799c438c632e3ab33f871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetimeSeconds: 0
+  lifetimeSeconds: 0.51
