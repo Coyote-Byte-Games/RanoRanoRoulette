@@ -23,10 +23,8 @@ public string modTimeMessage  = "Time until New Mod";
     public Tilemap Tilemap;
     
     public Texture2D[] sliceTextures;
-    void AddMods(WheelScript script)
-    {
-
-    }
+    [UnityEngine.Header("Level Generation")]
+    public GameObject[] levelTraps; 
     private void UpdateModRemainingTime(TextMeshProUGUI element, float timeRemaining,  string defaultTextVal = "Time until new mod:")
     {
       
@@ -115,7 +113,7 @@ public string modTimeMessage  = "Time until New Mod";
         // Debug.Log(data.mods[0]);
         // Debug.Log(Color.white.ToString("F2"));
 
-        LevelGenerator = new LevelGenerator(this, Tilemap, currentLevelTile, sliceTextures);
+        LevelGenerator = new LevelGenerator(this, Tilemap, currentLevelTile, sliceTextures, levelTraps);
         LevelGenerator.GenerateLevelChunks(numberOfChunks);
     }
 

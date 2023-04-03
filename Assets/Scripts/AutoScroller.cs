@@ -62,7 +62,6 @@ vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
         //a scalar to determine how much zoom we need
             float zoomDemand =  player.transform.position.y;
         var zoomVariable = Mathf.Clamp((zoomDemand/2), 0, 25);
-        Debug.Log(zoomVariable);
 
         vcam.m_Lens.OrthographicSize = 25 + zoomVariable;
         momentumAccumulated += momentum*Time.deltaTime; 

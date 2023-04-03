@@ -3,24 +3,41 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 // [CreateAssetMenu(menuName ="My Assets/Level Generator")]
-public class LevelGenerator
+public class LevelGenerator : UnityEngine.Object
 {
+
+
+
+/*
+0   0   0   = Ground 
+
+255 0   0   = Enemy[0]
+
+0   0   255 = Flame Pillar
+0   1   255 = Flame pillar extrusion
+*/
+
+
 
 
     public RuleTile currentLevelTile;
     public Tilemap Tilemap;
-
     public Texture2D[] sliceTextures;
     public float[] sliceTexProbabliities;
+    public GameObject[] traps;
+
+    // [SerializeField]
+    // private GameObject trap1;
 
     public GameManagerScript manager;
 
-    public LevelGenerator(GameManagerScript gameManager, Tilemap tm, RuleTile tile, Texture2D[] textures)
+    public LevelGenerator(GameManagerScript gameManager, Tilemap tm, RuleTile tile, Texture2D[] textures, GameObject[] traps)
     {
         this.manager = gameManager;
         this.currentLevelTile = tile;
         this.Tilemap = tm;
         this.sliceTextures = textures;
+        this.traps = traps;
 
     }
 
@@ -53,8 +70,6 @@ public class LevelGenerator
         //iteration is iteration; controls an x offset, basically
         var slice = slices[iteration];
         // get a slice to generate from
-
-        // Debug.Log("tis the " + iteration + $" iteration, plus a length of {slice.width}");
 
         //Generate blocks based off of
         //The slice image
@@ -89,32 +104,21 @@ public class LevelGenerator
                         break;
                     case "RGBA(1.00, 0.00, 0.00, 1.00)": //sheer red    //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
                                                          //Place an enemy
-
-                        manager.SpawnEnemy(x, y);
-
-
+                        manager.SpawnEnemy(x, y-15);
                         break;
-                    case "RGBA(0.00, 0.00, 0.00, 0.00)": //nothing there
-
-
-                        Tilemap.SetTile(new Vector3Int(x, y, 0), null);
-
-
+                     case "RGBA(0.00, 0.00, 1.00, 1.00)": //sheer blue   //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
+                                                         //Place a flame pillar 
+                        SpawnTrap(x, y-15, traps[0]);
                         break;
                     default:
-
-                        if (color.a == 0)
+                        if (color.a == 0)//nothing there
                         {
-
                             Tilemap.SetTile(new Vector3Int(x, y, 0), null);
-
                         }
                         else
                         {
-                            throw new System.ArgumentNullException($"Level Generation: Illegal Argument of {color.ToString("F2")}");
+                            throw new System.ArgumentNullException($"Level Generation Malformation: Illegal Argument of {color.ToString("F2")}");
                         }
-
-
                         break;
 
                 }
@@ -125,6 +129,13 @@ public class LevelGenerator
 
     }
 
-
-
+///<summary> Spawns a trap at the speciifed coordinate. </summary>
+    private void SpawnTrap(int x, int y, GameObject trap)
+    {
+      Instantiate(trap, new Vector3(x,y, 0), Quaternion.identity);
+    }
+    private void SpawnTrap(int x, int y)
+    {
+      int selector = UnityEngine.Random.Range(0, traps.Length);
+    }
 }

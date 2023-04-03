@@ -66,7 +66,6 @@ public class RanoScript : MonoBehaviour{
     ////             throw new NotImplementedException("whoooooooooooOOOOOOPS we did [not] add in functionality for that !!!! ! ! ! ! ! Please contact HR at femboygaming2002@gmail.com");
     ////         }
     ////     }
-        
      void Awake()
     {
        
@@ -99,12 +98,14 @@ public class RanoScript : MonoBehaviour{
     }
     private int _hp;
     private float jumpCooldown;
+    public float iFrameDuration;
+    private float invincibleTimeLeft;
 
     public int Health
     {
         
         set {
-             
+          
             for (int i = 0; i < hearts.Length; i++)
             {
                 if (value <= 0)
@@ -123,6 +124,7 @@ public class RanoScript : MonoBehaviour{
             }
 
              _hp = value; 
+            //  lastSetHealth = value;
             }
             get {return _hp;}
     }
@@ -264,10 +266,15 @@ public class RanoScript : MonoBehaviour{
         var script = col.gameObject.GetComponent<EnemyTraitScript>();
        if(script is not null)
        {
-        Debug.Log("WOMAN?!?! " +  script.GetDamage());
-        TakeDamage(script.GetDamage());
-        Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
+          Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
         rb.AddForce(directionToEnemy*99999/100*script.GetKB()*Time.deltaTime);
+        if ( invincibleTimeLeft > 0)
+        {
+            return;
+        }
+      TakeDamage(script.GetDamage(), true);
+        // TakeDamage(script.GetDamage(), true);
+      
        }
     }
     void Update()
@@ -282,7 +289,7 @@ public class RanoScript : MonoBehaviour{
         //handle horizontal movement
         MovementMethod();
         jumpCooldown -= Time.deltaTime;
-
+        invincibleTimeLeft -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.F))
         {
             
@@ -306,7 +313,6 @@ public class RanoScript : MonoBehaviour{
             }
             catch(ArgumentOutOfRangeException)
             {
-            Debug.Log("No states? idk this is gonna be real buggy bro");
             return;
             }
           
@@ -314,12 +320,10 @@ public class RanoScript : MonoBehaviour{
         if (Input.GetKeyDown(KeyCode.G))
         {
             ChangeAction();
-            Debug.Log("changed action");
         }
          if(Input.GetKeyUp(KeyCode.V))
         {
         //  HKeyToggle = !HKeyToggle;
-        Debug.Log("Changed State");
         ChangeState();
          //Maybe right here, get the current modifier and use the toggle boolean to alter the effects.
           
@@ -367,15 +371,22 @@ public class RanoScript : MonoBehaviour{
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
             rb.AddForce( Vector2.up* jumpPower, ForceMode2D.Impulse);
-            Debug.Log("the jumper");
             jumpCooldown += 2;
         }
     }
 
    
-    private void TakeDamage(int v)
+    private void TakeDamage(int v, bool iFrames)
     {
+         
+             if (v < 0 && invincibleTimeLeft > 0)
+             {
+                // Health = lastSetHealth;
+                return;
+             }
+        float frameDuration = iFrames ? iFrameDuration : 0;
        Health -= v;
+       invincibleTimeLeft = frameDuration;
     }
 
     internal void UpdateSprite(Sprite sprite)
@@ -397,7 +408,6 @@ public class RanoScript : MonoBehaviour{
         }
         catch (System.Exception e)
         {
-            Debug.Log( "the error when adding the state was " + e );
            return;
         }
     }
@@ -407,19 +417,3 @@ public class RanoScript : MonoBehaviour{
         this.AddAction(action);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

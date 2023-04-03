@@ -14,7 +14,6 @@ public class GhostScript : MonoBehaviour, IEnemy
         if(other.collider.CompareTag("FriendlyAttack"))
         {
             TakeDamage(1);//TODO change damage
-            Debug.Log("ghost took damage");
         }
     }
 
