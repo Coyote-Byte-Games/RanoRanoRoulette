@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RanoScript : MonoBehaviour{
+public class RanoScript : MonoBehaviour
+{
     // Start is called before the first frame update
     public GameObject ActionModBox;
     public GameObject StateModBox;
@@ -22,7 +23,7 @@ public class RanoScript : MonoBehaviour{
     public GameObject jumpEffect;
     public LayerMask enemyLayer;
     public GameManagerScript gameManager;
-    
+
     public Image[] hearts;
     public GameData data;
     public float jumpRadius;
@@ -39,9 +40,9 @@ public class RanoScript : MonoBehaviour{
     private PlayerInfoV2<IPlayerState> playerStates = new PlayerInfoV2<IPlayerState>();
 
 
-//why interfaces
-   
-   //?no longer needed
+    //why interfaces
+
+    //?no longer needed
     //// void CheckForModConflicts()
     //// {
     ////     //getting a list of repeated interfaces
@@ -66,16 +67,16 @@ public class RanoScript : MonoBehaviour{
     ////             throw new NotImplementedException("whoooooooooooOOOOOOPS we did [not] add in functionality for that !!!! ! ! ! ! ! Please contact HR at femboygaming2002@gmail.com");
     ////         }
     ////     }
-     void Awake()
+    void Awake()
     {
-       
+
     }
     void SetCircleCollider()
     {
         var col = gameObject.AddComponent<CircleCollider2D>();
-       
+
         GetComponent<CircleCollider2D>().radius = 2;
-        GetComponent<CircleCollider2D>().offset.Set(0,-1.5f);
+        GetComponent<CircleCollider2D>().offset.Set(0, -1.5f);
 
         Destroy(GetComponent<BoxCollider2D>());
     }
@@ -89,12 +90,12 @@ public class RanoScript : MonoBehaviour{
     }
     void Start()
     {
-        
+
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-        groundCheck = transform.GetChild(0).gameObject.transform;
+        groundCheck = transform.GetChild(1).GetChild(0).gameObject.transform;
         this.Health = maxHP;
-       
+
     }
     private int _hp;
     private float jumpCooldown;
@@ -103,9 +104,10 @@ public class RanoScript : MonoBehaviour{
 
     public int Health
     {
-        
-        set {
-          
+
+        set
+        {
+
             for (int i = 0; i < hearts.Length; i++)
             {
                 if (value <= 0)
@@ -115,18 +117,17 @@ public class RanoScript : MonoBehaviour{
                 if (i < value)
                 {
                     hearts[i].enabled = true;
-                    
+
                 }
                 else
                 {
-                     hearts[i].enabled = false;
+                    hearts[i].enabled = false;
                 }
             }
-
-             _hp = value; 
+            _hp = value;
             //  lastSetHealth = value;
-            }
-            get {return _hp;}
+        }
+        get { return _hp; }
     }
 
     private void die()
@@ -134,7 +135,7 @@ public class RanoScript : MonoBehaviour{
         rb.AddForce(Vector2.up * 99999999999);
 
         #region Scene Change
-            gameManager.GameOver();
+        gameManager.GameOver();
         #endregion
 
 
@@ -145,15 +146,17 @@ public class RanoScript : MonoBehaviour{
         this.playerActions.AddItem(action);
         try
         {
-              ActionHotbarAnimate(playerActions.GetItem().GetIcon());
+            Debug.Log(playerActions.GetItem() is null ? "actions null" : "actions not null");
+            Debug.Log(playerActions.GetItem().GetIcon() is null ? "icons null" : "icons not null");
+            ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
-        catch (System.Exception e)
+        catch (System.NullReferenceException e)
         {
-            Debug.Log(e);
-           return;
+            Debug.Log(e.Data.ToString());
+            return;
         }
     }
-   
+
     void Action()
     {
         //when the player clicks the action key, we launch the current action
@@ -162,179 +165,207 @@ public class RanoScript : MonoBehaviour{
     }
     void ChangeAction()
     {
-        
+
         playerActions.ChangeItem();
         try
         {
-              ActionHotbarAnimate(playerActions.GetItem().GetIcon());
+            Debug.Log(playerActions.GetItem() is null ? "null is the thing": "null is NOT the thing");
+            ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
         catch (System.Exception e)
         {
             Debug.Log(e);
-           return;
+            return;
         }
-      
-        
+
+
     }
-     void ChangeState()
+    void ChangeState()
     {
-        
+
         playerStates.ChangeItem();
         try
         {
             var icon = playerStates.GetItem().GetIcon();
-           
-              StateHotbarAnimate
-                (
-                icon
-                );
+
+            StateHotbarAnimate
+              (
+              icon
+              );
         }
         catch (System.Exception e)
         {
             Debug.Log(e);
-           return;
+            return;
         }
-      
-        
+
+
     }
 
-///<summary>Animates the mod action popup. 
-///</summary>
-///<param name="icon"> Used for the display of the new mod.</param> 
+    ///<summary>Animates the mod action popup. 
+    ///</summary>
+    ///<param name="icon"> Used for the display of the new mod.</param> 
     private void ActionHotbarAnimate(Sprite icon)
     {
-    //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
-    //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
-    ActionModBox.GetComponent<Animator>().SetTrigger("Activate");
-    ActionModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
-    // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
+        //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
+        //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
+        ActionModBox.GetComponent<Animator>().SetTrigger("Activate");
+        ActionModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
+        // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
 
 
-    //   box.//:set the position upwards
-   
-    //   Destroy(box, 1);
+        //   box.//:set the position upwards
+
+        //   Destroy(box, 1);
     }
 
- private void StateHotbarAnimate(Sprite icon)
+    private void StateHotbarAnimate(Sprite icon)
     {
-    //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
-    //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
-    StateModBox.GetComponent<Animator>().SetTrigger("Activate");
-    StateModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
-    
-    
- //if the toggle is off
-            if (!playerStates.GetItem().GetToggleState())
-            {
-               StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255,255,255,.5f);
-                // StateModBox.transform.GetChild(0).GetComponent<Image>().color + 
-                
-            }
-            else
-            {
-               StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255,255,255,1f);
-                
-            }
+        //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
+        //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
+        StateModBox.GetComponent<Animator>().SetTrigger("Activate");
+        StateModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
 
-    //   Destroy(box, 1);
+
+        //if the toggle is off
+        if (!playerStates.GetItem().GetToggleState())
+        {
+            StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, .5f);
+            // StateModBox.transform.GetChild(0).GetComponent<Image>().color + 
+
+        }
+        else
+        {
+            StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, 1f);
+
+        }
+
+        //   Destroy(box, 1);
     }
     public void AddModifier(IModifier mod)//! this may be broken, idk
     {
 
-            this.mods.Add(mod);
-            mod.SetPlayer(this);
-            mod.OnStartEffect(this);
-            mod.SetPlayerEffects(this);//yes i know this is terrible it smells like garbage but blame unity for no
+        this.mods.Add(mod);
+        mod.SetPlayer(this);
+        mod.OnStartEffect(this);
+        mod.SetPlayerEffects(this);//yes i know this is terrible it smells like garbage but blame unity for no
 
-            StartCoroutine(mod.ContinuousEffect(this));
-            //todo end effect
-            //find a way to set the player effects in the player script
-       
+        StartCoroutine(mod.ContinuousEffect(this));
+        //todo end effect
+        //find a way to set the player effects in the player script
+
 
     }
     public bool Grounded()
     {
-        
+
         return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
     }
-     void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if (col.otherCollider.gameObject.CompareTag("FriendlyAttack"))
         {
             return;
         }
         var script = col.gameObject.GetComponent<EnemyTraitScript>();
-       if(script is not null)
-       {
-          Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
-        rb.AddForce(directionToEnemy*99999/100*script.GetKB()*Time.deltaTime);
-        if ( invincibleTimeLeft > 0)
+        if (script is not null)
         {
-            return;
+            Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
+            rb.AddForce(directionToEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
+            if (invincibleTimeLeft > 0)
+            {
+                return;
+            }
+            TakeDamage(script.GetDamage(), true);
+            // TakeDamage(script.GetDamage(), true);
+
         }
-      TakeDamage(script.GetDamage(), true);
-        // TakeDamage(script.GetDamage(), true);
-      
-       }
     }
+    //tracking for the Slam that occurs when rano hits something at a high velocity
+    // private Vector2 oldDirection;
     void Update()
     {
 
+        // #region speedSlam
 
-                if(rb.velocity.magnitude > maxSpeed)
-         {
-                rb.velocity = rb.velocity.normalized * maxSpeed;
-         }
-// Debug.Log(GKeyToggle);
+
+        // float newSpeed = rb.velocity.sqrMagnitude;
+
+        // if (oldDirection.sqrMagnitude - 300 * (300) >= newSpeed)
+        // {
+        //     //do the crash
+
+        //     //Get the tan(pointer towards the direction of the body), then turn it to degrees.
+        //     // + 180 degrees to reverse. Since 0 deg on transform means its facing down, but 90 deg collision would be facing right, we need to remove 90 degrees to change the behaviour
+        //     //and then i screwed with the math via guess and check
+        //     var direction = Mathf.Atan2(oldDirection.y, oldDirection.x) * Mathf.Rad2Deg - 240;
+
+        //     Quaternion rotation = Quaternion.Euler(0, 0, direction);
+        //     Instantiate(jumpEffect, groundCheck.position, rotation);
+
+        // }
+
+        // oldDirection = rb.velocity;
+
+        // #endregion
+
+
+
+
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+        // Debug.Log(GKeyToggle);
         //handle horizontal movement
         MovementMethod();
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.F))
         {
-            
+
             try
             {
-             Action();
+                Action();
             }
-            catch(ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
-            Debug.Log("No actions?");
-            return;
+                Debug.Log("No actions?");
+                return;
             }
-          
+
         }
-         if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            
+
             try
             {
-             ToggleState();
+                ToggleState();
             }
-            catch(ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
-            return;
+                return;
             }
-          
+
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
             ChangeAction();
         }
-         if(Input.GetKeyUp(KeyCode.V))
+        if (Input.GetKeyUp(KeyCode.V))
         {
-        //  HKeyToggle = !HKeyToggle;
-        ChangeState();
-         //Maybe right here, get the current modifier and use the toggle boolean to alter the effects.
-          
+            //  HKeyToggle = !HKeyToggle;
+            ChangeState();
+            //Maybe right here, get the current modifier and use the toggle boolean to alter the effects.
+
         }
-        
-        
+
+
     }
 
     private void ToggleState()
     {
-       this.playerStates.GetItem().Toggle();
+        this.playerStates.GetItem().Toggle();
         StateHotbarAnimate(playerStates.GetItem().GetIcon());
     }
 
@@ -344,55 +375,59 @@ public class RanoScript : MonoBehaviour{
         if (Input.GetKeyUp(KeyCode.Space))
         {
             //creating dust effect
-            Instantiate(jumpEffect, groundCheck.position, Quaternion.identity);
         }
         rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
 
 
-            var renderer = GetComponent<SpriteRenderer>();
+        var renderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 
         switch (horizontal)
         {
             case 1:
-            renderer.flipX = false;
-            break;
+                renderer.flipX = false;
+                break;
             case -1:
-            renderer.flipX = true;
-            break;
-            default: 
-            //do not modify the turn if no input
-            return;
+                renderer.flipX = true;
+                break;
+            default:
+                //do not modify the turn if no input
+                return;
         }
-    
+
         //for toggling bounce on the thing
-       
-        
-        if(Grounded() && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0))
+
+
+        if (Grounded() && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0))
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
-            rb.AddForce( Vector2.up* jumpPower, ForceMode2D.Impulse);
-            jumpCooldown += 2;
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            jumpCooldown += .01f;
+            Instantiate(jumpEffect, groundCheck.position, Quaternion.identity);
+
         }
     }
 
-   
+
+
+
+
     private void TakeDamage(int v, bool iFrames)
     {
-         
-             if (v < 0 && invincibleTimeLeft > 0)
-             {
-                // Health = lastSetHealth;
-                return;
-             }
+
+        if (v < 0 && invincibleTimeLeft > 0)
+        {
+            // Health = lastSetHealth;
+            return;
+        }
         float frameDuration = iFrames ? iFrameDuration : 0;
-       Health -= v;
-       invincibleTimeLeft = frameDuration;
+        Health -= v;
+        invincibleTimeLeft = frameDuration;
     }
 
     internal void UpdateSprite(Sprite sprite)
     {
-        GetComponent<SpriteRenderer>().sprite = sprite;
-        var outlineSprites = this.transform.GetChild(0).GetComponentsInChildren<SpriteRenderer>();
+        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = sprite;
+        var outlineSprites = this.transform.GetChild(1).GetChild(0).GetComponentsInChildren<SpriteRenderer>();
         foreach (var item in outlineSprites)
         {
             item.sprite = sprite;
@@ -404,11 +439,11 @@ public class RanoScript : MonoBehaviour{
         this.playerStates.AddItem(state);
         try
         {
-              StateHotbarAnimate(playerStates.GetItem().GetIcon());
+            StateHotbarAnimate(playerStates.GetItem().GetIcon());
         }
         catch (System.Exception e)
         {
-           return;
+            return;
         }
     }
     internal void AddActionAndState(IPlayerAction action, IPlayerState state)

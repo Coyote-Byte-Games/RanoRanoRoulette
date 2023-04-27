@@ -25,6 +25,7 @@ public class LevelGenerator : UnityEngine.Object
     public Texture2D[] sliceTextures;
     public float[] sliceTexProbabliities;
     public GameObject[] traps;
+    public GameObject flag;
 
     // [SerializeField]
     // private GameObject trap1;
@@ -49,6 +50,20 @@ public class LevelGenerator : UnityEngine.Object
             GenerateLevelChunk(slices, i); //I really don't know man
         }
     }
+    public void GenerateLevelChunksWithEndpoint(int numOfChunks)
+    {
+        var slices = GenerateRandomChunkSlices(numOfChunks);
+        int i = 0;
+        while ( i < numOfChunks) 
+        {
+            GenerateLevelChunk(slices,  i); //I really don't know man
+
+            i++;
+        }
+        GenerateLevelEndpoint(slices, i - 1);
+
+        
+    }
     /// <summary>  
     /// <c>dsfd</c>
     /// </summary>
@@ -65,6 +80,29 @@ public class LevelGenerator : UnityEngine.Object
         return output;
     }
 
+public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
+{
+
+        //iteration is iteration; controls an x offset, basically
+        var slice = slices[iteration];
+        // get a slice to generate from
+
+        //Generate blocks based off of
+        //The slice image
+        //The current level theme
+
+        //2D for loop, going through a row, then proceeding down 
+
+        int relativeZero = (from texture in slices.Take(iteration).ToList<Texture2D>()
+                            select texture.width)
+                            .Sum(); //I did this at 1 in the morning and made a mistake! Instead of being an adult and fixing it, I made it worse for [poos] and giggles.
+                                    //soph what the hell is that supposed to mean what have you done to forsake me now
+                                    //4-25-23: lmao this probably doesnt work if the slice is extra long
+
+            // Instantiate(flag, new Vector3(relativeZero + slice.width + 10, 5, 0), Quaternion.identity);
+            flag.transform.position = new Vector3(relativeZero + slice.width + 10, 5, 0);        
+
+}
     public void GenerateLevelChunk(Texture2D[] slices, int iteration = 0)
     {
         //iteration is iteration; controls an x offset, basically
@@ -81,6 +119,9 @@ public class LevelGenerator : UnityEngine.Object
                             select texture.width)
                             .Sum(); //I did this at 1 in the morning and made a mistake! Instead of being an adult and fixing it, I made it worse for [poos] and giggles.
                                     //soph what the hell is that supposed to mean what have you done to forsake me now
+                                    //4-25-23: lmao this probably doesnt work if the slice is extra long
+
+     
 
         for (int y = 0; y < slice.height; y++)
         {
@@ -138,4 +179,5 @@ public class LevelGenerator : UnityEngine.Object
     {
       int selector = UnityEngine.Random.Range(0, traps.Length);
     }
+
 }

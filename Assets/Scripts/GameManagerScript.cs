@@ -9,6 +9,9 @@ public class GameManagerScript : MonoBehaviour
 {//TODO Migrate UI functions to UIManager
 public string modTimeMessage  = "Time until New Mod";
     private UIManagerScript uiManager;
+    public GameObject FlagEndpoint;
+    public GameObject portal;
+    public GameObject rano;
     public GameObject TMProModTimeRemaining;
     public GameObject testEnemy;
     public LevelGenerator LevelGenerator;
@@ -31,6 +34,22 @@ public string modTimeMessage  = "Time until New Mod";
       element.text = $"{defaultTextVal} {timeRemaining.ToString("F1")}";
     }
   
+    public IEnumerator CreateRano()
+    {
+        yield return new WaitForSeconds(1);
+          var port = Instantiate(portal, new Vector3(-10,5,0) ,Quaternion.identity);
+        yield return new WaitForSeconds(1);
+        rano.SetActive(true);
+        rano.transform.position = new Vector3(-10,5,0);
+        rano.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10000));
+        yield return new WaitForSeconds(1);
+        Destroy(port);
+        
+
+          yield break;
+    }
+
+
     public void SpawnEnemy(int x, int y)
     {
         try
@@ -78,6 +97,8 @@ public string modTimeMessage  = "Time until New Mod";
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(nameof(CreateRano));
+
         LevelGenerator.manager = this;
         wheelScript = WheelPrefab.GetComponent<WheelScript>();
         StartCoroutine(nameof(BeginNewMod));
@@ -112,9 +133,11 @@ public string modTimeMessage  = "Time until New Mod";
         data.mods = ModifierManager.GenerateRandomMods(data.numOfMods);
         // Debug.Log(data.mods[0]);
         // Debug.Log(Color.white.ToString("F2"));
+        
 
         LevelGenerator = new LevelGenerator(this, Tilemap, currentLevelTile, sliceTextures, levelTraps);
-        LevelGenerator.GenerateLevelChunks(numberOfChunks);
+        LevelGenerator.flag = FlagEndpoint;
+        LevelGenerator.GenerateLevelChunksWithEndpoint(numberOfChunks);
     }
 
     // Update is called once per frame
@@ -162,6 +185,16 @@ public string modTimeMessage  = "Time until New Mod";
         // i am having a stroke
 
 
+    }
+
+    internal void RunCutscene(Cutscene cutID)
+    {
+        // switch (cutID)
+        // {
+        //     case Cutscene.LEVEL_VICTORY:
+        //     default: throw new NotImplementedException();
+        // }
+        GameOver();
     }
 }
 //todo create new comments, docs, debug? explain, function?

@@ -22,11 +22,11 @@ public class BerserkPlayerAction1 : IPlayerAction
         }
         sword = ((GameObject)mod.sword);
       
-        Vector2 camDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mod.player.transform.position).normalized;
-        float angle = Mathf.Atan2(camDir.y, camDir.x) * Mathf.Rad2Deg - mod.player.transform.rotation.eulerAngles.z;
+        Vector2 camDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mod.player.transform.GetChild(1).position).normalized;
+        float angle = Mathf.Atan2(camDir.y, camDir.x) * Mathf.Rad2Deg - mod.player.transform.GetChild(1).rotation.eulerAngles.z;
       
 
-        var inbet = ((mod.player.transform.InverseTransformVector(camDir)));
+        var inbet = ((mod.player.transform.GetChild(1).InverseTransformVector(camDir)));
 
       
        

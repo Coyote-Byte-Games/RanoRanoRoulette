@@ -40,11 +40,11 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     {
         //adds berserk sword//!this may be an issue, as it relies on being a scriptable object
        sword = Instantiate( player.data.BerserkSword,(player.transform.position), Quaternion.identity );
-       sword.transform.SetParent(player.transform); 
+       sword.transform.SetParent(player.transform.GetChild(1)); 
     //    sword.transform.Rotate(0, 0, -90);
        //adds the action of swinging the sword
        player.AddAction(action);
-       player.rb.mass += 2f;
+       player.rb.mass += .5f;
        player.jumpPower /= 20;
     }
     public void SetRotation(int arg)
