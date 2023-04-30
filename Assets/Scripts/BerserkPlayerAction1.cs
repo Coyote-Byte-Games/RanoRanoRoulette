@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Unity;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class BerserkPlayerAction1 : IPlayerAction
     {
         this.mod = modSource;
     }
+
+  
     void IPlayerAction.Run()
     {
         // rb = sword.GetComponent<Rigidbody2D>();
@@ -22,6 +25,12 @@ public class BerserkPlayerAction1 : IPlayerAction
         }
         sword = ((GameObject)mod.sword);
       
+
+        //freezes the player rotation so the sword can be aimed with modifers that affect rotation (beach ball, etc.)
+       
+
+        mod.player.rb.freezeRotation = true;
+        
         Vector2 camDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mod.player.transform.GetChild(1).position).normalized;
         float angle = Mathf.Atan2(camDir.y, camDir.x) * Mathf.Rad2Deg - mod.player.transform.GetChild(1).rotation.eulerAngles.z;
       
@@ -76,6 +85,15 @@ public class BerserkPlayerAction1 : IPlayerAction
             yield return new WaitForSeconds(.0125f);
         }
        
+            yield return new WaitForSeconds(3f);
+            //seeing if the player has a freeroation modifier applied
+           if (mod.player.mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IFreeRotationModifier))))
+            {
+        mod.player.rb.freezeRotation = false;
+        
+                
+            }
+
         yield break;
 
     }

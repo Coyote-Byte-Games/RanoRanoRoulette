@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, ISpriteModifier
+public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, IAnimationOverrideModifier, IFreeRotationModifier
 {
     public RanoScript player;
     private BeachBallPlayerAction1 slamAction;
@@ -25,8 +25,9 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
              player.rb.sharedMaterial = null;
              
         }
-
-        player.transform.GetChild(1).Rotate(0, 0, -0.02f * player.GetVel());
+        //player.transform.Rotate(0, 0, -0.02f * player.GetVel());
+    
+        player.rb.rotation +=(-.02f * player.GetVel());
 
         HandleImpactFX();
 

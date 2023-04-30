@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, IMovementModifier, IJumpModifier, ISpriteModifier
+public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, IMovementModifier, IJumpModifier, IAnimationOverrideModifier
 {
     //the sword
     public GameObject sword = null;

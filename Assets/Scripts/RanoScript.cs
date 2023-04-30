@@ -9,6 +9,7 @@ public class RanoScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject ActionModBox;
+    public Animator animator;
     public GameObject StateModBox;
     //the threshold at which slam effects occur during beach ball
     public float crashThreshold;
@@ -28,7 +29,7 @@ public class RanoScript : MonoBehaviour
     public GameData data;
     public float jumpRadius;
     public bool HKeyToggle;
-    List<IModifier> mods = new List<IModifier>();
+    public List<IModifier> mods = new List<IModifier>();
     BoxCollider2D bc;
     [SerializeField]
     public Transform groundCheck;
@@ -285,6 +286,13 @@ public class RanoScript : MonoBehaviour
     // private Vector2 oldDirection;
     void Update()
     {
+       if (mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IAnimationOverrideModifier))))
+       {
+        //haha
+        Debug.Log("why me yeah it works ig");
+        animator.enabled = false;
+       }
+        
 
         // #region speedSlam
 
@@ -310,7 +318,11 @@ public class RanoScript : MonoBehaviour
         // #endregion
 
 
+#region Sprite
+    
+SetOutlineSprite(this.GetComponentInChildren<SpriteRenderer>().sprite);
 
+#endregion
 
         if (rb.velocity.magnitude > maxSpeed)
         {
@@ -319,6 +331,7 @@ public class RanoScript : MonoBehaviour
         // Debug.Log(GKeyToggle);
         //handle horizontal movement
         MovementMethod();
+        animator.SetBool("grounded", Grounded());
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.F))
@@ -400,6 +413,9 @@ public class RanoScript : MonoBehaviour
         if (Grounded() && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0))
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
+
+            animator.SetTrigger("Jump");
+
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             jumpCooldown += .01f;
             Instantiate(jumpEffect, groundCheck.position, Quaternion.identity);
@@ -427,7 +443,11 @@ public class RanoScript : MonoBehaviour
     internal void UpdateSprite(Sprite sprite)
     {
         transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = sprite;
-        var outlineSprites = this.transform.GetChild(1).GetChild(0).GetComponentsInChildren<SpriteRenderer>();
+        SetOutlineSprite(sprite);
+    }
+    public void SetOutlineSprite(Sprite sprite)
+    {
+          var outlineSprites = this.transform.GetChild(1).GetChild(0).GetComponentsInChildren<SpriteRenderer>();
         foreach (var item in outlineSprites)
         {
             item.sprite = sprite;

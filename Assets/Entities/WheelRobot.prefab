@@ -550,5 +550,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 10
+  targetTag: Player
   nextWaypointDistance: 3
   enemy: 1

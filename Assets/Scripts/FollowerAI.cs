@@ -8,6 +8,7 @@ public class FollowerAI : MonoBehaviour
    
     public Transform target;
     public float speed = 200;
+    public string targetTag;
 
      //placeholder
     public float nextWaypointDistance;//threshold to ge tthere
@@ -24,6 +25,7 @@ public class FollowerAI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         
+        target =GameObject.FindWithTag(targetTag).transform;
 
         InvokeRepeating(nameof(UpdatePath), 0f, .5f);
 
