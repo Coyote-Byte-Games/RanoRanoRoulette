@@ -94,7 +94,7 @@ public class RanoScript : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-        groundCheck = transform.GetChild(1).GetChild(0).gameObject.transform;
+        // groundCheck = transform.GetChild(1).GetChild(0).gameObject.transform;
         this.Health = maxHP;
 
     }
@@ -320,7 +320,7 @@ public class RanoScript : MonoBehaviour
 
 #region Sprite
     
-SetOutlineSprite(this.GetComponentInChildren<SpriteRenderer>().sprite);
+// SetOutlineSprite(this.GetComponentInChildren<SpriteRenderer>().sprite);
 
 #endregion
 
