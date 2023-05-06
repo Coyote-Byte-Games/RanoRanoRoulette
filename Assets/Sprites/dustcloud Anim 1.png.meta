@@ -44,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -220,10 +220,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      DustcloudAnim1: -1546118358
       dustcloud Anim 1_1: 355305856
       dustcloud Anim 1_2: 1874970086
       dustcloud Anim 1_3: 187963678
-      DustcloudAnim1: -1546118358
       dustcloud Anim 1_4: -739864758
   spritePackingTag: 
   pSDRemoveMatte: 0

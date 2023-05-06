@@ -42,7 +42,7 @@ public string modTimeMessage  = "Time until New Mod";
         rano.SetActive(true);
         rano.transform.position = new Vector3(-10,5,0);
         rano.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10000));
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.75f);
         Destroy(port);
         
 

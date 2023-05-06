@@ -148,7 +148,7 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
                         manager.SpawnEnemy(x, y-15);
                         break;
                      case "RGBA(0.00, 0.00, 1.00, 1.00)": //sheer blue   //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
-                                                         //Place a flame pillar 
+                                                         //Place the first 
                         SpawnTrap(x, y-15, traps[0]);
                         break;
                     default:

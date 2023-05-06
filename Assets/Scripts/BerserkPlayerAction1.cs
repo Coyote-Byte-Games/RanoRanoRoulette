@@ -19,19 +19,18 @@ public class BerserkPlayerAction1 : IPlayerAction
     {
         // rb = sword.GetComponent<Rigidbody2D>();
 
-        if (!mod.player.Grounded())
+        if (mod.player.jumpsRemaining <= 0)
         {
             return;
         }
+        mod.player.jumpsRemaining -= 1;
         sword = ((GameObject)mod.sword);
-      
-
         //freezes the player rotation so the sword can be aimed with modifers that affect rotation (beach ball, etc.)
-       
-
         mod.player.rb.freezeRotation = true;
         
-        Vector2 camDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mod.player.transform.GetChild(1).position).normalized;
+        //creates a motion blur-like effect
+        mod.player.StartCoroutine( mod.player.GenerateTrail(4, 1));
+        Vector2 camDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mod.player.transform.position).normalized;
         float angle = Mathf.Atan2(camDir.y, camDir.x) * Mathf.Rad2Deg - mod.player.transform.GetChild(1).rotation.eulerAngles.z;
       
 

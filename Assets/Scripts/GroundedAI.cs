@@ -11,14 +11,17 @@ public class GroundedAI : MonoBehaviour
     #region Components
         private Rigidbody2D rb;
         private SpriteRenderer renderer;
+        public int aggroRange;
+        public string seekTag;
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = this.GetComponent<SpriteRenderer>();
+        renderer = this.GetComponentInChildren<SpriteRenderer>();
         rb = this.GetComponent<Rigidbody2D>();
+        this.target =GameObject.FindWithTag(seekTag);
     }
 
     void TakeDamage(int v)
@@ -34,7 +37,7 @@ public class GroundedAI : MonoBehaviour
     {
         //if the enemy is far enough from the target
        this.rb.position += new Vector2(0 ,1E-4f);
-        if (Mathf.Abs(rb.position.x - target.transform.position.x) < 25)
+        if (Mathf.Abs(rb.position.x - target.transform.position.x) < aggroRange)
         {
            
         

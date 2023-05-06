@@ -9,6 +9,7 @@ public class RanoScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject ActionModBox;
+    public Material blurMat;
     public Animator animator;
     public GameObject StateModBox;
     //the threshold at which slam effects occur during beach ball
@@ -23,6 +24,7 @@ public class RanoScript : MonoBehaviour
     public string[] tagList;
     public GameObject jumpEffect;
     public LayerMask enemyLayer;
+    public int jumpsRemaining = 1;
     public GameManagerScript gameManager;
 
     public Image[] hearts;
@@ -34,6 +36,7 @@ public class RanoScript : MonoBehaviour
     [SerializeField]
     public Transform groundCheck;
     public int speed;
+    public int maxJumps;
     public LayerMask groundLayer;
     public int jumpPower;
     bool grounded;
@@ -71,6 +74,40 @@ public class RanoScript : MonoBehaviour
     void Awake()
     {
 
+    }
+    void createOutLineBlur()
+    {
+        GameObject trail = new GameObject();
+    
+        var renderer = trail.AddComponent<SpriteRenderer>();
+            renderer.sprite = transform.GetChild(1).GetComponent<SpriteRenderer>().sprite;
+        renderer.material = blurMat;
+        renderer.color = new Color(1,1,1,.5f);
+        var trailInstance = Instantiate(trail, transform.position, transform.rotation);
+        Destroy(trailInstance, .3f);
+        
+    }
+    public IEnumerator IFrameFlicker()
+    {
+        bool switcher = true;
+        while (invincibleTimeLeft > 0)
+        {
+            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color - new Color(0,0,0, switcher? 1 : -1);
+            switcher = !switcher;
+            yield return new WaitForSeconds(.1f);
+        }
+            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color + new Color(0,0,0,1);
+            yield break;
+
+    }
+    public IEnumerator GenerateTrail(int cycles, int intensity)
+    {
+        for (int i = 0; i < cycles; i++)
+        {
+        createOutLineBlur();
+        yield return new WaitForSeconds(.1f / intensity) ;   
+        }
+        yield break;
     }
     void SetCircleCollider()
     {
@@ -261,6 +298,7 @@ public class RanoScript : MonoBehaviour
     {
 
         return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
+        
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -268,6 +306,7 @@ public class RanoScript : MonoBehaviour
         {
             return;
         }
+       
         var script = col.gameObject.GetComponent<EnemyTraitScript>();
         if (script is not null)
         {
@@ -332,6 +371,11 @@ public class RanoScript : MonoBehaviour
         //handle horizontal movement
         MovementMethod();
         animator.SetBool("grounded", Grounded());
+
+        if (Grounded() && jumpCooldown <= -1)
+        {
+            jumpsRemaining = maxJumps;
+        }
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.F))
@@ -385,11 +429,9 @@ public class RanoScript : MonoBehaviour
     private void MovementMethod()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            //creating dust effect
-        }
+        
         rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
+        animator.SetFloat("speed", horizontal);
 
 
         var renderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
@@ -410,15 +452,20 @@ public class RanoScript : MonoBehaviour
         //for toggling bounce on the thing
 
 
-        if (Grounded() && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0))
+        if (jumpsRemaining > 0 && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0) )
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
 
             animator.SetTrigger("Jump");
+            foreach (var item in GetComponentsInChildren<Animator>())
+            {
+                item.SetTrigger("Jump");                
+            }
+            jumpCooldown = .03f;
 
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            jumpCooldown += .01f;
             Instantiate(jumpEffect, groundCheck.position, Quaternion.identity);
+            jumpsRemaining -= 1;
 
         }
     }
@@ -430,6 +477,7 @@ public class RanoScript : MonoBehaviour
     private void TakeDamage(int v, bool iFrames)
     {
 
+
         if (v < 0 && invincibleTimeLeft > 0)
         {
             // Health = lastSetHealth;
@@ -438,6 +486,8 @@ public class RanoScript : MonoBehaviour
         float frameDuration = iFrames ? iFrameDuration : 0;
         Health -= v;
         invincibleTimeLeft = frameDuration;
+        StartCoroutine(IFrameFlicker());
+
     }
 
     internal void UpdateSprite(Sprite sprite)

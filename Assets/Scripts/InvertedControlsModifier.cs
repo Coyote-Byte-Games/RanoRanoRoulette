@@ -26,7 +26,7 @@ public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovement
 
     public void SetPlayerEffects(RanoScript player)
     {
-       return;
+       player.gameObject.GetComponentInChildren<SpriteRenderer>().material.shader = player.data.invertedShader;
     }
 
     public Sprite GetIcon()

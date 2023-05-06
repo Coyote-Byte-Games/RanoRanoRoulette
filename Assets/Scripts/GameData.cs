@@ -10,12 +10,14 @@ public class GameData : ScriptableObject
     #region Prefabs
     public BerserkModifier BerserkModifier;
     public Sprite FatRanoIcon;
+    public Animator ranoAnim;
     public PhysicsMaterial2D bouncyMat;
     public Sprite FatRano;
+    public Shader invertedShader;
 
 
     [SerializeField]
-    public GameObject BerserkSword, AdoptionDog;
+    public GameObject BerserkSword, AdoptionDog, DJWings;
 
     #endregion
     //the mods the data starts with
