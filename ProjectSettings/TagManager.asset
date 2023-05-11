@@ -22,7 +22,7 @@ TagManager:
   - Ally
   - Screen Border
   - PP
-  - 
+  - Friendly Attack Clip
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: bg
+    uniqueID: 1999716815
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

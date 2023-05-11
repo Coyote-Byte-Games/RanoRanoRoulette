@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902519626890746693}
   - component: {fileID: 4426241956868827940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6845261367440246071}
   - component: {fileID: 6726063843610350338}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589456710730799009}
   - component: {fileID: 3946340780193549350}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4045479176504759974}
   - component: {fileID: 7833086831077872083}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3169497583718603743}
   - component: {fileID: 5074052448653988277}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4724231701254761155}
   - component: {fileID: 297767660907822001}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +623,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2739842997252141106}
   - component: {fileID: 5027229061941398565}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8875851480387651417}
   - component: {fileID: 1647865675824736415}
-  m_Layer: 0
+  - component: {fileID: 9046502742710311455}
+  m_Layer: 9
   m_Name: Extrusion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +748,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 4.505913}
@@ -763,6 +764,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 7.735813}
   m_EdgeRadius: 0
+--- !u!114 &9046502742710311455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7352392240345383450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 0
+  damage: 1
 --- !u!1 &7352528558230147031
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7899248382249633749}
   - component: {fileID: 6548174454799830638}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

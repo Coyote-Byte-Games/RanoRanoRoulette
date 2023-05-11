@@ -530,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683ac28cd89c4994ab74f3332f28b629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
   target: {fileID: 0}
   speed: 21
   aggroRange: 25

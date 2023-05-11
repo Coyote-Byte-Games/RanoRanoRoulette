@@ -23,7 +23,10 @@ public string modTimeMessage  = "Time until New Mod";
     private float delayTimeElapsed;
 
     public RuleTile currentLevelTile;
+    public Tile bgTile;
+    public Tile[] garnishTiles;
     public Tilemap Tilemap;
+    public Tilemap bgTilemap;
     
     public Texture2D[] sliceTextures;
     [UnityEngine.Header("Level Generation")]
@@ -135,7 +138,7 @@ public string modTimeMessage  = "Time until New Mod";
         // Debug.Log(Color.white.ToString("F2"));
         
 
-        LevelGenerator = new LevelGenerator(this, Tilemap, currentLevelTile, sliceTextures, levelTraps);
+        LevelGenerator = new LevelGenerator(this, Tilemap, bgTilemap, currentLevelTile, bgTile, garnishTiles, sliceTextures, levelTraps);
         LevelGenerator.flag = FlagEndpoint;
         LevelGenerator.GenerateLevelChunksWithEndpoint(numberOfChunks);
     }
@@ -172,7 +175,7 @@ public string modTimeMessage  = "Time until New Mod";
         if (data.numOfMods < 1)
         {
             // Debug.Log("NO MORE MODS FOR YOU AAHAHAHAHAHAHAAAAAA  there wer e none to begin with.");
-            modTimeMessage = "Nightmare ends in:";
+            modTimeMessage = "Remaining bananas: ";
             return;
         }
         var wheelInstance = Instantiate(WheelPrefab, Vector3.zero, Quaternion.identity);

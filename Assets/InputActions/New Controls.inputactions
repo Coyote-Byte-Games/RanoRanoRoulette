@@ -1,0 +1,162 @@
+{
+    "name": "New Controls",
+    "maps": [
+        {
+            "name": "Rano Action Map",
+            "id": "2426663d-7eb3-408d-ab61-41058b6e0824",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "18f000ee-f39c-4fc2-b964-0fc1c7c41696",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "c6e4e4ce-da08-4a63-ac4a-d6b9926d6ef4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StatusToggle",
+                    "type": "Button",
+                    "id": "a216ad9b-7e62-4d3f-b441-02de92d3b0f8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeStatus",
+                    "type": "Button",
+                    "id": "25ae6513-62a3-434a-bef7-98072a1b5ab0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeAction",
+                    "type": "Button",
+                    "id": "c3d789ca-ea72-468b-bb2e-5d619a7d1989",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "28bd3e8c-74f9-4500-b5e6-d07750b76417",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5731e4f4-d246-45cb-8c49-2d6a4607e9cc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20243654-2639-4595-8c3b-93a5581d3427",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8c4d60b-1746-44a9-85d5-fbbdefc99796",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "StatusToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93ceadca-a902-47ec-b232-4a7143ff5373",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "ChangeStatus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "987a77e7-c250-4987-8fd2-6322b3afb8ff",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "ChangeAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "ff9f04b5-727d-44fb-9845-17c768c1de0f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "822e30bd-e888-4a33-9dc3-75edd0db8283",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "85bbb04b-a912-44ca-9f0b-b2bd9c449d25",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + Mouse",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "KB + Mouse",
+            "bindingGroup": "KB + Mouse",
+            "devices": []
+        }
+    ]
+}

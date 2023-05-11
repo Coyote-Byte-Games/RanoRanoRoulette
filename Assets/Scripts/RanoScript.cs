@@ -10,7 +10,10 @@ public class RanoScript : MonoBehaviour
     // Start is called before the first frame update
     public GameObject ActionModBox;
     public Material blurMat;
+    public Material blurInvertedMat;
     public Animator animator;
+    public GameObject boom;
+
     public GameObject StateModBox;
     //the threshold at which slam effects occur during beach ball
     public float crashThreshold;
@@ -81,7 +84,7 @@ public class RanoScript : MonoBehaviour
     
         var renderer = trail.AddComponent<SpriteRenderer>();
             renderer.sprite = transform.GetChild(1).GetComponent<SpriteRenderer>().sprite;
-        renderer.material = blurMat;
+        renderer.material =  controlInversion == -1? blurInvertedMat :blurMat;
         renderer.color = new Color(1,1,1,.5f);
         var trailInstance = Instantiate(trail, transform.position, transform.rotation);
         Destroy(trailInstance, .3f);
@@ -96,7 +99,7 @@ public class RanoScript : MonoBehaviour
             switcher = !switcher;
             yield return new WaitForSeconds(.1f);
         }
-            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color + new Color(0,0,0,1);
+            // this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color + new Color(0,0,0,1);
             yield break;
 
     }
@@ -170,7 +173,10 @@ public class RanoScript : MonoBehaviour
 
     private void die()
     {
-        rb.AddForce(Vector2.up * 99999999999);
+
+         var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
+        Destroy(kablooey, .25f);
+        Destroy(gameObject);
 
         #region Scene Change
         gameManager.GameOver();
@@ -321,14 +327,35 @@ public class RanoScript : MonoBehaviour
 
         }
     }
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+ if (col.gameObject.CompareTag("FriendlyAttack"))
+        {
+            return;
+        }
+       
+        var script = col.gameObject.GetComponent<EnemyTraitScript>();
+        if (script is not null)
+        {
+            if (invincibleTimeLeft > 0)
+            {
+                return;
+            }
+            TakeDamage(script.GetDamage(), true);
+            // TakeDamage(script.GetDamage(), true);
+
+    }}
     //tracking for the Slam that occurs when rano hits something at a high velocity
     // private Vector2 oldDirection;
     void Update()
     {
+
+        ScreenBoundChecker();
+        //so rano doesnt get caught
+ this.rb.position += new Vector2(0 ,1E-3f);
+
        if (mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IAnimationOverrideModifier))))
        {
-        //haha
-        Debug.Log("why me yeah it works ig");
         animator.enabled = false;
        }
         
@@ -378,7 +405,7 @@ public class RanoScript : MonoBehaviour
         }
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetButtonDown("Action"))
         {
 
             try
@@ -392,7 +419,7 @@ public class RanoScript : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetButtonDown("ToggleState"))
         {
 
             try
@@ -405,11 +432,11 @@ public class RanoScript : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetButtonDown("SwitchAction"))
         {
             ChangeAction();
         }
-        if (Input.GetKeyUp(KeyCode.V))
+        if (Input.GetButtonDown("SwitchState"))
         {
             //  HKeyToggle = !HKeyToggle;
             ChangeState();
@@ -418,6 +445,14 @@ public class RanoScript : MonoBehaviour
         }
 
 
+    }
+
+    private void ScreenBoundChecker()
+    {
+      if (transform.position.y < -50)
+      {
+        die();
+      }
     }
 
     private void ToggleState()
@@ -464,7 +499,7 @@ public class RanoScript : MonoBehaviour
             jumpCooldown = .03f;
 
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            Instantiate(jumpEffect, groundCheck.position, Quaternion.identity);
+            Instantiate(jumpEffect, groundCheck.position + 1.8f * Vector3.up, Quaternion.identity);
             jumpsRemaining -= 1;
 
         }
@@ -487,6 +522,7 @@ public class RanoScript : MonoBehaviour
         Health -= v;
         invincibleTimeLeft = frameDuration;
         StartCoroutine(IFrameFlicker());
+        
 
     }
 
@@ -521,4 +557,10 @@ public class RanoScript : MonoBehaviour
         this.AddState(state);
         this.AddAction(action);
     }
+
+
+
+
+
+    
 }

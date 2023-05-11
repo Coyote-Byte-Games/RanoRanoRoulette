@@ -21,7 +21,10 @@ public class LevelGenerator : UnityEngine.Object
 
 
     public RuleTile currentLevelTile;
+    public Tile currentLevelBGTile;
+    public Tile[] currentLevelgarnishTiles;
     public Tilemap Tilemap;
+    public Tilemap bgTilemap;
     public Texture2D[] sliceTextures;
     public float[] sliceTexProbabliities;
     public GameObject[] traps;
@@ -32,11 +35,15 @@ public class LevelGenerator : UnityEngine.Object
 
     public GameManagerScript manager;
 
-    public LevelGenerator(GameManagerScript gameManager, Tilemap tm, RuleTile tile, Texture2D[] textures, GameObject[] traps)
+        public LevelGenerator(GameManagerScript gameManager, Tilemap tm, Tilemap bgtm, RuleTile tile, Tile bgtile, Tile[] garnish, Texture2D[] textures, GameObject[] traps)
     {
         this.manager = gameManager;
         this.currentLevelTile = tile;
+        this.currentLevelBGTile = bgtile;
+        this.currentLevelgarnishTiles = garnish;
         this.Tilemap = tm;
+        this.bgTilemap = bgtm;
+
         this.sliceTextures = textures;
         this.traps = traps;
 
@@ -150,6 +157,21 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
                      case "RGBA(0.00, 0.00, 1.00, 1.00)": //sheer blue   //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
                                                          //Place the first 
                         SpawnTrap(x, y-15, traps[0]);
+                        break;
+                         case "RGBA(0.00, 1.00, 0.00, 1.00)": //sheer green
+                                                         //Will place some type of shrubbery
+
+                        int rando = UnityEngine.Random.Range(0, currentLevelgarnishTiles.Length - 1);
+
+                          bgTilemap.SetTile(new Vector3Int(x, y, 0), currentLevelgarnishTiles[rando]);
+
+
+                        break;
+                         case "RGBA(1.00, 0.00, 1.00, 1.00)": //porpol
+                                                         //Will place walls
+                          bgTilemap.SetTile(new Vector3Int(x, y, 0), currentLevelBGTile);
+
+
                         break;
                     default:
                         if (color.a == 0)//nothing there

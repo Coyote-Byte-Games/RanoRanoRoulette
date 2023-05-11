@@ -18,7 +18,7 @@ public class BerserkPlayerAction1 : IPlayerAction
     void IPlayerAction.Run()
     {
         // rb = sword.GetComponent<Rigidbody2D>();
-
+        mod.player.animator.SetTrigger("Jump");
         if (mod.player.jumpsRemaining <= 0)
         {
             return;
@@ -51,7 +51,7 @@ public class BerserkPlayerAction1 : IPlayerAction
 #endregion
 
      
-        int consta = 5;//:change this for the good changes?
+        int consta = 18;//:change this for the good changes?
         mod.player.StartCoroutine(MoveSwordInDir(finalAngle * consta));
 
         sword.transform.GetChild(0).GetComponentInChildren<Animator>().SetTrigger("Swing");
@@ -65,7 +65,7 @@ public class BerserkPlayerAction1 : IPlayerAction
     private IEnumerator MoveSwordInDir(Vector3 end)
     {
 
-        sword.transform.localPosition = Vector3.zero;
+        sword.transform.localPosition = -end*3/5;
         Vector3 mainVector = new Vector3(0, 0, (float)(
                             ((Mathf.Atan2(end.y, end.x) + Mathf.PI * .5)
                             * Mathf.Rad2Deg)));
@@ -81,7 +81,7 @@ public class BerserkPlayerAction1 : IPlayerAction
             sword.transform.position += end / 5;
           
             sword.GetComponent<BoxCollider2D>().enabled = true;
-            yield return new WaitForSeconds(.0125f);
+            yield return new WaitForSeconds(.0125f * 1.5f);
         }
        
             yield return new WaitForSeconds(3f);

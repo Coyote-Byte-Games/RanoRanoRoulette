@@ -80,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 1800894679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5435428177351176527}
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -175,7 +175,7 @@ GameObject:
   m_Layer: 11
   m_Name: Rano
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 884be9fe4f866ed47b01c61a8ea8357f, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
@@ -272,7 +272,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionModBox: {fileID: 0}
+  blurMat: {fileID: 2100000, guid: d838d1caf9043d34fb2ead5e7f49e7eb, type: 2}
+  blurInvertedMat: {fileID: 2100000, guid: ee2a8090732c7774281a9fb09c62ae82, type: 2}
   animator: {fileID: 40269224}
+  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
   StateModBox: {fileID: 0}
   crashThreshold: 15.35
   rb: {fileID: 0}
@@ -292,7 +295,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
-  jumpRadius: 1.85
+  jumpRadius: 1.02
   HKeyToggle: 0
   groundCheck: {fileID: 401191875}
   speed: 3075
@@ -301,4 +304,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpPower: 70
-  iFrameDuration: 5.95
+  iFrameDuration: 1
