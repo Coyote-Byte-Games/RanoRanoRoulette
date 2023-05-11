@@ -72,15 +72,16 @@ public string modTimeMessage  = "Time until New Mod";
     }
     public void GameOver()
     {
-        gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
 
         StartCoroutine(nameof(LoadGameOverScene));
     }
     public IEnumerator LoadGameOverScene()
     {
-        for (; ; )
+        for (;;)
         {
-            yield return new WaitForSeconds(1.85f);
+            yield return new WaitForSeconds(2f);
+        gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
+            yield return new WaitForSeconds(1.75f);
             SceneManager.LoadScene("GameOverScene");
         }
     }

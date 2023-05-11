@@ -269,14 +269,16 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a6d081d64bbc84b49ba560e14d317a6f, type: 3}
   - {fileID: 2800000, guid: de2300d3ec8128d4d8b19bdf2ca7536a, type: 3}
   - {fileID: 2800000, guid: 66670c7d2c790d14da4b1e3009324aa1, type: 3}
+  - {fileID: 2800000, guid: 0d9a92f12c7f94f4580663a0d2cc8f3e, type: 3}
+  - {fileID: 2800000, guid: dad2ecffdd301ed40917fe61798aef8c, type: 3}
   levelTraps:
   - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
   startUpDelayFinished: 0
   data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
-  modifierInterval: 3
+  modifierInterval: 10
   player: {fileID: 1125366860}
-  modStartupTime: 3
+  modStartupTime: 10
 --- !u!1 &140046269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 0c67d25b6aa57914781932ad873cfcf7, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2288,12 +2290,71 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1125366862}
+        m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18f000ee-f39c-4fc2-b964-0fc1c7c41696
+    m_ActionName: Rano Action Map/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1125366862}
+        m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
+        m_MethodName: OnAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c6e4e4ce-da08-4a63-ac4a-d6b9926d6ef4
+    m_ActionName: Rano Action Map/Action[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a216ad9b-7e62-4d3f-b441-02de92d3b0f8
+    m_ActionName: Rano Action Map/StatusToggle[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25ae6513-62a3-434a-bef7-98072a1b5ab0
+    m_ActionName: Rano Action Map/ChangeStatus[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c3d789ca-ea72-468b-bb2e-5d619a7d1989
+    m_ActionName: Rano Action Map/ChangeAction[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28bd3e8c-74f9-4500-b5e6-d07750b76417
+    m_ActionName: Rano Action Map/Run[/Keyboard/a,/Keyboard/d]
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: KB + Mouse
   m_DefaultActionMap: Rano Action Map
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1125366862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+  m_PrefabInstance: {fileID: 1543954863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125366860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0f4fae44f4af647b93a9d26c09831f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1135882152
 GameObject:
   m_ObjectHideFlags: 0

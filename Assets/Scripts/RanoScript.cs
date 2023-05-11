@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class RanoScript : MonoBehaviour
@@ -27,6 +28,8 @@ public class RanoScript : MonoBehaviour
     public string[] tagList;
     public GameObject jumpEffect;
     public LayerMask enemyLayer;
+    public Keyboard kb = Keyboard.current;
+    public Mouse mouse = Mouse.current;
     public int jumpsRemaining = 1;
     public GameManagerScript gameManager;
 
@@ -405,10 +408,34 @@ public class RanoScript : MonoBehaviour
         }
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
-        if (Input.GetButtonDown("Action"))
+   
+      
+        //pain
+        if (kb.qKey.wasPressedThisFrame)
         {
+            OnStatusToggle();
+        }
+         if (kb.eKey.wasPressedThisFrame)
+        {
+            OnChangeStatus();
+        }
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            OnAction();
+        }
+        if (mouse.rightButton.wasPressedThisFrame)
+        {
+            OnChangeAction();
+        }
 
-            try
+
+    }
+
+#region InputManager
+
+    public void OnAction()
+    {
+         try
             {
                 Action();
             }
@@ -417,11 +444,14 @@ public class RanoScript : MonoBehaviour
                 Debug.Log("No actions?");
                 return;
             }
-
-        }
-        if (Input.GetButtonDown("ToggleState"))
-        {
-
+    }
+    public void OnChangeStatus()
+    {
+           ChangeState();
+    }
+    public void OnStatusToggle()
+    {
+        
             try
             {
                 ToggleState();
@@ -431,21 +461,12 @@ public class RanoScript : MonoBehaviour
                 return;
             }
 
-        }
-        if (Input.GetButtonDown("SwitchAction"))
-        {
-            ChangeAction();
-        }
-        if (Input.GetButtonDown("SwitchState"))
-        {
-            //  HKeyToggle = !HKeyToggle;
-            ChangeState();
-            //Maybe right here, get the current modifier and use the toggle boolean to alter the effects.
-
-        }
-
-
     }
+    public void OnChangeAction()
+    {
+          ChangeAction();
+    }    
+#endregion
 
     private void ScreenBoundChecker()
     {
@@ -487,7 +508,7 @@ public class RanoScript : MonoBehaviour
         //for toggling bounce on the thing
 
 
-        if (jumpsRemaining > 0 && Input.GetKeyUp(KeyCode.Space) && !(jumpCooldown > 0) )
+        if (jumpsRemaining > 0 && kb.spaceKey.wasPressedThisFrame && !(jumpCooldown > 0) )
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
 

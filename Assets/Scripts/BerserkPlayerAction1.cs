@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BerserkPlayerAction1 : IPlayerAction
 {
+    public int activeDuration = 1;
     GameObject sword;
     private BerserkModifier mod;
     private Rigidbody2D rb;
@@ -14,9 +15,20 @@ public class BerserkPlayerAction1 : IPlayerAction
         this.mod = modSource;
     }
 
-  
+  public IEnumerator ActiveCycle()
+  {
+    sword.GetComponentInChildren<SpriteRenderer>().enabled = true;
+    sword.GetComponent<BoxCollider2D>().enabled = true;
+    yield return new WaitForSeconds(activeDuration);
+
+    sword.GetComponentInChildren<SpriteRenderer>().enabled = false;
+    sword.GetComponent<BoxCollider2D>().enabled = false;
+    yield break;
+
+  }
     void IPlayerAction.Run()
     {
+        mod.player.StartCoroutine(ActiveCycle());
         // rb = sword.GetComponent<Rigidbody2D>();
         mod.player.animator.SetTrigger("Jump");
         if (mod.player.jumpsRemaining <= 0)
