@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GroundedAI : MonoBehaviour
 {
+    public GameObject boom;
     public GameObject target;
 
     public int speed;
@@ -11,30 +12,30 @@ public class GroundedAI : MonoBehaviour
     #region Components
         private Rigidbody2D rb;
         private SpriteRenderer renderer;
+        public int aggroRange;
+        public string seekTag;
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = this.GetComponent<SpriteRenderer>();
+        renderer = this.GetComponentInChildren<SpriteRenderer>();
         rb = this.GetComponent<Rigidbody2D>();
     }
 
-    void TakeDamage(int v)
-    {
-        Destroy(gameObject);
-    }
+
     public int GetDamage()
     {
        return 1;
     }
 
     void Update()
-    {
+    { 
+        //so it doesnt get caught
+        this.rb.position += new Vector2(0 ,1E-4f);
         //if the enemy is far enough from the target
-       this.rb.position += new Vector2(0 ,1E-4f);
-        if (Mathf.Abs(rb.position.x - target.transform.position.x) < 25)
+        if (Mathf.Abs(rb.position.x - target.transform.position.x) < aggroRange)
         {
            
         
@@ -58,5 +59,6 @@ public class GroundedAI : MonoBehaviour
         }
         rb.velocity += Vector2.right * force;
         
-    }} 
+    }
+      } 
 }

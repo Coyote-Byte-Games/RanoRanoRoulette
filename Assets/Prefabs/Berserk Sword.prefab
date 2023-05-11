@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2465687164430718116}
   - component: {fileID: -3906262331154539971}
   - component: {fileID: 1983806051411356003}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Berserk Sword
   m_TagString: FriendlyAttack
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: f2e09814b6742e141a56d030175d307e, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 758265843499979721}
   - component: {fileID: 1003146056442871744}
   - component: {fileID: 7242445834680176704}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Sprite-0001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &7242445834680176704
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -198,4 +198,5 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

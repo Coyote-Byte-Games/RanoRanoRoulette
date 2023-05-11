@@ -6,6 +6,7 @@ using UnityEngine;
 public class AutoScroller : MonoBehaviour
 {
     public int speed;
+    public int mainZoom = 20;
     public int screenWidth; //for setting bounds
     public GameObject player;
     public float momentum; 
@@ -62,9 +63,8 @@ vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
         //a scalar to determine how much zoom we need
             float zoomDemand =  player.transform.position.y;
         var zoomVariable = Mathf.Clamp((zoomDemand/2), 0, 25);
-        Debug.Log(zoomVariable);
 
-        vcam.m_Lens.OrthographicSize = 25 + zoomVariable;
+        vcam.m_Lens.OrthographicSize = mainZoom + zoomVariable;
         momentumAccumulated += momentum*Time.deltaTime; 
         FindBoundaries();
         transform.position += new Vector3(speed + momentumAccumulated, 0, 0) * Time.deltaTime;

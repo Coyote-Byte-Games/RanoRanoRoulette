@@ -20,13 +20,17 @@ public class ModifierManager
 
     {
          new BerserkModifier(),
-        //  new BerserkModifier(),
-        //  new BerserkModifier(),
-        //  new BerserkModifier(),
-        //  new BerserkModifier(),
-         new BeachBallModifier(),
+        //  new BeachBallModifier(),
          new InvertedControlsModifier(),
-        //  new AdoptionModifier()
+         new AdoptionModifier(),
+        //  new DoubleJumpModifier(),
+        //  new DoubleJumpModifier(),
+         new DoubleJumpModifier(),
+        //  new AdoptionModifier(),
+        //  new AdoptionModifier(),
+        //  new AdoptionModifier(),
+        //  new AdoptionModifier(),
+
 
     };
     public static IModifier[] GetModsToggledOn(IModifier[] mods, List<bool> toggles)

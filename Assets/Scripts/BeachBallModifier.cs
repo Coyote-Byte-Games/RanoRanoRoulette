@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, ISpriteModifier
+public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, IAnimationOverrideModifier, IFreeRotationModifier
 {
     public RanoScript player;
     private BeachBallPlayerAction1 slamAction;
@@ -17,15 +17,17 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
         {
             yield return new WaitForSeconds(.2f);
             player.rb.sharedMaterial =  player.data.bouncyMat;
-            player.rb.sharedMaterial.bounciness /= (player.rb.mass/2);
+            // player.rb.sharedMaterial.bounciness /= (player.rb.mass/2);
            
         }
         if (!bounceEnabled)
         {
              player.rb.sharedMaterial = null;
+             
         }
-
-        player.transform.Rotate(0, 0, -0.02f * player.GetVel());
+        //player.transform.Rotate(0, 0, -0.02f * player.GetVel());
+    
+        player.rb.rotation +=(-.02f * player.GetVel());
 
         HandleImpactFX();
 
@@ -43,6 +45,7 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
     public Sprite GetIcon()
     {
             //    return player.data.FatRanoIcon;
+            // Debug.Log("haha fortnite  " + (Sprite)Resources.Load("Mod Icons\\BeachBall") is null);
             return (Sprite)Resources.Load("Mod Icons\\BeachBall");
     }
 
@@ -113,7 +116,8 @@ private Vector2 oldDirection;
         
 
         player.jumpRadius += 2;
-        // player.rb.mass /= 2;
+        player.rb.mass -= .5f;
+        player.rb.gravityScale = 3;
         
         player.rb.constraints = UnityEngine.RigidbodyConstraints2D.None;
         player.UpdateSprite(player.data.FatRano); 
