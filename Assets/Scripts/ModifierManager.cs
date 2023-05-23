@@ -7,6 +7,7 @@ using UnityEngine;
 public class ModifierManager
 {
 
+private RanoScript player;
 
     public string name;
     public int difficulty;
@@ -19,21 +20,29 @@ public class ModifierManager
     
 
     {
-         new BerserkModifier(),
-        //  new BeachBallModifier(),
-         new InvertedControlsModifier(),
-         new AdoptionModifier(),
-        //  new DoubleJumpModifier(),
-        //  new DoubleJumpModifier(),
-         new DoubleJumpModifier(),
-        //  new AdoptionModifier(),
-        //  new AdoptionModifier(),
-        //  new AdoptionModifier(),
-        //  new AdoptionModifier(),
+    //      new BerserkModifier(),
+    //      new BeachBallModifier(),
+    //      new InvertedControlsModifier(),
+    //      new DoubleJumpModifier(),
+    //      new WantedManModifier(),
+    //      new WantedManModifier(),
+
+         new WantedManModifier(),
+
+         new WantedManModifier(),
+
+         new WantedManModifier(),
+         new WantedManModifier(),
+         new WantedManModifier(),
+         new WantedManModifier(),
+         new WantedManModifier(),
+
+
+    
 
 
     };
-    public static IModifier[] GetModsToggledOn(IModifier[] mods, List<bool> toggles)
+    public  IModifier[] GetModsToggledOn(IModifier[] mods, List<bool> toggles)
     {
 
         List<IModifier> output = new List<IModifier>();
@@ -52,18 +61,8 @@ public class ModifierManager
     {
         
     }
-    public static void AssignModToggles(List<InspectorModToggle> modTogs)
-    {
-        foreach (var item in commonMods)
-        {
-            modTogs.Append
-            (
-                new InspectorModToggle(item.ToString())
-            );
-        }
-    }
-
-    public static List<IModifier> GenerateRandomMods(int numOfMods)
+ 
+    public  List<IModifier> GenerateRandomMods(int numOfMods)
     {
         var output = new IModifier[numOfMods];
         List<IModifier> copy = commonMods.ToList<IModifier>();

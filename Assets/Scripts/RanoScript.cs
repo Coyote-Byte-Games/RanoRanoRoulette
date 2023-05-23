@@ -10,8 +10,14 @@ public class RanoScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject ActionModBox;
+    public AudioSource AS;
+    public AudioClip[] SFX;
     public Material blurMat;
     public Material blurInvertedMat;
+    
+    
+    public float borderDeathMax;
+    private float borderDeathTimer;
     public Animator animator;
     public GameObject boom;
 
@@ -28,6 +34,7 @@ public class RanoScript : MonoBehaviour
     public string[] tagList;
     public GameObject jumpEffect;
     public LayerMask enemyLayer;
+    public LayerMask borderLayer;
     public Keyboard kb = Keyboard.current;
     public Mouse mouse = Mouse.current;
     public int jumpsRemaining = 1;
@@ -96,13 +103,15 @@ public class RanoScript : MonoBehaviour
     public IEnumerator IFrameFlicker()
     {
         bool switcher = true;
+        var ogColor =   this.transform.GetChild(1).GetComponent<SpriteRenderer>().color;
         while (invincibleTimeLeft > 0)
-        {
+        {   
             this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color - new Color(0,0,0, switcher? 1 : -1);
             switcher = !switcher;
             yield return new WaitForSeconds(.1f);
         }
             // this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color + new Color(0,0,0,1);
+           this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = ogColor;
             yield break;
 
     }
@@ -120,9 +129,9 @@ public class RanoScript : MonoBehaviour
         var col = gameObject.AddComponent<CircleCollider2D>();
 
         GetComponent<CircleCollider2D>().radius = 2;
-        GetComponent<CircleCollider2D>().offset.Set(0, -1.5f);
 
         Destroy(GetComponent<BoxCollider2D>());
+
     }
     public Collider2D GetCollider()
     {
@@ -134,6 +143,8 @@ public class RanoScript : MonoBehaviour
     }
     void Start()
     {
+        //The timer that kills when getting too cozy with the border
+        borderDeathTimer = borderDeathMax;
 
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
@@ -141,6 +152,8 @@ public class RanoScript : MonoBehaviour
         this.Health = maxHP;
 
     }
+
+
     private int _hp;
     private float jumpCooldown;
     public float iFrameDuration;
@@ -178,6 +191,7 @@ public class RanoScript : MonoBehaviour
     {
 
          var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
+         AS.PlayOneShot(SFX[0]); //kaboom
         Destroy(kablooey, .25f);
         Destroy(gameObject);
 
@@ -311,10 +325,12 @@ public class RanoScript : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
+       
         if (col.otherCollider.gameObject.CompareTag("FriendlyAttack"))
         {
             return;
         }
+       
        
         var script = col.gameObject.GetComponent<EnemyTraitScript>();
         if (script is not null)
@@ -330,6 +346,9 @@ public class RanoScript : MonoBehaviour
 
         }
     }
+  
+       
+    
     public void OnTriggerEnter2D(Collider2D col)
     {
  if (col.gameObject.CompareTag("FriendlyAttack"))
@@ -353,7 +372,25 @@ public class RanoScript : MonoBehaviour
     void Update()
     {
 
-        ScreenBoundChecker();
+        if ( Physics2D.OverlapCircle(groundCheck.position, 3, borderLayer))
+        {
+            //TIMES TICKING
+            borderDeathTimer -= Time.deltaTime;
+        }
+        else
+        {
+            //reset
+            borderDeathTimer = borderDeathMax;
+        }
+        if (borderDeathTimer <= 0)
+        {
+            die();
+        }
+        if (transform.position.y < -50)
+        {
+            die();            
+        }
+
         //so rano doesnt get caught
  this.rb.position += new Vector2(0 ,1E-3f);
 
@@ -468,13 +505,7 @@ public class RanoScript : MonoBehaviour
     }    
 #endregion
 
-    private void ScreenBoundChecker()
-    {
-      if (transform.position.y < -50)
-      {
-        die();
-      }
-    }
+
 
     private void ToggleState()
     {
@@ -502,7 +533,7 @@ public class RanoScript : MonoBehaviour
                 break;
             default:
                 //do not modify the turn if no input
-                return;
+               break;
         }
 
         //for toggling bounce on the thing
@@ -517,7 +548,7 @@ public class RanoScript : MonoBehaviour
             {
                 item.SetTrigger("Jump");                
             }
-            jumpCooldown = .03f;
+            jumpCooldown = .02f;
 
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             Instantiate(jumpEffect, groundCheck.position + 1.8f * Vector3.up, Quaternion.identity);
@@ -550,17 +581,8 @@ public class RanoScript : MonoBehaviour
     internal void UpdateSprite(Sprite sprite)
     {
         transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = sprite;
-        SetOutlineSprite(sprite);
     }
-    public void SetOutlineSprite(Sprite sprite)
-    {
-          var outlineSprites = this.transform.GetChild(1).GetChild(0).GetComponentsInChildren<SpriteRenderer>();
-        foreach (var item in outlineSprites)
-        {
-            item.sprite = sprite;
-        }
-    }
-
+   
     public void AddState(IPlayerState state)
     {
         this.playerStates.AddItem(state);

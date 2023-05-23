@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class AutoScroller : MonoBehaviour
 {
+    public GameConfig config;
     public int speed;
-    public int mainZoom = 20;
+    public int mainZoom;
     public int screenWidth; //for setting bounds
     public GameObject player;
     public float momentum; 
@@ -27,6 +28,10 @@ CinemachineVirtualCamera vcam ;
     float width, height;
 
     public int z;
+    public bool IsObjectBehind(GameObject other)
+    {
+        return other.transform.position.x > -width/2;
+    }
     void FindBoundaries()
     {
         width = 1 /(cam.WorldToViewportPoint( cam.ViewportToWorldPoint(new Vector2(0,0), Camera.MonoOrStereoscopicEye.Mono) - Vector3.left).x);//width of screen
@@ -39,6 +44,8 @@ CinemachineVirtualCamera vcam ;
     }
     void Start()
     {
+        mainZoom = config.zoom == 0? mainZoom : config.zoom;
+        speed =  config.scrollSpeed == 0? speed : config.scrollSpeed;
      edge = GetComponent<EdgeCollider2D>();
 
 vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
@@ -70,7 +77,7 @@ vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
         transform.position += new Vector3(speed + momentumAccumulated, 0, 0) * Time.deltaTime;
         transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().position.y- transform.position.y, 0) *10* Time.deltaTime;
         
-
+       
 
 
         Setbounds();

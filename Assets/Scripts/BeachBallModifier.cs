@@ -8,12 +8,13 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
      public bool bounceEnabled; 
      private GameObject slamEffect;
     public float crashThreshold;
+
     
     public IEnumerator ContinuousEffect(RanoScript player)
     {
        for(;;)
        {
-        if (player.Grounded() && player.rb.sharedMaterial == null && bounceEnabled) //if the player isnt bouncy but grounded
+        if (player.Grounded() && player.rb.sharedMaterial == player.data.normalMat && bounceEnabled) //if the player isnt bouncy but grounded
         {
             yield return new WaitForSeconds(.2f);
             player.rb.sharedMaterial =  player.data.bouncyMat;
@@ -22,12 +23,13 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
         }
         if (!bounceEnabled)
         {
-             player.rb.sharedMaterial = null;
+            //lazy fix
+             player.rb.sharedMaterial = player.data.normalMat;
              
         }
         //player.transform.Rotate(0, 0, -0.02f * player.GetVel());
     
-        player.rb.rotation +=(-.02f * player.GetVel());
+        player.transform.GetChild(1).transform.Rotate(0,0,-.14f * player.GetVel(), Space.Self);
 
         HandleImpactFX();
 
@@ -125,7 +127,6 @@ private Vector2 oldDirection;
         player.GetCollider().sharedMaterial = player.data.bouncyMat;
         player.GetComponent<CircleCollider2D>().radius = 2f;
         
-        player.GetComponent<CircleCollider2D>().offset += new Vector2(0,-1.5f);
 
 
         player.AddAction(slamAction);

@@ -12,12 +12,13 @@ public class GameData : ScriptableObject
     public Sprite FatRanoIcon;
     public Animator ranoAnim;
     public PhysicsMaterial2D bouncyMat;
+    public PhysicsMaterial2D normalMat;
     public Sprite FatRano;
     public Shader invertedShader;
 
 
     [SerializeField]
-    public GameObject BerserkSword, AdoptionDog, DJWings;
+    public GameObject BerserkSword, BerserkSwordSheathed, AdoptionDog, DJWings, WantedManPrefab;
 
     #endregion
     //the mods the data starts with
@@ -26,46 +27,16 @@ public class GameData : ScriptableObject
     //the mods currently in the pool.
 
     public int numOfMods;
-    public bool[] modToggles;
-    public List<InspectorModToggle> inspectorModToggles = new List<InspectorModToggle>();
+ 
 
-    public List<bool> getModToggles()
-    {
-        Debug.Log(inspectorModToggles);
-        foreach (var item in inspectorModToggles)
-        {
-            Debug.Log(item.name);
-        }
-        var query = from item in inspectorModToggles select item.enabled;  
-
-        Debug.Log(query);
-        foreach (var item in query)
-        {
-            Debug.Log(query);
-        }
-
-
-        return (List<bool>)query;
-    }
 
     public List<IModifier> mods = new List<IModifier>();
-    public void AssignInspectorModToggles(string[] names, bool[] enables)
-    {
-        int i = 0;
-        foreach (var item in inspectorModToggles)
-        {
-            item.SetName(names[i]);
-            item.SetEnable(enables[i]);
-
-            i++;
-        }
-       
-    }
+    
 
     public void OnEnable()
     {
         numOfMods = StartingModNumber;
-        ModifierManager.AssignModToggles(this.inspectorModToggles);
+       
 
         //assign inspector mod toggles
 

@@ -5,6 +5,7 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
 {
     //the sword
     public GameObject sword = null;
+    public GameObject sheathedSword = null;
     public RanoScript player;
     //todo fix actions, array?
     private BerserkPlayerAction1 action;
@@ -39,8 +40,10 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     public void SetPlayerEffects(RanoScript player)
     {
         //adds berserk sword//!this may be an issue, as it relies on being a scriptable object
-       sword = Instantiate( player.data.BerserkSword,(player.transform.position), Quaternion.identity );
-       sword.transform.SetParent(player.transform.GetChild(1)); 
+       sword = Instantiate( player.data.BerserkSword,(player.transform.position), Quaternion.Euler(0, 0, -217.39f) );
+       sheathedSword = Instantiate( player.data.BerserkSwordSheathed,(player.transform.position), Quaternion.identity );
+       sword.transform.SetParent(player.transform); 
+       sheathedSword.transform.SetParent(player.transform); 
     //    sword.transform.Rotate(0, 0, -90);
        //adds the action of swinging the sword
        player.AddAction(action);

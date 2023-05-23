@@ -172,13 +172,14 @@ GameObject:
   - component: {fileID: 1543954867}
   - component: {fileID: 1125366867}
   - component: {fileID: 1125366861}
+  - component: {fileID: 2713467092282420840}
   m_Layer: 11
   m_Name: Rano
   m_TagString: Player
   m_Icon: {fileID: 2800000, guid: 884be9fe4f866ed47b01c61a8ea8357f, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5435428177351176527
 Transform:
   m_ObjectHideFlags: 0
@@ -209,7 +210,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.20240366}
+  m_Offset: {x: -0.007826805, y: -0.13771111}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -220,8 +221,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.6548073}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.23294067, y: 1.8992518}
+  m_EdgeRadius: 0.49
 --- !u!50 &1543954867
 Rigidbody2D:
   serializedVersion: 4
@@ -272,8 +273,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionModBox: {fileID: 0}
+  AS: {fileID: 0}
+  SFX:
+  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
   blurMat: {fileID: 2100000, guid: d838d1caf9043d34fb2ead5e7f49e7eb, type: 2}
   blurInvertedMat: {fileID: 2100000, guid: ee2a8090732c7774281a9fb09c62ae82, type: 2}
+  borderDeathMax: 2
   animator: {fileID: 40269224}
   boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
   StateModBox: {fileID: 0}
@@ -287,6 +292,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  borderLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   jumpsRemaining: 1
   gameManager: {fileID: 0}
   hearts:
@@ -305,3 +313,81 @@ MonoBehaviour:
     m_Bits: 64
   jumpPower: 70
   iFrameDuration: 1
+--- !u!114 &2713467092282420840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952295967668447974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 0c67d25b6aa57914781932ad873cfcf7, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1125366861}
+        m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18f000ee-f39c-4fc2-b964-0fc1c7c41696
+    m_ActionName: Rano Action Map/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1125366861}
+        m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
+        m_MethodName: OnAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c6e4e4ce-da08-4a63-ac4a-d6b9926d6ef4
+    m_ActionName: Rano Action Map/Action[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a216ad9b-7e62-4d3f-b441-02de92d3b0f8
+    m_ActionName: Rano Action Map/StatusToggle[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25ae6513-62a3-434a-bef7-98072a1b5ab0
+    m_ActionName: Rano Action Map/ChangeStatus[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c3d789ca-ea72-468b-bb2e-5d619a7d1989
+    m_ActionName: Rano Action Map/ChangeAction[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28bd3e8c-74f9-4500-b5e6-d07750b76417
+    m_ActionName: Rano Action Map/Run[/Keyboard/a,/Keyboard/d]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: KB + Mouse
+  m_DefaultActionMap: Rano Action Map
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

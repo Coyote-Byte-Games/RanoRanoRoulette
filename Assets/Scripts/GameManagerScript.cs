@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour
 public string modTimeMessage  = "Time until New Mod";
     private UIManagerScript uiManager;
     public GameObject FlagEndpoint;
+    ModifierManager modMan;
     public GameObject portal;
     public GameObject rano;
     public GameObject TMProModTimeRemaining;
@@ -27,6 +28,8 @@ public string modTimeMessage  = "Time until New Mod";
     public Tile[] garnishTiles;
     public Tilemap Tilemap;
     public Tilemap bgTilemap;
+public AudioSource audioSource;
+
     
     public Texture2D[] sliceTextures;
     [UnityEngine.Header("Level Generation")]
@@ -102,7 +105,6 @@ public string modTimeMessage  = "Time until New Mod";
     void Start()
     {
         StartCoroutine(nameof(CreateRano));
-
         LevelGenerator.manager = this;
         wheelScript = WheelPrefab.GetComponent<WheelScript>();
         StartCoroutine(nameof(BeginNewMod));
@@ -128,13 +130,14 @@ public string modTimeMessage  = "Time until New Mod";
     }
     void OnEnable()
     {
-        ModifierManager.AssignModToggles(data.inspectorModToggles);
+        // modMan.AssignModToggles(data.inspectorModToggles);
 
     }
     void Awake()
     {
+        modMan = new ModifierManager();
 
-        data.mods = ModifierManager.GenerateRandomMods(data.numOfMods);
+        data.mods = modMan.GenerateRandomMods(data.numOfMods);
         // Debug.Log(data.mods[0]);
         // Debug.Log(Color.white.ToString("F2"));
         

@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class BerserkPlayerAction1 : IPlayerAction
 {
-    public int activeDuration = 1;
+    public float activeDuration = 1.5f;
     GameObject sword;
+    //for the sheathing
+    GameObject swordDisplay;
     private BerserkModifier mod;
     private Rigidbody2D rb;
     public BerserkPlayerAction1(BerserkModifier modSource)
@@ -15,19 +17,33 @@ public class BerserkPlayerAction1 : IPlayerAction
         this.mod = modSource;
     }
 
-  public IEnumerator ActiveCycle()
-  {
+private void SheatheSword()
+{
+sword.GetComponentInChildren<SpriteRenderer>().enabled = false;
+    sword.GetComponent<BoxCollider2D>().enabled = false;
+
+swordDisplay.SetActive( true);
+}
+private void DrawSword()
+{
     sword.GetComponentInChildren<SpriteRenderer>().enabled = true;
     sword.GetComponent<BoxCollider2D>().enabled = true;
-    yield return new WaitForSeconds(activeDuration);
 
-    sword.GetComponentInChildren<SpriteRenderer>().enabled = false;
-    sword.GetComponent<BoxCollider2D>().enabled = false;
+swordDisplay.SetActive( false);
+}
+
+  public IEnumerator ActiveCycle()
+  {
+    DrawSword();
+    yield return new WaitForSeconds(activeDuration);
+    SheatheSword();
     yield break;
 
   }
     void IPlayerAction.Run()
     {
+        //To allow for restarting in case of double jump
+        mod.player.StopCoroutine(ActiveCycle());
         mod.player.StartCoroutine(ActiveCycle());
         // rb = sword.GetComponent<Rigidbody2D>();
         mod.player.animator.SetTrigger("Jump");
@@ -37,16 +53,17 @@ public class BerserkPlayerAction1 : IPlayerAction
         }
         mod.player.jumpsRemaining -= 1;
         sword = ((GameObject)mod.sword);
+        swordDisplay = ((GameObject)mod.sheathedSword);
         //freezes the player rotation so the sword can be aimed with modifers that affect rotation (beach ball, etc.)
         mod.player.rb.freezeRotation = true;
         
         //creates a motion blur-like effect
         mod.player.StartCoroutine( mod.player.GenerateTrail(4, 1));
         Vector2 camDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mod.player.transform.position).normalized;
-        float angle = Mathf.Atan2(camDir.y, camDir.x) * Mathf.Rad2Deg - mod.player.transform.GetChild(1).rotation.eulerAngles.z;
+        float angle = Mathf.Atan2(camDir.y, camDir.x) * Mathf.Rad2Deg - mod.player.transform.rotation.eulerAngles.z;
       
 
-        var inbet = ((mod.player.transform.GetChild(1).InverseTransformVector(camDir)));
+        var inbet = ((mod.player.transform.InverseTransformVector(camDir)));
 
       
        

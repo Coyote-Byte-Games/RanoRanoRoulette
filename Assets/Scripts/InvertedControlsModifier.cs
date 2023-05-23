@@ -7,6 +7,10 @@ public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovement
     public RanoScript player;
     public IEnumerator ContinuousEffect(RanoScript RanoScript)
     {
+
+    //     foreach(var elem in player.gameObject.GetComponentsInChildren<SpriteRenderer>()){
+    //      elem.material.shader = player.data.invertedShader;}
+    //    yield return new WaitForSeconds(player.gameManager.modifierInterval + .01f);
        yield break;
     }
 
