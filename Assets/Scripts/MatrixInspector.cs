@@ -1,5 +1,7 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
+
 
 //for now we'll just put in sprite
 [CustomPropertyDrawer(typeof(ArrayLayout<>))]
@@ -27,7 +29,7 @@ public class MatrixInspector : PropertyDrawer
         int rowCount = property.FindPropertyRelative("rowCount").intValue;
         int colCount = property.FindPropertyRelative("colCount").intValue;
         SerializedProperty matrix = property.FindPropertyRelative("rows");
-        Debug.Log(matrix is null);
+        
         for (int j = 0; j < rowCount; j++)
         {
 
@@ -59,3 +61,4 @@ public class MatrixInspector : PropertyDrawer
 
     }
 }
+#endif

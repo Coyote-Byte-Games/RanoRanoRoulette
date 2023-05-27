@@ -7,5 +7,6 @@ public class GameConfig : ScriptableObject
 {
     public int zoom;
     public int scrollSpeed;
+    public bool usingMouse;
   
 }

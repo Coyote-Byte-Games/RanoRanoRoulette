@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-public class DoubleJumpModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier
+public class DoubleJumpModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, IBorderlineFlight
 {
     private RanoScript player;
     public GameObject wings = null;

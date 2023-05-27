@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEngine.Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -10,11 +11,22 @@ public class GameManagerScript : MonoBehaviour
 public string modTimeMessage  = "Time until New Mod";
     private UIManagerScript uiManager;
     public GameObject FlagEndpoint;
+     [SerializeField]
+    // public UnityEvent<GameObject, Vector2> InstantiateUE;
+   
+
     ModifierManager modMan;
+    public Vector3 defaultSpawnLocation;
+    public GameConfig config;
     public GameObject portal;
     public GameObject rano;
     public GameObject TMProModTimeRemaining;
     public GameObject testEnemy;
+    
+    [SerializeField]
+    public ModifierSO[] modSOs;
+    public GameObject button;
+    public GameObject wall;
     public LevelGenerator LevelGenerator;
     public int numberOfChunks;
     public Image gameOverFade;
@@ -39,14 +51,19 @@ public AudioSource audioSource;
       
       element.text = $"{defaultTextVal} {timeRemaining.ToString("F1")}";
     }
+    public void CleanupAfterRanoKeelsOver()
+    {
+        modMan.Reset();
+        data.Reset();
+    }
   
-    public IEnumerator CreateRano()
+    public IEnumerator CreateRano(Vector3 spawnLocation)
     {
         yield return new WaitForSeconds(1);
-          var port = Instantiate(portal, new Vector3(-10,5,0) ,Quaternion.identity);
+          var port = Instantiate(portal, spawnLocation ,Quaternion.identity);
         yield return new WaitForSeconds(1);
         rano.SetActive(true);
-        rano.transform.position = new Vector3(-10,5,0);
+        rano.transform.position = spawnLocation;
         rano.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10000));
         yield return new WaitForSeconds(.75f);
         Destroy(port);
@@ -69,7 +86,40 @@ public AudioSource audioSource;
         }
        
     }
-    void GetCurrentLevelTheme()
+    public void SpawnButton(float x, float y, GameObject parent)
+    {
+        try
+        {
+            var buttonInstance = Instantiate(button, new Vector3(x,y,0) ,Quaternion.identity, parent.transform);
+            //use the parent gameobject to parent this and any other trap instances to the same parent object
+        }
+        catch (System.Exception e)
+        {
+            
+            throw e;
+        }
+       
+    }
+ 
+    
+    
+     public void SpawnWall(float x, float y, GameObject parent)
+    {
+        try
+        {
+            var wallInstance = Instantiate(wall, new Vector3(x,y,0) ,Quaternion.identity, parent.transform);
+            // wallInstance.transform.SetParent(parent.transform);
+        }
+
+        catch (System.Exception e)
+        {
+            
+            throw e;
+        }
+       
+    }
+    //doing this for the unityEvent
+       void GetCurrentLevelTheme()
     {
 
     }
@@ -82,7 +132,7 @@ public AudioSource audioSource;
     {
         for (;;)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(.1f);
         gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
             yield return new WaitForSeconds(1.75f);
             SceneManager.LoadScene("GameOverScene");
@@ -104,7 +154,10 @@ public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(nameof(CreateRano));
+        //To use instantiate
+        // InstantiateUE.AddListener(( GameObject go, Vector2 pos) => Instantiate(go, pos, Quaternion.identity));
+
+        StartCoroutine((CreateRano(defaultSpawnLocation)));
         LevelGenerator.manager = this;
         wheelScript = WheelPrefab.GetComponent<WheelScript>();
         StartCoroutine(nameof(BeginNewMod));
@@ -128,6 +181,7 @@ public AudioSource audioSource;
         }
 
     }
+    
     void OnEnable()
     {
         // modMan.AssignModToggles(data.inspectorModToggles);
@@ -136,6 +190,7 @@ public AudioSource audioSource;
     void Awake()
     {
         modMan = new ModifierManager();
+        modMan.NabCommonMods(modSOs);
 
         data.mods = modMan.GenerateRandomMods(data.numOfMods);
         // Debug.Log(data.mods[0]);
@@ -201,6 +256,7 @@ public AudioSource audioSource;
         //     case Cutscene.LEVEL_VICTORY:
         //     default: throw new NotImplementedException();
         // }
+        CleanupAfterRanoKeelsOver();
         GameOver();
     }
 }

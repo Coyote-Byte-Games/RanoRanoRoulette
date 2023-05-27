@@ -3,21 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTraitScript :EntityBaseScript, IEnemy
+public class EnemyTraitScript :EntityBaseScript
 {
   
-    public int damage = 1;
-    
-       public int GetDamage()
+    public void Start()
     {
-       return damage;
+        
     }
-
-    public float GetKB()
-    {
-      return knockBack;
-    }
-
     public void OnCollisionEnter2D(Collision2D other)
     {
         if(other.collider.CompareTag("FriendlyAttack"))

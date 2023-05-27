@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -86,7 +87,13 @@ public class RanoScript : MonoBehaviour
     ////     }
     void Awake()
     {
-
+        this.playerActions = new PlayerInfoV2<IPlayerAction>();
+        this.playerStates = new PlayerInfoV2<IPlayerState>();
+        
+    }
+    public void IWantRanosHead()
+    {
+        die();
     }
     void createOutLineBlur()
     {
@@ -189,7 +196,7 @@ public class RanoScript : MonoBehaviour
 
     private void die()
     {
-
+        gameManager.CleanupAfterRanoKeelsOver();
          var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
          AS.PlayOneShot(SFX[0]); //kaboom
         Destroy(kablooey, .25f);
@@ -303,9 +310,23 @@ public class RanoScript : MonoBehaviour
 
         //   Destroy(box, 1);
     }
+    public void AddModifier(ModifierSO modSO)
+    {
+        AddModifier(modSO.GetModifier());
+    }
+         public static bool IsPointerOverUIObject()
+     {
+        bool noUIcontrolsInUse = EventSystem.current.currentSelectedGameObject == null;
+        return !noUIcontrolsInUse;
+     }
+     
     public void AddModifier(IModifier mod)//! this may be broken, idk
     {
 
+        if (mods.Contains(mod))
+        {
+            return;
+        }
         this.mods.Add(mod);
         mod.SetPlayer(this);
         mod.OnStartEffect(this);
@@ -332,10 +353,19 @@ public class RanoScript : MonoBehaviour
         }
        
        
-        var script = col.gameObject.GetComponent<EnemyTraitScript>();
+        var script = col.gameObject.GetComponent<DamagingObjectScript>();
+        Debug.Log(col.gameObject.name);
         if (script is not null)
         {
-            Vector2 directionToEnemy = (rb.position - col.rigidbody.position).normalized;
+             Vector2 directionToEnemy;
+            if (script.knockBackOverride != Vector2.zero)
+            {
+                 directionToEnemy = Vector2.right;
+            }
+            else
+            {
+                directionToEnemy = (rb.position - col.rigidbody.position).normalized;                
+            }
             rb.AddForce(directionToEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
             if (invincibleTimeLeft > 0)
             {
@@ -356,7 +386,7 @@ public class RanoScript : MonoBehaviour
             return;
         }
        
-        var script = col.gameObject.GetComponent<EnemyTraitScript>();
+        var script = col.gameObject.GetComponent<DamagingObjectScript>();
         if (script is not null)
         {
             if (invincibleTimeLeft > 0)
@@ -458,7 +488,10 @@ public class RanoScript : MonoBehaviour
         }
         if (mouse.leftButton.wasPressedThisFrame)
         {
+            if (!IsPointerOverUIObject())
+            {
             OnAction();
+            }
         }
         if (mouse.rightButton.wasPressedThisFrame)
         {

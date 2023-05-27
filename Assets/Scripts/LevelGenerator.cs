@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -112,6 +113,7 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
 }
     public void GenerateLevelChunk(Texture2D[] slices, int iteration = 0)
     {
+        GameObject trapParent = new GameObject();
         //iteration is iteration; controls an x offset, basically
         var slice = slices[iteration];
         // get a slice to generate from
@@ -137,28 +139,29 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
             {
                 Color color = slice.GetPixel(x - relativeZero, y);
                 //  RuleTile toSet;
-                switch (color.ToString("F2"))
+                
+                switch (ColorUtility.ToHtmlStringRGBA(color))
                 {
-                    case "RGBA(1.00, 1.00, 1.00, 1.00)": //white
+                    case "FFFFFFFF": //white
                         Tilemap.SetTile(new Vector3Int(x, y, 0), null);
                         break;
                     //whitespace(nothing)
-                    case "RGBA(0.00, 0.00, 0.00, 1.00)": //black
+                    case "000000FF": //black
                                                          //Place a tile right here
 
                         Tilemap.SetTile(new Vector3Int(x, y, 0), currentLevelTile);
 
 
                         break;
-                    case "RGBA(1.00, 0.00, 0.00, 1.00)": //sheer red    //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
+                    case "FF0000FF": //sheer red    //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
                                                          //Place an enemy
                         manager.SpawnEnemy(x, y-15);
                         break;
-                     case "RGBA(0.00, 0.00, 1.00, 1.00)": //sheer blue   //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
+                     case "0000FFFF": //sheer blue   //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
                                                          //Place the first 
                         SpawnTrap(x, y-15, traps[0]);
                         break;
-                         case "RGBA(0.00, 1.00, 0.00, 1.00)": //sheer green
+                         case "00FF00FF": //sheer green
                                                          //Will place some type of shrubbery
 
                         int rando = UnityEngine.Random.Range(0, currentLevelgarnishTiles.Length - 1);
@@ -167,9 +170,26 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
 
 
                         break;
-                         case "RGBA(1.00, 0.00, 1.00, 1.00)": //porpol
+                         case "FF00FFFF": //porpol
                                                          //Will place walls
                           bgTilemap.SetTile(new Vector3Int(x, y, 0), currentLevelBGTile);
+
+
+                        break;
+                           case "009600FF": //Dark green
+                                                         //Will place details below the level
+                           Tilemap.SetTile(new Vector3Int(x, y, 0), null);
+
+
+                        break;    
+                        case "FF9600FF": //Orange
+                                                         //Will place a button, offset because tiles are gross
+                        manager.SpawnButton(x-4.5f, y-34.5f, trapParent);
+
+                        break;
+                         case "000094FF": //Dark Blue
+                                                         //Will place a trapped wall. This will be triggered by any orange (button) tiles
+                        manager.SpawnWall(x-2.5f, y-39, trapParent);
 
 
                         break;
@@ -180,7 +200,7 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
                         }
                         else
                         {
-                            throw new System.ArgumentNullException($"Level Generation Malformation: Illegal Argument of {color.ToString("F2")}");
+                            throw new System.ArgumentNullException($"Level Generation Malformation: Illegal Argument of {ColorUtility.ToHtmlStringRGBA(color)} at {x}, {y}");
                         }
                         break;
 
@@ -203,3 +223,58 @@ public void GenerateLevelEndpoint(Texture2D[] slices, int iteration = 0)
     }
 
 }
+#region scrapped color bit
+    //    switch (ColorUtility.ToHtmlStringRGBA(color))
+    //             {
+    //                 case "RGBA(1.00, 1.00, 1.00, 1.00)": //white
+    //                     Tilemap.SetTile(new Vector3Int(x, y, 0), null);
+    //                     break;
+    //                 //whitespace(nothing)
+    //                 case "RGBA(0.00, 0.00, 0.00, 1.00)": //black
+    //                                                      //Place a tile right here
+
+    //                     Tilemap.SetTile(new Vector3Int(x, y, 0), currentLevelTile);
+
+
+    //                     break;
+    //                 case "RGBA(1.00, 0.00, 0.00, 1.00)": //sheer red    //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
+    //                                                      //Place an enemy
+    //                     manager.SpawnEnemy(x, y-15);
+    //                     break;
+    //                  case "RGBA(0.00, 0.00, 1.00, 1.00)": //sheer blue   //!Please note: Colors are on a scale of 0-1; every color will be equivalent to color/255!
+    //                                                      //Place the first 
+    //                     SpawnTrap(x, y-15, traps[0]);
+    //                     break;
+    //                      case "RGBA(0.00, 1.00, 0.00, 1.00)": //sheer green
+    //                                                      //Will place some type of shrubbery
+
+    //                     int rando = UnityEngine.Random.Range(0, currentLevelgarnishTiles.Length - 1);
+
+    //                       bgTilemap.SetTile(new Vector3Int(x, y, 0), currentLevelgarnishTiles[rando]);
+
+
+    //                     break;
+    //                      case "RGBA(1.00, 0.00, 1.00, 1.00)": //porpol
+    //                                                      //Will place walls
+    //                       bgTilemap.SetTile(new Vector3Int(x, y, 0), currentLevelBGTile);
+
+
+    //                     break;
+    //                        case $"RGBA(1.00, 0.00, 1.00, 1.00)": //Dark green
+    //                                                      //Will place details below the level
+    //                       bgTilemap.SetTile(new Vector3Int(x, y, 0), currentLevelBGTile);
+
+
+    //                     break;
+    //                 default:
+    //                     if (color.a == 0)//nothing there
+    //                     {
+    //                         Tilemap.SetTile(new Vector3Int(x, y, 0), null);
+    //                     }
+    //                     else
+    //                     {
+    //                         throw new System.ArgumentNullException($"Level Generation Malformation: Illegal Argument of {color.ToString("F2")}");
+    //                     }
+    //                     break;
+
+#endregion

@@ -88,7 +88,7 @@ swordDisplay.SetActive( false);
 
 
 
-        mod.player.rb.AddForce(5000 * camDir);
+        mod.player.rb.AddForce(6500 * camDir);
     }
 
     private IEnumerator MoveSwordInDir(Vector3 end)

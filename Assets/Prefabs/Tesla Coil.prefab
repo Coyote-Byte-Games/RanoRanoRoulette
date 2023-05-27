@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1993060843613911442}
   - component: {fileID: -3344110159417105392}
-  - component: {fileID: 4389135693502433414}
+  - component: {fileID: -7614803385026591241}
   m_Layer: 9
   m_Name: Tesla Coil
   m_TagString: Untagged
@@ -191,8 +191,8 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
   renderer: {fileID: 3805981402458636237}
-  length: 10
---- !u!114 &4389135693502433414
+  length: 19
+--- !u!114 &-7614803385026591241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,12 +201,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8259558364007026521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
+  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   knockBack: 555
-  health: 0
-  boom: {fileID: 0}
-  AS: {fileID: 0}
-  SFX: []
   damage: 1

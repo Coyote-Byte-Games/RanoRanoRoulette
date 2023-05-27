@@ -17,6 +17,7 @@ public class TeslaCoilScript : MonoBehaviour
     public ArrayLayout<Sprite> layout = new ArrayLayout<Sprite>(4,7);
     // Start is called before the first frame update [Space(18)]
     public GameObject renderer;
+    public BoxCollider2D longStick;
     //length of beam
     public int length;
     //The point is to use the rows on repeat to create the line cont. Using the columns to animate
@@ -24,15 +25,14 @@ public class TeslaCoilScript : MonoBehaviour
     {
         //get the number of slices demanded
         int demand = length;
+        longStick.size = new Vector2(5, demand*7);
         //Grab the corresponding sprites, apply them to corresponding gameobjects
           slices = new GameObject[demand];
         for (int i = 0; i < demand; i++)
         {
           
           //this is shit
-            slices[i] = new GameObject($"LightningLink{i}", typeof(BoxCollider2D), typeof(SpriteRenderer), typeof(EnemyTraitScript));
-            slices[i].GetComponent<EnemyTraitScript>().knockBack = 555;
-            slices[i].GetComponent<BoxCollider2D>().size = new Vector2(3,3);
+            slices[i] = new GameObject($"LightningLink{i}", typeof(BoxCollider2D), typeof(SpriteRenderer));
             slices[i].GetComponent<SpriteRenderer>().sprite = 
             layout.GetIndex(0, i % layout.rowCount);
         //parent the renderer to these gameobjects
@@ -60,7 +60,6 @@ public class TeslaCoilScript : MonoBehaviour
        {
         slices[i].GetComponent<SpriteRenderer>().sprite = 
         layout.GetIndex(x%layout.colCount, i % layout.rowCount);
-        Debug.Log(x);
         x+= 1;
        }
       

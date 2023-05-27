@@ -47,7 +47,7 @@ public class  BerserkModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     //    sword.transform.Rotate(0, 0, -90);
        //adds the action of swinging the sword
        player.AddAction(action);
-       player.rb.mass += .5f;
+       player.rb.mass += .25f;
        player.jumpPower /= 20;
     }
     public void SetRotation(int arg)

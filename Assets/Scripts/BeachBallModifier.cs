@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, IAnimationOverrideModifier, IFreeRotationModifier
+public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifier, IJumpModifier, IAnimationOverrideModifier, IFreeRotationModifier, IBorderlineFlight
 {
     public RanoScript player;
     private BeachBallPlayerAction1 slamAction;

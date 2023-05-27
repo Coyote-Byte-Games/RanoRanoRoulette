@@ -82,6 +82,11 @@ vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
 
         Setbounds();
        
+       //also kill any ranos that fall behind
+       if ((player.transform.position.x + 50) < this.transform.position.x)
+       {
+        player.GetComponent<RanoScript>().IWantRanosHead();
+       }
 
     }
 }

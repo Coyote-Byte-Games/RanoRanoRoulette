@@ -23,7 +23,7 @@ public class GameData : ScriptableObject
     #endregion
     //the mods the data starts with
     [SerializeField]
-    private int StartingModNumber;
+    private int startingModNumber;
     //the mods currently in the pool.
 
     public int numOfMods;
@@ -31,11 +31,14 @@ public class GameData : ScriptableObject
 
 
     public List<IModifier> mods = new List<IModifier>();
-    
+     public void Reset()
+    {
+        numOfMods = startingModNumber;
+    }
 
     public void OnEnable()
     {
-        numOfMods = StartingModNumber;
+        numOfMods = startingModNumber;
        
 
         //assign inspector mod toggles
@@ -55,6 +58,7 @@ public struct InspectorModToggle
     public string name;
     public bool enabled;
     // public IModifier mod;//not relevant atm
+   
     public void SetName(string name)
     {
         this.name = name;

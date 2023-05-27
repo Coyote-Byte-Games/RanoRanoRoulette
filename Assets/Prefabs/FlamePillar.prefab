@@ -430,9 +430,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3506500055839874642}
   - component: {fileID: -1803666736586869843}
-  - component: {fileID: -6205850334031317837}
   - component: {fileID: 7246977695319881491}
   - component: {fileID: -5504050671582219261}
+  - component: {fileID: 4608811020082069859}
   m_Layer: 9
   m_Name: FlamePillar
   m_TagString: Untagged
@@ -473,20 +473,6 @@ MonoBehaviour:
   rotationSpeed: 60
   child: {fileID: 0}
   segmentPrefab: {fileID: 1977160804025240316, guid: a2679917933a8f942a6278824a7ea8df, type: 3}
---- !u!114 &-6205850334031317837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599508599837604904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 100
-  damage: 1
 --- !u!50 &7246977695319881491
 Rigidbody2D:
   serializedVersion: 4
@@ -529,6 +515,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4608811020082069859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599508599837604904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 2
+  damage: 1
+  knockBackOverride: {x: 0, y: 0}
 --- !u!1 &5954433805954580513
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8875851480387651417}
   - component: {fileID: 1647865675824736415}
-  - component: {fileID: 9046502742710311455}
+  - component: {fileID: 375175498889073153}
   m_Layer: 9
   m_Name: Extrusion
   m_TagString: Untagged
@@ -764,7 +765,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 7.735813}
   m_EdgeRadius: 0
---- !u!114 &9046502742710311455
+--- !u!114 &375175498889073153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -773,11 +774,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7352392240345383450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
+  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   knockBack: 0
   damage: 1
+  knockBackOverride: {x: 0, y: 0}
 --- !u!1 &7352528558230147031
 GameObject:
   m_ObjectHideFlags: 0

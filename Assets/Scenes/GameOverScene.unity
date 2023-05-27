@@ -285,7 +285,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1017878094}
         m_TargetAssemblyTypeName: MenuScript, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -366,10 +366,10 @@ RectTransform:
   m_Father: {fileID: 609490633}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 2.82}
+  m_SizeDelta: {x: 174, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &241627163
 MonoBehaviour:
@@ -391,7 +391,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"I AM A COWARD"'
+  m_text: IM BORED AND I HATE THIS GAME. WHY DID YOU EVEN MAKE THIS? DON'T CALL ME
+    A "COWARD," YOU WOULDN'T KNOW COWARDICE IF IT SPAT YOU IN THE FACE.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e8ea7faf2d431842b8d3162127aa3c8, type: 2}
   m_sharedMaterial: {fileID: 736811906574410433, guid: 6e8ea7faf2d431842b8d3162127aa3c8, type: 2}
@@ -726,8 +727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 113.48233, y: 0}
+  m_SizeDelta: {x: 173.0354, y: 230.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &609490634
 MonoBehaviour:
@@ -775,7 +776,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1017878094}
         m_TargetAssemblyTypeName: MenuScript, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

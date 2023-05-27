@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class EntityBaseScript : MonoBehaviour
 {
-    public float knockBack;
+   
     public int health = 1;
     public GameObject boom;
       public AudioSource AS;
     public AudioClip[] SFX;
+
 
     internal void die()
     {
