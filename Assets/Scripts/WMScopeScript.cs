@@ -38,12 +38,12 @@ public class WMScopeScript : MonoBehaviour
     }
     IEnumerator Behaviour()
     {
-        //Give it 3 seconds to exist before taking action
+        //Give it x seconds to exist before taking action
         var one = 2f;
         yield return new WaitForSeconds(one);
         //Play eeiree sfx
         source.PlayOneShot(creepySFX, 1 );
-        yield return new WaitForSeconds(5-one);
+        yield return new WaitForSeconds(4.5f-one);
         //fire
         Fire();
         Destroy(gameObject, 0.3f);

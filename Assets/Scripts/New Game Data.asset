@@ -24,5 +24,5 @@ MonoBehaviour:
   AdoptionDog: {fileID: 5515144230729076906, guid: 1a146e29823803246977da629eab57fa, type: 3}
   DJWings: {fileID: 1778335476704578764, guid: e765c2216ba08ed4f8b039cbb5ec726b, type: 3}
   WantedManPrefab: {fileID: 9111670419681932042, guid: 216d263b805340543abe49872995bf62, type: 3}
-  startingModNumber: 0
-  numOfMods: 0
+  startingModNumber: 4
+  numOfMods: 4

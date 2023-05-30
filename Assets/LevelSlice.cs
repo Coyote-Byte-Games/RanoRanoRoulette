@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[CreateAssetMenu(menuName = "My Assets/Level Slice")]
 public class LevelSlice : ScriptableObject
 {
+    public const int minDifficulty = 1;
+    public const int maxDifficulty = 5;
+    
     public Texture2D texture;
-    [Range(1,5)]
+    [Range(minDifficulty,maxDifficulty)]
     public int difficulty;
     void Start()
     {

@@ -15,8 +15,8 @@ public class RanoScript : MonoBehaviour
     public AudioClip[] SFX;
     public Material blurMat;
     public Material blurInvertedMat;
-    
-    
+
+
     public float borderDeathMax;
     private float borderDeathTimer;
     public Animator animator;
@@ -89,7 +89,6 @@ public class RanoScript : MonoBehaviour
     {
         this.playerActions = new PlayerInfoV2<IPlayerAction>();
         this.playerStates = new PlayerInfoV2<IPlayerState>();
-        
     }
     public void IWantRanosHead()
     {
@@ -98,36 +97,37 @@ public class RanoScript : MonoBehaviour
     void createOutLineBlur()
     {
         GameObject trail = new GameObject();
-    
+
         var renderer = trail.AddComponent<SpriteRenderer>();
-            renderer.sprite = transform.GetChild(1).GetComponent<SpriteRenderer>().sprite;
-        renderer.material =  controlInversion == -1? blurInvertedMat :blurMat;
-        renderer.color = new Color(1,1,1,.5f);
+        renderer.sprite = transform.GetChild(1).GetComponent<SpriteRenderer>().sprite;
+        renderer.material = controlInversion == -1 ? blurInvertedMat : blurMat;
+        renderer.color = new Color(1, 1, 1, .5f);
         var trailInstance = Instantiate(trail, transform.position, transform.rotation);
+        Destroy(trail);
         Destroy(trailInstance, .3f);
-        
+
     }
     public IEnumerator IFrameFlicker()
     {
         bool switcher = true;
-        var ogColor =   this.transform.GetChild(1).GetComponent<SpriteRenderer>().color;
+        var ogColor = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color;
         while (invincibleTimeLeft > 0)
-        {   
-            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color - new Color(0,0,0, switcher? 1 : -1);
+        {
+            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color - new Color(0, 0, 0, switcher ? 1 : -1);
             switcher = !switcher;
             yield return new WaitForSeconds(.1f);
         }
-            // this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color + new Color(0,0,0,1);
-           this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = ogColor;
-            yield break;
+        // this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color + new Color(0,0,0,1);
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = ogColor;
+        yield break;
 
     }
     public IEnumerator GenerateTrail(int cycles, int intensity)
     {
         for (int i = 0; i < cycles; i++)
         {
-        createOutLineBlur();
-        yield return new WaitForSeconds(.1f / intensity) ;   
+            createOutLineBlur();
+            yield return new WaitForSeconds(.1f / intensity);
         }
         yield break;
     }
@@ -160,6 +160,7 @@ public class RanoScript : MonoBehaviour
 
     }
 
+   
 
     private int _hp;
     private float jumpCooldown;
@@ -197,8 +198,8 @@ public class RanoScript : MonoBehaviour
     private void die()
     {
         gameManager.CleanupAfterRanoKeelsOver();
-         var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
-         AS.PlayOneShot(SFX[0]); //kaboom
+        var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
+        AS.PlayOneShot(SFX[0]); //kaboom
         Destroy(kablooey, .25f);
         Destroy(gameObject);
 
@@ -214,8 +215,7 @@ public class RanoScript : MonoBehaviour
         this.playerActions.AddItem(action);
         try
         {
-            Debug.Log(playerActions.GetItem() is null ? "actions null" : "actions not null");
-            Debug.Log(playerActions.GetItem().GetIcon() is null ? "icons null" : "icons not null");
+          
             ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
         catch (System.NullReferenceException e)
@@ -237,7 +237,7 @@ public class RanoScript : MonoBehaviour
         playerActions.ChangeItem();
         try
         {
-            Debug.Log(playerActions.GetItem() is null ? "null is the thing": "null is NOT the thing");
+            Debug.Log(playerActions.GetItem() is null ? "null is the thing" : "null is NOT the thing");
             ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
         catch (System.Exception e)
@@ -314,16 +314,19 @@ public class RanoScript : MonoBehaviour
     {
         AddModifier(modSO.GetModifier());
     }
-         public static bool IsPointerOverUIObject()
-     {
+    public static bool IsPointerOverUIObject()
+    {
         bool noUIcontrolsInUse = EventSystem.current.currentSelectedGameObject == null;
         return !noUIcontrolsInUse;
-     }
-     
+    }
+    public void Freeze()
+    {
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+    }
     public void AddModifier(IModifier mod)//! this may be broken, idk
     {
 
-        if (mods.Contains(mod))
+        if (mods.Any(item => item.GetType() == ((mod).GetType())))
         {
             return;
         }
@@ -342,29 +345,37 @@ public class RanoScript : MonoBehaviour
     {
 
         return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
-        
+
+    }
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.layer == groundLayer)
+        {
+            jumpsRemaining--;
+            jumpCooldown = .02f;
+        }
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-       
+
         if (col.otherCollider.gameObject.CompareTag("FriendlyAttack"))
         {
             return;
         }
-       
-       
+
+
         var script = col.gameObject.GetComponent<DamagingObjectScript>();
         Debug.Log(col.gameObject.name);
         if (script is not null)
         {
-             Vector2 directionToEnemy;
+            Vector2 directionToEnemy;
             if (script.knockBackOverride != Vector2.zero)
             {
-                 directionToEnemy = Vector2.right;
+                directionToEnemy = Vector2.right;
             }
             else
             {
-                directionToEnemy = (rb.position - col.rigidbody.position).normalized;                
+                directionToEnemy = (rb.position - col.rigidbody.position).normalized;
             }
             rb.AddForce(directionToEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
             if (invincibleTimeLeft > 0)
@@ -376,16 +387,16 @@ public class RanoScript : MonoBehaviour
 
         }
     }
-  
-       
-    
+
+
+
     public void OnTriggerEnter2D(Collider2D col)
     {
- if (col.gameObject.CompareTag("FriendlyAttack"))
+        if (col.gameObject.CompareTag("FriendlyAttack"))
         {
             return;
         }
-       
+
         var script = col.gameObject.GetComponent<DamagingObjectScript>();
         if (script is not null)
         {
@@ -396,39 +407,27 @@ public class RanoScript : MonoBehaviour
             TakeDamage(script.GetDamage(), true);
             // TakeDamage(script.GetDamage(), true);
 
-    }}
+        }
+    }
     //tracking for the Slam that occurs when rano hits something at a high velocity
     // private Vector2 oldDirection;
     void Update()
     {
 
-        if ( Physics2D.OverlapCircle(groundCheck.position, 3, borderLayer))
-        {
-            //TIMES TICKING
-            borderDeathTimer -= Time.deltaTime;
-        }
-        else
-        {
-            //reset
-            borderDeathTimer = borderDeathMax;
-        }
-        if (borderDeathTimer <= 0)
+
+        if (transform.position.y < -50)
         {
             die();
         }
-        if (transform.position.y < -50)
-        {
-            die();            
-        }
 
         //so rano doesnt get caught
- this.rb.position += new Vector2(0 ,1E-3f);
+        this.rb.position += new Vector2(0, 1E-3f);
 
-       if (mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IAnimationOverrideModifier))))
-       {
-        animator.enabled = false;
-       }
-        
+        if (mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IAnimationOverrideModifier))))
+        {
+            animator.enabled = false;
+        }
+
 
         // #region speedSlam
 
@@ -454,11 +453,11 @@ public class RanoScript : MonoBehaviour
         // #endregion
 
 
-#region Sprite
-    
-// SetOutlineSprite(this.GetComponentInChildren<SpriteRenderer>().sprite);
+        #region Sprite
 
-#endregion
+        // SetOutlineSprite(this.GetComponentInChildren<SpriteRenderer>().sprite);
+
+        #endregion
 
         if (rb.velocity.magnitude > maxSpeed)
         {
@@ -475,14 +474,14 @@ public class RanoScript : MonoBehaviour
         }
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
-   
-      
+
+
         //pain
         if (kb.qKey.wasPressedThisFrame)
         {
             OnStatusToggle();
         }
-         if (kb.eKey.wasPressedThisFrame)
+        if (kb.eKey.wasPressedThisFrame)
         {
             OnChangeStatus();
         }
@@ -490,7 +489,7 @@ public class RanoScript : MonoBehaviour
         {
             if (!IsPointerOverUIObject())
             {
-            OnAction();
+                OnAction();
             }
         }
         if (mouse.rightButton.wasPressedThisFrame)
@@ -501,42 +500,42 @@ public class RanoScript : MonoBehaviour
 
     }
 
-#region InputManager
+    #region InputManager
 
     public void OnAction()
     {
-         try
-            {
-                Action();
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                Debug.Log("No actions?");
-                return;
-            }
+        try
+        {
+            Action();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Debug.Log("No actions?");
+            return;
+        }
     }
     public void OnChangeStatus()
     {
-           ChangeState();
+        ChangeState();
     }
     public void OnStatusToggle()
     {
-        
-            try
-            {
-                ToggleState();
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                return;
-            }
+
+        try
+        {
+            ToggleState();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return;
+        }
 
     }
     public void OnChangeAction()
     {
-          ChangeAction();
-    }    
-#endregion
+        ChangeAction();
+    }
+    #endregion
 
 
 
@@ -549,7 +548,7 @@ public class RanoScript : MonoBehaviour
     private void MovementMethod()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        
+
         rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
         animator.SetFloat("speed", horizontal);
 
@@ -566,26 +565,32 @@ public class RanoScript : MonoBehaviour
                 break;
             default:
                 //do not modify the turn if no input
-               break;
+                break;
         }
 
         //for toggling bounce on the thing
 
 
-        if (jumpsRemaining > 0 && kb.spaceKey.wasPressedThisFrame && !(jumpCooldown > 0) )
+        if (jumpsRemaining > 0 && kb.spaceKey.wasPressedThisFrame && !(jumpCooldown > 0))
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
 
             animator.SetTrigger("Jump");
             foreach (var item in GetComponentsInChildren<Animator>())
             {
-                item.SetTrigger("Jump");                
+                item.SetTrigger("Jump");
             }
             jumpCooldown = .02f;
 
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            //
+            AudioClip correctJumpSFX = (Grounded()) ? this.SFX[1] : this.SFX[2];
+            AS.PlayOneShot(correctJumpSFX);
+
             Instantiate(jumpEffect, groundCheck.position + 1.8f * Vector3.up, Quaternion.identity);
-            jumpsRemaining -= 1;
+           
+                jumpsRemaining -= 1;            
+           
 
         }
     }
@@ -607,7 +612,7 @@ public class RanoScript : MonoBehaviour
         Health -= v;
         invincibleTimeLeft = frameDuration;
         StartCoroutine(IFrameFlicker());
-        
+
 
     }
 
@@ -615,7 +620,7 @@ public class RanoScript : MonoBehaviour
     {
         transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = sprite;
     }
-   
+
     public void AddState(IPlayerState state)
     {
         this.playerStates.AddItem(state);
@@ -634,9 +639,8 @@ public class RanoScript : MonoBehaviour
         this.AddAction(action);
     }
 
-
-
-
-
-    
+    internal void Reset()
+    {
+        this.mods.Clear();
+    }
 }

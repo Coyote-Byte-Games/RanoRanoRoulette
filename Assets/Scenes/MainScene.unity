@@ -244,12 +244,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modTimeMessage: New mod in
+  wheelSFX: {fileID: 8300000, guid: 02a56be9366b2634cb59dbef6f0bf788, type: 3}
+  portalSFX: {fileID: 8300000, guid: 4c2bc2d48c7e60040b4452a33fba5984, type: 3}
   FlagEndpoint: {fileID: 1022341149}
+  defaultSpawnLocation: {x: -10, y: 5, z: 0}
+  config: {fileID: 11400000, guid: bf54749c5e3dc094abf3e8015455d8fa, type: 2}
   portal: {fileID: 4224019269176027774, guid: 013c9c61f2fb65f4f84cbb553e25d16f, type: 3}
   rano: {fileID: 1125366860}
   TMProModTimeRemaining: {fileID: 1384630905}
   testEnemy: {fileID: 1222238375}
-  modSOs: []
+  modSOs:
+  - {fileID: 11400000, guid: 84b4a9e4f7d94f34e8564e3e7f1251a6, type: 2}
+  - {fileID: 11400000, guid: a2c347d5bf7d66345b723ad13fb84fb2, type: 2}
+  - {fileID: 11400000, guid: 0fb0ab96418cb53438bb1e264679e1f1, type: 2}
+  - {fileID: 11400000, guid: 81bd550c830e1224b89d3a0d62a3fbb9, type: 2}
   button: {fileID: 1131075907333223369, guid: 8a8fe28ec8dd16c4f90045f02d06f424, type: 3}
   wall: {fileID: 5338485435785377109, guid: cbadce7ccb40acf45b9f1ac1f3fd3174, type: 3}
   LevelGenerator: {fileID: 0}
@@ -267,23 +275,19 @@ MonoBehaviour:
   bgTilemap: {fileID: 209344799}
   audioSource: {fileID: 1282554108}
   sliceTextures:
-  - {fileID: 2800000, guid: 40e04eb3c4cb2f845b1227db04e98078, type: 3}
-  - {fileID: 2800000, guid: 02437a035f8bdf54ca534966a3f76b1a, type: 3}
-  - {fileID: 2800000, guid: 44b79525003d3bd4d94bbb31eff52e54, type: 3}
-  - {fileID: 2800000, guid: a6d081d64bbc84b49ba560e14d317a6f, type: 3}
-  - {fileID: 2800000, guid: dad2ecffdd301ed40917fe61798aef8c, type: 3}
-  - {fileID: 2800000, guid: dad2ecffdd301ed40917fe61798aef8c, type: 3}
-  - {fileID: 2800000, guid: 796bbafd6df79fc4e9fd1aeadd54846d, type: 3}
-  - {fileID: 2800000, guid: 796bbafd6df79fc4e9fd1aeadd54846d, type: 3}
-  - {fileID: 2800000, guid: de2300d3ec8128d4d8b19bdf2ca7536a, type: 3}
-  - {fileID: 2800000, guid: 0d9a92f12c7f94f4580663a0d2cc8f3e, type: 3}
-  - {fileID: 2800000, guid: 0d9a92f12c7f94f4580663a0d2cc8f3e, type: 3}
+  - {fileID: 11400000, guid: b4818d48438a0f544891fd6c451154e0, type: 2}
+  - {fileID: 11400000, guid: 0d846d79b7b26e84cbebbc351a3474a9, type: 2}
+  - {fileID: 11400000, guid: 9370cfcd9872c6a458a2ee46d480947f, type: 2}
+  - {fileID: 11400000, guid: bce96736538ae9a4493ffdd4cb611bb6, type: 2}
+  - {fileID: 11400000, guid: fff64c8cedbc30040bf8d1aee57fc01a, type: 2}
+  - {fileID: 11400000, guid: da00dcf123555e649998a3fe4ce7d0be, type: 2}
+  - {fileID: 11400000, guid: a39398bb0a8c9424597d91d40f603830, type: 2}
   levelTraps:
   - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
   startUpDelayFinished: 1
   data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
-  modifierInterval: 12
+  modifierInterval: 5
   player: {fileID: 1125366860}
   modStartupTime: 0
 --- !u!1 &140046269
@@ -318,7 +322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: bf54749c5e3dc094abf3e8015455d8fa, type: 2}
-  speed: 15
+  speed: 20
+  ease: 50
   mainZoom: 25
   screenWidth: 0
   player: {fileID: 1125366860}
@@ -3614,6 +3619,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 351971520}
     - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: SFX.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: SFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e8b0fccb0b4a13c4c8f55839b807aac1, type: 3}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
+      propertyPath: SFX.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: de89416f97911a2429c34d363d66a723, type: 3}
+    - target: {fileID: 1125366861, guid: 3758abcd615098e4d8af972634e58c41, type: 3}
       propertyPath: hearts.Array.data[0]
       value: 
       objectReference: {fileID: 1206254522}
@@ -4472,7 +4489,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c06c57e246b25e845bfd5aa2dffd76ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: deee86d4f17864c4eacafe85ec523894, type: 3}
   m_Color: {r: 0.752047, g: 0.8497572, b: 0.9433962, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4492,7 +4509,7 @@ Transform:
   m_GameObject: {fileID: 1782102545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.54, y: 2.08, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -9,27 +9,61 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    enum Scene
+   
+    
+   public static MenuScript instance;
+   public GameConfig config;
+   public bool usingMouse = true;
+    //singleton
+      private void Awake()
     {
-        MainMenu,
-        Tutorial,
-        GL
+        Debug.Log("awake called on the thingy");
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(instance);
+        }
     }
+
     // Start is called before the first frame update
     public void PlayGame()
     {
         //SceneManager.GetActiveScene().buildIndex + 1
-        SceneManager.LoadScene(((int)Scene.GL));
+        SceneManager.LoadScene(((int)SceneEnum.GL));
     }
-   
-       public void MainMenu()
+    //  public void SetUsingMouse(bool input)
+    // {
+    //     //SceneManager.GetActiveScene().buildIndex + 1
+    //     config.usingMouse = input;
+      
+    // }
+    ///<summary>
+    ///Loads a scene with a transition. 
+    ///</summary>
+    ///
+    public void LoadSceneSoSoSoftly(SceneEnum sceneToLoad)
+    {
+        StartCoroutine(LoadSceneSoftly(sceneToLoad));
+    }
+    private IEnumerator LoadSceneSoftly(SceneEnum toLoad)
+    {
+        for (; ; )
+        {
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene(((int)toLoad));
+        yield break;
+
+        }
+    }
+    public void MainMenu()
     {
         //SceneManager.GetActiveScene().buildIndex + 1
-        SceneManager.LoadScene(((int)Scene.MainMenu));
+        SceneManager.LoadScene(((int)SceneEnum.MainMenu));
     }
     public void Tutorial()
     {
-        SceneManager.LoadScene(((int)Scene.Tutorial));
+        SceneManager.LoadScene(((int)SceneEnum.Tutorial));
     }
 
     public void QuitGame()
@@ -38,4 +72,11 @@ public class MenuScript : MonoBehaviour
     }
 
 
+}
+public enum SceneEnum
+{
+    MainMenu,
+    Tutorial,
+    GL,
+    GAMEOVER
 }

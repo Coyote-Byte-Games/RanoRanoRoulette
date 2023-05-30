@@ -23,6 +23,8 @@ public GameData data;
     public Material[] mats;
      Mesh[] meshes ;
 
+    
+
     List<GameObject> meshers = new List<GameObject>();
     void UpdateMesh(Mesh mesh, Vector3[] verts, int[] triangles)
     {
@@ -99,8 +101,8 @@ public GameData data;
         {
             GameObject mesher = CreateMeshObject();
             meshers.Add(mesher);
-            mesher.transform.SetParent(transform);
-            mesher.transform.position += new Vector3(0, 0, 100);
+            mesher.transform.SetParent(transform.GetChild(0));
+            mesher.transform.position = Vector3.forward*-150;
             mesher.gameObject.layer = UILayer;
             //starts at 0
             //:using meshes for wheel
@@ -142,8 +144,8 @@ public GameData data;
 
         GameObject mesher = CreateMeshObject();
             meshers.Add(mesher);
-            mesher.transform.SetParent(transform);
-            mesher.transform.position += new Vector3(0, 0, 100);
+            mesher.transform.SetParent(transform.GetChild(0));
+          mesher.transform.position = Vector3.forward*-150;
             mesher.gameObject.layer = UILayer;
             //starts at 0
             //:using meshes for wheel
@@ -174,8 +176,8 @@ public GameData data;
             //:some config for it
             GameObject mesher = CreateMeshObject();
             meshers.Add(mesher);
-            mesher.transform.SetParent(transform);
-            mesher.transform.position += new Vector3(0, 0, 100);
+            mesher.transform.SetParent(transform.GetChild(0));
+          mesher.transform.position = Vector3.forward*-150;
             mesher.gameObject.layer = UILayer;
             //starts at 0
             //:using meshes for wheel
@@ -240,7 +242,7 @@ public GameData data;
         //?will this disrupt things, as the mod is returned?
         //needs to call/manage the wheel showing on screen, then dispersing a mod
        int index = UnityEngine.Random.Range(0, data.numOfMods);//exclusive 2nd?
-     
+
        
        IModifier selectedMod = data.mods[index];
      

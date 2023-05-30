@@ -7,6 +7,7 @@ public class AutoScroller : MonoBehaviour
 {
     public GameConfig config;
     public int speed;
+    public int ease;
     public int mainZoom;
     public int screenWidth; //for setting bounds
     public GameObject player;
@@ -70,11 +71,12 @@ vcam = vcamHolder.GetComponent<CinemachineVirtualCamera>();
         //a scalar to determine how much zoom we need
             float zoomDemand =  player.transform.position.y;
         var zoomVariable = Mathf.Clamp((zoomDemand/2), 0, 25);
-
+        var distanceScaler =   Mathf.Clamp(Vector2.Distance(transform.position + 50* Vector3.left, player.transform.position) / ease, .5f , 1);
         vcam.m_Lens.OrthographicSize = mainZoom + zoomVariable;
         momentumAccumulated += momentum*Time.deltaTime; 
         FindBoundaries();
-        transform.position += new Vector3(speed + momentumAccumulated, 0, 0) * Time.deltaTime;
+        Debug.Log("The distance scalar is equal to " + distanceScaler);
+        transform.position += new Vector3((speed + momentumAccumulated) * distanceScaler, 0, 0) * Time.deltaTime;
         transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().position.y- transform.position.y, 0) *10* Time.deltaTime;
         
        

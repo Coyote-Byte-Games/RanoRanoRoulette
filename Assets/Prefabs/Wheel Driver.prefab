@@ -109,8 +109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3152704774978933074}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 100}
-  m_LocalScale: {x: 150, y: 150, z: 1}
+  m_LocalPosition: {x: 1, y: 0, z: -150}
+  m_LocalScale: {x: 111, y: 111, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3152704776237088672}
@@ -195,8 +195,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3152704776000910509}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 11, z: -3.5}
-  m_LocalScale: {x: 112.49999, y: 112.49999, z: 1}
+  m_LocalPosition: {x: 0, y: 11, z: -13.5}
+  m_LocalScale: {x: 111, y: 111, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3152704776237088672}
@@ -323,7 +323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3152704776237088668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -348,18 +348,18 @@ MonoBehaviour:
   textPopup: {fileID: 7117085740854082600, guid: de87d55f0c69a1c4ab84000340093d79, type: 3}
   rb: {fileID: 0}
   radius: 0
-  scale: 20
+  scale: 15
   UILayer: 5
   data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   mats:
   - {fileID: 2100000, guid: a83103db3f28a6042a85d656a85a8629, type: 2}
-  - {fileID: 2100000, guid: 21732f840c92a074fa6b25358f371529, type: 2}
-  - {fileID: 2100000, guid: 87d6a91bd597d6047b0102877f99370a, type: 2}
-  - {fileID: 2100000, guid: bb7eb730234aeda438d772d8797e7027, type: 2}
-  - {fileID: 2100000, guid: 6ce2f38b380381d4aa05dd13c444648e, type: 2}
   - {fileID: 2100000, guid: 044c34f68fac83446921d82573ab7f10, type: 2}
-  - {fileID: 2100000, guid: cba82f2804ed33e47acda44b476cf72c, type: 2}
   - {fileID: 2100000, guid: 567e9e61f00f3f94b8bf0fa6a1ac41f8, type: 2}
+  - {fileID: 2100000, guid: cba82f2804ed33e47acda44b476cf72c, type: 2}
+  - {fileID: 2100000, guid: 6ce2f38b380381d4aa05dd13c444648e, type: 2}
+  - {fileID: 2100000, guid: 21732f840c92a074fa6b25358f371529, type: 2}
+  - {fileID: 2100000, guid: bb7eb730234aeda438d772d8797e7027, type: 2}
+  - {fileID: 2100000, guid: 87d6a91bd597d6047b0102877f99370a, type: 2}
 --- !u!50 &3152704776237088675
 Rigidbody2D:
   serializedVersion: 4

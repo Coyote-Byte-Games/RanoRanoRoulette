@@ -26,6 +26,9 @@ public class GameData : ScriptableObject
     private int startingModNumber;
     //the mods currently in the pool.
 
+    [SerializeField]
+    public ModifierSO[] modSOs;
+
     public int numOfMods;
  
 
@@ -36,8 +39,24 @@ public class GameData : ScriptableObject
         numOfMods = startingModNumber;
     }
 
+public void GetModNumber()
+{
+    
+       
+}
+public void SetModNumber(int arg)
+{
+     startingModNumber = numOfMods = arg;
+       
+}
     public void OnEnable()
     {
+        // GameConfig config = FindAnyObjectByType<GameConfig>();
+
+        // if (!(item is IMouseRequired) || config.usingMouse)
+        //     {
+        //          copy.Add(item.GetModifier());
+        //     }
         numOfMods = startingModNumber;
        
 

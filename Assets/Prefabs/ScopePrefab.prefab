@@ -134,6 +134,6 @@ MonoBehaviour:
   source: {fileID: 0}
   parent: {fileID: 0}
   creepySFX: {fileID: 8300000, guid: 3ef59b3a5ed121d4aadac8f4564d870c, type: 3}
-  kaboomSFX: {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
+  kaboomSFX: {fileID: 8300000, guid: 9042a58cd6a2ba24c88798af3bb518a0, type: 3}
   speed: 3
   volume: 1

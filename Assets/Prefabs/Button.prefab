@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8264112768688867895}
   - component: {fileID: 627268341}
   - component: {fileID: 1497616184366894770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,6 +72,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f671395699cb86948a90f4a48532a476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
+  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
+  AS: {fileID: 0}
+  SFX:
+  - {fileID: 8300000, guid: 9d625a271b7d3d1409f555ea35d7869f, type: 3}
   pressedSprite: {fileID: 907216408, guid: 66850b0e2b346bf44abe4db0f27954a9, type: 3}
 --- !u!212 &1497616184366894770
 SpriteRenderer:

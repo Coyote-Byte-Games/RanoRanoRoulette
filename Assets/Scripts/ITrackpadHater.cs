@@ -1,4 +1,4 @@
-public interface ITrackpadHater : IModifier//Any modifier that trackpads hate (berserk)
+public interface IMouseRequired : IModifier//Any modifier that trackpads hate (berserk)
 {
     
 }

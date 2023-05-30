@@ -1,5 +1,106 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &73449288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73449289}
+  - component: {fileID: 73449291}
+  - component: {fileID: 73449290}
+  m_Layer: 16
+  m_Name: Detector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73449289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73449288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8024789403357579323}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73449291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73449288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be9c4691f47ede4fb4e606d75b74ab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReaction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1560720115}
+        m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
+        m_MethodName: BeginDialougeAtIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  parentNegativeReaction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1560720115}
+        m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
+        m_MethodName: Shaddup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!61 &73449290
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73449288}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.28990698, y: 1.2176054}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12.132396, y: 3.4352107}
+  m_EdgeRadius: 0
 --- !u!1 &638042010561638938
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7059973476591073155}
   - component: {fileID: 7338997621309057136}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: outline (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +131,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7338997621309057136
 SpriteRenderer:
@@ -94,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5092350336067080029}
   - component: {fileID: 678768767918407535}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: outline (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +215,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &678768767918407535
 SpriteRenderer:
@@ -178,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2445220425779822614}
   - component: {fileID: 859843304880154464}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: outline (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +299,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &859843304880154464
 SpriteRenderer:
@@ -262,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1825811813173794648}
   - component: {fileID: 8870286715921641906}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +383,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8870286715921641906
 SpriteRenderer:
@@ -349,7 +450,10 @@ GameObject:
   - component: {fileID: 8442262971857019067}
   - component: {fileID: 1773304396935740637}
   - component: {fileID: 1222238387}
-  m_Layer: 12
+  - component: {fileID: 1560720115}
+  - component: {fileID: 1560720116}
+  - component: {fileID: 1560720122}
+  m_Layer: 9
   m_Name: NPC Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,6 +472,7 @@ Transform:
   m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 73449289}
   - {fileID: 1825811813173794648}
   - {fileID: 2445220425779822614}
   - {fileID: 7059973476591073155}
@@ -418,7 +523,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8a89690136495e5468c869fed1212475, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 3.2, y: 3.2}
@@ -440,7 +545,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00024122, y: -0.2035799}
+  m_Offset: {x: 0.07185161, y: -0.05653882}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -451,7 +556,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1365734, y: 2.79284}
+  m_Size: {x: 1.8623202, y: 3.0869231}
   m_EdgeRadius: 0
 --- !u!50 &1773304396935740637
 Rigidbody2D:
@@ -489,4 +594,104 @@ MonoBehaviour:
   health: 1
   boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
   AS: {fileID: 0}
-  SFX: []
+  SFX:
+  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
+--- !u!114 &1560720115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402847552631776416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef2809a0d3fe054f92ee89aacee959e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialouges:
+  - actions:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
+          m_MethodName: AddModifier
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 84b4a9e4f7d94f34e8564e3e7f1251a6, type: 2}
+            m_ObjectArgumentAssemblyTypeName: ModifierSO, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1560720115}
+          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
+          m_MethodName: BeginDialougeAtIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lsprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
+    Rsprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    sentences:
+    - Hey, kid. Want some candy?
+    - C'mon. You know you want it...
+    name: WEIRD HAND DUDE
+  - actions:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1560720122}
+          m_TargetAssemblyTypeName: TutorialNPCBehaviourPack, Assembly-CSharp
+          m_MethodName: RunCustomEvent
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lsprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
+    Rsprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    sentences:
+    - Oh. Ah. That sword is very large, though I doubt you can move at all. But,
+      it looks very good on you...
+    - Given you aren't planning to use it via the left mouse button, swinging yourself
+      towards the cursor
+    - ...and cutting through whatever you happen to hit.
+    - ...
+    name: WEIRD HAND CREEP
+  pseudoDetectionRadius: 5
+--- !u!114 &1560720116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402847552631776416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 5.91
+  damage: 1
+  knockBackOverride: {x: 0, y: 0}
+--- !u!114 &1560720122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402847552631776416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa00e6b7e57b1c41b78f0f0aa77d379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

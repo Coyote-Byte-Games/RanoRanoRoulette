@@ -10,22 +10,21 @@ public class GameManagerScript : MonoBehaviour
 {//TODO Migrate UI functions to UIManager
 public string modTimeMessage  = "Time until New Mod";
     private UIManagerScript uiManager;
+    public AudioClip wheelSFX;
+    public AudioClip portalSFX;
+    public ModifierManager modMan;
     public GameObject FlagEndpoint;
      [SerializeField]
     // public UnityEvent<GameObject, Vector2> InstantiateUE;
    
 
-    ModifierManager modMan;
     public Vector3 defaultSpawnLocation;
     public GameConfig config;
     public GameObject portal;
     public GameObject rano;
     public GameObject TMProModTimeRemaining;
     public GameObject testEnemy;
-    
-    [SerializeField]
-    public ModifierSO[] modSOs;
-    public GameObject button;
+        public GameObject button;
     public GameObject wall;
     public LevelGenerator LevelGenerator;
     public int numberOfChunks;
@@ -43,7 +42,7 @@ public string modTimeMessage  = "Time until New Mod";
 public AudioSource audioSource;
 
     
-    public Texture2D[] sliceTextures;
+    public LevelSlice[] sliceTextures;
     [UnityEngine.Header("Level Generation")]
     public GameObject[] levelTraps; 
     private void UpdateModRemainingTime(TextMeshProUGUI element, float timeRemaining,  string defaultTextVal = "Time until new mod:")
@@ -61,6 +60,7 @@ public AudioSource audioSource;
     {
         yield return new WaitForSeconds(1);
           var port = Instantiate(portal, spawnLocation ,Quaternion.identity);
+        audioSource.PlayOneShot(portalSFX);
         yield return new WaitForSeconds(1);
         rano.SetActive(true);
         rano.transform.position = spawnLocation;
@@ -135,7 +135,7 @@ public AudioSource audioSource;
             yield return new WaitForSeconds(.1f);
         gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
             yield return new WaitForSeconds(1.75f);
-            SceneManager.LoadScene("GameOverScene");
+            SceneManager.LoadScene(((int)SceneEnum.GAMEOVER));
         }
     }
 
@@ -189,13 +189,10 @@ public AudioSource audioSource;
     }
     void Awake()
     {
-        modMan = new ModifierManager();
-        modMan.NabCommonMods(modSOs);
+       
+        modMan.NabCommonMods(data.modSOs);
 
         data.mods = modMan.GenerateRandomMods(data.numOfMods);
-        // Debug.Log(data.mods[0]);
-        // Debug.Log(Color.white.ToString("F2"));
-        
 
         LevelGenerator = new LevelGenerator(this, Tilemap, bgTilemap, currentLevelTile, bgTile, garnishTiles, sliceTextures, levelTraps);
         LevelGenerator.flag = FlagEndpoint;
@@ -237,6 +234,7 @@ public AudioSource audioSource;
             modTimeMessage = "Remaining bananas: ";
             return;
         }
+        FindObjectOfType<AudioSource>().PlayOneShot(wheelSFX);
         var wheelInstance = Instantiate(WheelPrefab, Vector3.zero, Quaternion.identity);
         Destroy(wheelInstance, 3);
         IModifier newMod = wheelScript.Launch();

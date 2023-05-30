@@ -7,6 +7,8 @@ public class TalkativeNPC : MonoBehaviour
 {
     public Dialouge[] dialouges;
 
+    public int pseudoDetectionRadius;
+
     
     
     
@@ -16,9 +18,14 @@ public class TalkativeNPC : MonoBehaviour
     
     {
         // InstantiateUE.AddListener((GameObject go, Vector2 pos) =>  Instantiate(go, pos, Quaternion.identity));
-        
+        SetDetectionRadius(pseudoDetectionRadius);
     }
-   
+  
+    public void SetDetectionRadius(int rad)
+    {
+        transform.GetChild(0).GetComponent<BoxCollider2D>().size = new Vector2(rad,rad);
+
+    }
     private int dialougeIndex = 0;
     // public LayerMask damagingMask;
  

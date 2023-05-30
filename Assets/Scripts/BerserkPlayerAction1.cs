@@ -43,14 +43,15 @@ swordDisplay.SetActive( false);
     void IPlayerAction.Run()
     {
         //To allow for restarting in case of double jump
-        mod.player.StopCoroutine(ActiveCycle());
-        mod.player.StartCoroutine(ActiveCycle());
-        // rb = sword.GetComponent<Rigidbody2D>();
-        mod.player.animator.SetTrigger("Jump");
+      
         if (mod.player.jumpsRemaining <= 0)
         {
             return;
         }
+          mod.player.StopCoroutine(ActiveCycle());
+        mod.player.StartCoroutine(ActiveCycle());
+        // rb = sword.GetComponent<Rigidbody2D>();
+        mod.player.animator.SetTrigger("Jump");
         mod.player.jumpsRemaining -= 1;
         sword = ((GameObject)mod.sword);
         swordDisplay = ((GameObject)mod.sheathedSword);
@@ -81,6 +82,7 @@ swordDisplay.SetActive( false);
 
      
         int consta = 18;//:change this for the good changes?
+        mod.player.StopCoroutine(nameof(MoveSwordInDir));
         mod.player.StartCoroutine(MoveSwordInDir(finalAngle * consta));
 
         sword.transform.GetChild(0).GetComponentInChildren<Animator>().SetTrigger("Swing");
@@ -89,6 +91,7 @@ swordDisplay.SetActive( false);
 
 
         mod.player.rb.AddForce(6500 * camDir);
+        mod.player.AS.PlayOneShot(mod.player.SFX[2]);
     }
 
     private IEnumerator MoveSwordInDir(Vector3 end)
