@@ -10,4 +10,5 @@ public interface IModifier
     public IEnumerator ContinuousEffect(RanoScript RanoScript);
     public void SetPlayer(RanoScript player);
     public Sprite GetIcon();
+    public void OnNewModAdded(RanoScript rano);
 }

@@ -29,6 +29,7 @@ public class TutorialNPCBehaviourPack : EnemyTraitScript, INPCBehaviourPack
  internal override void die()
  {
 
+
     MenuScript.instance.LoadSceneSoSoSoftly(SceneEnum.MainMenu);
     FindAnyObjectByType<RanoScript>().IWantRanosHead();
     base.die();

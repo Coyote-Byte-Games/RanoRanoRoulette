@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlamePillarScript : MonoBehaviour
+public class FlamePillarScript : FreezableMonoBehaviour
 {
     
     public int length;
@@ -14,13 +14,5 @@ public class FlamePillarScript : MonoBehaviour
     public GameObject segmentPrefab;
     private Vector2 beam;
 
-    
-    // Start is called before the first frame update
- 
-    // Update is called once per frame
-    void Update()
-    {
-        // var degreeDelta = rotationSpeed * Time.deltaTime;
-        // transform.Rotate(new Vector3(0,0, degreeDelta));
-    }
+
 }

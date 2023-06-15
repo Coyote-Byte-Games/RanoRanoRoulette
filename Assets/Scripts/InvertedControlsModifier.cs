@@ -35,6 +35,11 @@ public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovement
 
     public Sprite GetIcon()
     {
-       return player.GetComponent<SpriteRenderer>().sprite;
+    return (Sprite)Resources.Load("Mod Icons\\invertedcontrols");
+    }
+
+    public void OnNewModAdded(RanoScript rano)
+    {
+      return;
     }
 }

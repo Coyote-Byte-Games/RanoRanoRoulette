@@ -2,17 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SugarRushModifier : MonoBehaviour
+public class SugarRushModifier : UnityEngine.Object, IModifier, IMovementModifier
 {
-    // Start is called before the first frame update
-    void Start()
+    public RanoScript player;
+    
+    [SerializeField]
+    // public SFXManagerSO soundManager;
+    public IEnumerator ContinuousEffect(RanoScript rano)
     {
-        
+
+        for (; ; )
+        {
+            
+            rano.speedModifier *= 2f;
+            rano.CreatePopup("Speed Up", 1);
+
+            yield return new WaitForSeconds(10);
+            rano.speedModifier *= (.75f) / 2f;
+  
+            rano.CreatePopup("Speed Down", 0);
+            yield return new WaitForSeconds(10);
+            rano.speedModifier /= .75f;
+
+        }
+
+    }
+    public void OnNewModAdded(RanoScript rano)
+    {
+        return;
+    }
+    public void OnStartEffect(RanoScript player)
+    {
+        return;
+    }
+    public override string ToString()
+    {
+        return "Sugar Rush!";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetPlayer(RanoScript player)
     {
-        
+        this.player = player;
+    }
+
+
+
+    public Sprite GetIcon()
+    {
+        return (Sprite)Resources.Load("Mod Icons\\sugarrush");
+    }
+
+    public void SetPlayerEffects(RanoScript player)
+    {
+        return;
     }
 }

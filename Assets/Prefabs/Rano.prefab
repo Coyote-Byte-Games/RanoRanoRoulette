@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 401191875}
   - component: {fileID: 2006948885}
+  - component: {fileID: 6389660735267327266}
   m_Layer: 0
   m_Name: groundCheck
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401191874}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.019, y: -1.73, z: 0}
+  m_LocalPosition: {x: 0.019, y: -0.9, z: 0}
   m_LocalScale: {x: 0.50023544, y: 0.03079621, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53,6 +54,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
+--- !u!61 &6389660735267327266
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401191874}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1800894679
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +206,7 @@ GameObject:
   m_Icon: {fileID: 2800000, guid: 884be9fe4f866ed47b01c61a8ea8357f, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5435428177351176527
 Transform:
   m_ObjectHideFlags: 0
@@ -236,13 +263,13 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 0.3
+  m_LinearDrag: 0.6
   m_AngularDrag: 0.05
   m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!58 &1125366867
 CircleCollider2D:
@@ -274,8 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionModBox: {fileID: 0}
   AS: {fileID: 0}
-  SFX:
-  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
+  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
   blurMat: {fileID: 2100000, guid: d838d1caf9043d34fb2ead5e7f49e7eb, type: 2}
   blurInvertedMat: {fileID: 2100000, guid: ee2a8090732c7774281a9fb09c62ae82, type: 2}
   borderDeathMax: 2
@@ -306,12 +332,12 @@ MonoBehaviour:
   jumpRadius: 0.81
   HKeyToggle: 0
   groundCheck: {fileID: 401191875}
-  speed: 3075
+  speed: 4500
   maxJumps: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  jumpPower: 70
+  jumpPower: 85
   iFrameDuration: 1
 --- !u!114 &2713467092282420840
 MonoBehaviour:

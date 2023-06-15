@@ -83,7 +83,6 @@ public class FollowerAI : MonoBehaviour
         Vector2 direction = (((Vector2)path.vectorPath[currentWaypoint] - rb.position)).normalized ;
         //TODO Create better code for navigating in a straight line, jumping, and others
         Vector2 force = (direction * speed * Time.deltaTime);
-        Debug.Log("force "+force.x);
         if (force.x == 0)
         {
             //force it to reconsider

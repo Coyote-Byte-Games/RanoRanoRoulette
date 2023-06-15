@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeslaCoilScript : MonoBehaviour
+public class TeslaCoilScript : FreezableMonoBehaviour
 {
     // for holding all the children
    
@@ -49,11 +49,22 @@ public class TeslaCoilScript : MonoBehaviour
         
     }
 
-    
+    public override void Freeze()
+    {
+        this.frozen = true;
+        
+    }
+    public override void UnFreeze()
+    {
+        this.frozen = false;
+    }
 
     private void UpdateSprites()
     {
-      
+      if (frozen)
+      {
+        return;
+      }
        
         //to keep track of the current "frame"
         for (int i = 0; i < slices.Length; i++)

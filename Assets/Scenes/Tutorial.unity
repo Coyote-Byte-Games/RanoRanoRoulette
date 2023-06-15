@@ -292,38 +292,25 @@ MonoBehaviour:
   modTimeMessage: New mod in
   wheelSFX: {fileID: 8300000, guid: 02a56be9366b2634cb59dbef6f0bf788, type: 3}
   portalSFX: {fileID: 8300000, guid: 4c2bc2d48c7e60040b4452a33fba5984, type: 3}
-  FlagEndpoint: {fileID: 1022341149}
-  defaultSpawnLocation: {x: 0, y: 5, z: 0}
+  modMan: {fileID: 11400000, guid: 550d13c84b49dd044800da7968ec9e11, type: 2}
   config: {fileID: 11400000, guid: bf54749c5e3dc094abf3e8015455d8fa, type: 2}
+  LevelGenerator: {fileID: 11400000, guid: fefaed88156c6fb44b2b8a48022961ec, type: 2}
   portal: {fileID: 4224019269176027774, guid: 013c9c61f2fb65f4f84cbb553e25d16f, type: 3}
   rano: {fileID: 1125366860}
   TMProModTimeRemaining: {fileID: 1384630905}
   testEnemy: {fileID: 1222238375}
-  modSOs: []
   button: {fileID: 1131075907333223369, guid: 8a8fe28ec8dd16c4f90045f02d06f424, type: 3}
   wall: {fileID: 5338485435785377109, guid: cbadce7ccb40acf45b9f1ac1f3fd3174, type: 3}
-  LevelGenerator: {fileID: 0}
-  numberOfChunks: 25
   gameOverFade: {fileID: 1249331824}
-  delayTimeElapsed: 0
-  currentLevelTile: {fileID: 11400000, guid: cfe77b40ffde3ab49b37d5f075136b22, type: 2}
-  bgTile: {fileID: 11400000, guid: 00f965d2d4c1b95438226fadbe3cbcb3, type: 2}
-  garnishTiles:
-  - {fileID: 11400000, guid: 996d8a8f826253341979f8acb338b091, type: 2}
-  - {fileID: 11400000, guid: 9057829952e83584aa46cf6a44509628, type: 2}
-  - {fileID: 11400000, guid: 3f639bb474d21c24799fa34d7d74a5fb, type: 2}
-  - {fileID: 11400000, guid: 6180254557069a44984d5564776e2311, type: 2}
+  defaultSpawnLocation: {x: 0, y: 5, z: 0}
   Tilemap: {fileID: 1037304686}
   bgTilemap: {fileID: 209344799}
+  numberOfChunks: 25
   audioSource: {fileID: 1282554108}
-  sliceTextures:
-  - {fileID: 11400000, guid: 9370cfcd9872c6a458a2ee46d480947f, type: 2}
   levelTraps:
   - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
-  startUpDelayFinished: 1
   data: {fileID: 11400000, guid: 6992705295689db4cb83b8955fb83db2, type: 2}
   WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
-  modifierInterval: 12
   player: {fileID: 1125366860}
   modStartupTime: 0
 --- !u!1001 &98568894
@@ -3157,11 +3144,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971497787}
   m_CullTransparentMesh: 1
---- !u!1 &1022341149 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3838578756149291213, guid: 4978c5aa1f9cbb94c8c68a1c10904314, type: 3}
-  m_PrefabInstance: {fileID: 688393878}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1037304683
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,9 @@ public class DamagingObjectScript : MonoBehaviour
     public float knockBack;
     public int damage = 1;
     public Vector2 knockBackOverride;
+    [SerializeField]
+    public List<LayerMask> shitlist;
+  
     public int GetDamage()
     {
        return damage;
@@ -17,7 +20,6 @@ public class DamagingObjectScript : MonoBehaviour
     {
       return knockBack;
     }
-  
     
 }
 

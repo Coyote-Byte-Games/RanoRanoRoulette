@@ -33,7 +33,6 @@ public class DialougeScript : MonoBehaviour
     }
     public void BeginDialouge(Dialouge dialougeDataHolder)
     {
-        Debug.Log(dialougeDataHolder.dialouges.Length + " is the dia count");
 
         dialougeMasterObject.gameObject.SetActive(true);
         //  Lsprite.sprite = dialouge.Lsprite;
@@ -56,7 +55,6 @@ public class DialougeScript : MonoBehaviour
     }
     public void DisplayNextSentence()
     {
-        Debug.Log($"The thing is: {dialouges.Count}");
         if (dialouges.Count == 0)
         {
             EndConvo();
@@ -64,14 +62,12 @@ public class DialougeScript : MonoBehaviour
         }
         DialougeNode iteration = dialouges.Dequeue();
         
-        Debug.Log((iteration.OwnSprite) + " here isthe sprite");
 
 
         //in case the player skips ahead
         StopAllCoroutines();
         StartCoroutine(TypeOutSentence(iteration.sentence));
 
-        Debug.Log("The Rsprite is: " + Rsprite);
         Rsprite.GetComponent<Image>().sprite = iteration.OwnSprite;
       
     }
@@ -94,7 +90,6 @@ public class DialougeScript : MonoBehaviour
     }
     public void EndConvo()
     {
-        Debug.Log("done here");
         // dialougeMasterObject.gameObject.SetActive(false);
         dialougeMasterObject.gameObject.SetActive(false);
 

@@ -7,20 +7,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class RanoScript : MonoBehaviour
+public class RanoScript : EntityBaseScript
 {
     // Start is called before the first frame update
     public GameObject ActionModBox;
-    public AudioSource AS;
-    public AudioClip[] SFX;
     public Material blurMat;
     public Material blurInvertedMat;
+    private SpriteRenderer renderer;
 
 
+    private float[] actionCooldowns;
     public float borderDeathMax;
     private float borderDeathTimer;
     public Animator animator;
-    public GameObject boom;
 
     public GameObject StateModBox;
     //the threshold at which slam effects occur during beach ball
@@ -44,15 +43,17 @@ public class RanoScript : MonoBehaviour
     public Image[] hearts;
     public GameData data;
     public float jumpRadius;
+    public float speedModifier = 1;
     public bool HKeyToggle;
     public List<IModifier> mods = new List<IModifier>();
     BoxCollider2D bc;
     [SerializeField]
     public Transform groundCheck;
-    public int speed;
+    public float speed;
     public int maxJumps;
     public LayerMask groundLayer;
     public int jumpPower;
+    public AudioClip jumpSFX;
     bool grounded;
     private PlayerInfoV2<IPlayerAction> playerActions = new PlayerInfoV2<IPlayerAction>();
     private PlayerInfoV2<IPlayerState> playerStates = new PlayerInfoV2<IPlayerState>();
@@ -89,19 +90,25 @@ public class RanoScript : MonoBehaviour
     {
         this.playerActions = new PlayerInfoV2<IPlayerAction>();
         this.playerStates = new PlayerInfoV2<IPlayerState>();
+        renderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        this.jumpSFX = soundManager.GetClip(SFXManagerSO.Sound.boing);
     }
     public void IWantRanosHead()
     {
         die();
     }
+    public void EnableSpikeBoots()
+    {
+        this.groundCheck.GetComponent<BoxCollider2D>().enabled = true;
+    }
     void createOutLineBlur()
     {
         GameObject trail = new GameObject();
 
-        var renderer = trail.AddComponent<SpriteRenderer>();
-        renderer.sprite = transform.GetChild(1).GetComponent<SpriteRenderer>().sprite;
-        renderer.material = controlInversion == -1 ? blurInvertedMat : blurMat;
-        renderer.color = new Color(1, 1, 1, .5f);
+        var trailRenderer = trail.AddComponent<SpriteRenderer>();
+        trailRenderer.sprite = transform.GetChild(1).GetComponent<SpriteRenderer>().sprite;
+        trailRenderer.material = controlInversion == -1 ? blurInvertedMat : blurMat;
+        trailRenderer.color = new Color(1, 1, 1, .5f);
         var trailInstance = Instantiate(trail, transform.position, transform.rotation);
         Destroy(trail);
         Destroy(trailInstance, .3f);
@@ -110,10 +117,10 @@ public class RanoScript : MonoBehaviour
     public IEnumerator IFrameFlicker()
     {
         bool switcher = true;
-        var ogColor = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color;
+        var ogColor = renderer.color;
         while (invincibleTimeLeft > 0)
         {
-            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = this.transform.GetChild(1).GetComponent<SpriteRenderer>().color - new Color(0, 0, 0, switcher ? 1 : -1);
+            renderer.color = renderer.color - new Color(0, 0, 0, switcher ? 1 * renderer.color.a : -1 * renderer.color.a);
             switcher = !switcher;
             yield return new WaitForSeconds(.1f);
         }
@@ -160,7 +167,7 @@ public class RanoScript : MonoBehaviour
 
     }
 
-   
+
 
     private int _hp;
     private float jumpCooldown;
@@ -197,12 +204,11 @@ public class RanoScript : MonoBehaviour
 
     private void die()
     {
-        gameManager.CleanupAfterRanoKeelsOver();
-        var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
-        AS.PlayOneShot(SFX[0]); //kaboom
-        Destroy(kablooey, .25f);
-        Destroy(gameObject);
 
+        gameManager.CleanupAfterRanoKeelsOver();
+
+
+        base.die();
         #region Scene Change
         gameManager.GameOver();
         #endregion
@@ -215,12 +221,11 @@ public class RanoScript : MonoBehaviour
         this.playerActions.AddItem(action);
         try
         {
-          
+
             ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
         catch (System.NullReferenceException e)
         {
-            Debug.Log(e.Data.ToString());
             return;
         }
     }
@@ -229,7 +234,12 @@ public class RanoScript : MonoBehaviour
     {
         //when the player clicks the action key, we launch the current action
         IPlayerAction action = playerActions.GetItem();
-        action.Run();
+        if (!action.OnCoolDown())
+        {
+            action.Run();
+
+        }
+
     }
     void ChangeAction()
     {
@@ -237,12 +247,10 @@ public class RanoScript : MonoBehaviour
         playerActions.ChangeItem();
         try
         {
-            Debug.Log(playerActions.GetItem() is null ? "null is the thing" : "null is NOT the thing");
             ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
         catch (System.Exception e)
         {
-            Debug.Log(e);
             return;
         }
 
@@ -263,7 +271,6 @@ public class RanoScript : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.Log(e);
             return;
         }
 
@@ -275,40 +282,33 @@ public class RanoScript : MonoBehaviour
     ///<param name="icon"> Used for the display of the new mod.</param> 
     private void ActionHotbarAnimate(Sprite icon)
     {
-        //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
-        //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
         ActionModBox.GetComponent<Animator>().SetTrigger("Activate");
         ActionModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
-        // ModBox.transform.GetChild(0).GetComponent<Image>().preferredWidth =
+
+        //if the mod has a CD
+        if (playerActions.GetItem().OnCoolDown())
+        {
+            StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, .5f);
+        }
 
 
-        //   box.//:set the position upwards
-
-        //   Destroy(box, 1);
     }
 
     private void StateHotbarAnimate(Sprite icon)
     {
-        //   var box =Instantiate(hotBarBox, rb.position + Vector2.right*0 + Vector2.up*3, Quaternion.Euler(0,0,0-transform.rotation.z));
-        //   box.transform.SetPositionAndRotation(transform.position +  Vector3.up*70, Quaternion.identity);
+
         StateModBox.GetComponent<Animator>().SetTrigger("Activate");
         StateModBox.transform.GetChild(0).GetComponent<Image>().sprite = icon;
-
-
         //if the toggle is off
         if (!playerStates.GetItem().GetToggleState())
         {
             StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, .5f);
-            // StateModBox.transform.GetChild(0).GetComponent<Image>().color + 
-
         }
         else
         {
             StateModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, 1f);
 
         }
-
-        //   Destroy(box, 1);
     }
     public void AddModifier(ModifierSO modSO)
     {
@@ -330,12 +330,17 @@ public class RanoScript : MonoBehaviour
         {
             return;
         }
+
         this.mods.Add(mod);
         mod.SetPlayer(this);
         mod.OnStartEffect(this);
         mod.SetPlayerEffects(this);//yes i know this is terrible it smells like garbage but blame unity for no
-
+        foreach (var preExistingMod in mods)
+        {
+            preExistingMod.OnNewModAdded(this);
+        }
         StartCoroutine(mod.ContinuousEffect(this));
+
         //todo end effect
         //find a way to set the player effects in the player script
 
@@ -365,7 +370,6 @@ public class RanoScript : MonoBehaviour
 
 
         var script = col.gameObject.GetComponent<DamagingObjectScript>();
-        Debug.Log(col.gameObject.name);
         if (script is not null)
         {
             Vector2 directionToEnemy;
@@ -409,6 +413,12 @@ public class RanoScript : MonoBehaviour
 
         }
     }
+
+    public void Respawn(Vector3 destination)
+    {
+        StartCoroutine(gameManager.CreateRano(destination));
+    }
+
     //tracking for the Slam that occurs when rano hits something at a high velocity
     // private Vector2 oldDirection;
     void Update()
@@ -423,39 +433,33 @@ public class RanoScript : MonoBehaviour
         //so rano doesnt get caught
         this.rb.position += new Vector2(0, 1E-3f);
 
+        #region modifiers
         if (mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IAnimationOverrideModifier))))
         {
             animator.enabled = false;
         }
 
+        TickCooldowns();
+        if (!playerActions.IsEmpty())
+        {
+            if (!playerActions.GetItem().OnCoolDown())
+            {
+                ActionModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, 1f);
 
-        // #region speedSlam
+            }
+            else
+            {
+                ActionModBox.transform.GetChild(0).GetComponent<Image>().color = new Color(255, 255, 255, .5f);
+
+            }
+        }
 
 
-        // float newSpeed = rb.velocity.sqrMagnitude;
-
-        // if (oldDirection.sqrMagnitude - 300 * (300) >= newSpeed)
-        // {
-        //     //do the crash
-
-        //     //Get the tan(pointer towards the direction of the body), then turn it to degrees.
-        //     // + 180 degrees to reverse. Since 0 deg on transform means its facing down, but 90 deg collision would be facing right, we need to remove 90 degrees to change the behaviour
-        //     //and then i screwed with the math via guess and check
-        //     var direction = Mathf.Atan2(oldDirection.y, oldDirection.x) * Mathf.Rad2Deg - 240;
-
-        //     Quaternion rotation = Quaternion.Euler(0, 0, direction);
-        //     Instantiate(jumpEffect, groundCheck.position, rotation);
-
-        // }
-
-        // oldDirection = rb.velocity;
-
-        // #endregion
+        #endregion
 
 
         #region Sprite
 
-        // SetOutlineSprite(this.GetComponentInChildren<SpriteRenderer>().sprite);
 
         #endregion
 
@@ -463,7 +467,6 @@ public class RanoScript : MonoBehaviour
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
-        // Debug.Log(GKeyToggle);
         //handle horizontal movement
         MovementMethod();
         animator.SetBool("grounded", Grounded());
@@ -510,7 +513,6 @@ public class RanoScript : MonoBehaviour
         }
         catch (ArgumentOutOfRangeException)
         {
-            Debug.Log("No actions?");
             return;
         }
     }
@@ -549,7 +551,7 @@ public class RanoScript : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
 
-        rb.AddForce(new Vector2(horizontal * speed * controlInversion * Time.deltaTime, 0f));
+        rb.AddForce(new Vector2(horizontal * speed * speedModifier * controlInversion * Time.deltaTime, 0f));
         animator.SetFloat("speed", horizontal);
 
 
@@ -582,21 +584,25 @@ public class RanoScript : MonoBehaviour
             }
             jumpCooldown = .02f;
 
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            //
-            AudioClip correctJumpSFX = (Grounded()) ? this.SFX[1] : this.SFX[2];
+            Jump();
+            AudioClip correctJumpSFX = (Grounded()) ? jumpSFX : soundManager.GetClip(SFXManagerSO.Sound.whoosh);
             AS.PlayOneShot(correctJumpSFX);
 
-            Instantiate(jumpEffect, groundCheck.position + 1.8f * Vector3.up, Quaternion.identity);
-           
-                jumpsRemaining -= 1;            
-           
+
+            jumpsRemaining -= 1;
+
 
         }
     }
 
 
+    public void Jump()
+    {
+        rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
 
+        Instantiate(jumpEffect, groundCheck.position + .8f * Vector3.up, Quaternion.identity);
+
+    }
 
 
     private void TakeDamage(int v, bool iFrames)
@@ -614,6 +620,13 @@ public class RanoScript : MonoBehaviour
         StartCoroutine(IFrameFlicker());
 
 
+    }
+    public void TickCooldowns()
+    {
+        foreach (var item in playerActions)
+        {
+            item.DecrementCD();
+        }
     }
 
     internal void UpdateSprite(Sprite sprite)
@@ -643,4 +656,21 @@ public class RanoScript : MonoBehaviour
     {
         this.mods.Clear();
     }
+
+    internal void SetAlpha(float v)
+    {
+        Debug.Log("setting alpha");
+
+        foreach (var item in GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            Color color = item.color;
+            color.a = v;
+            item.color = color;
+        }
+        Color tmp = renderer.color;
+        tmp.a = v;
+        renderer.color = tmp;
+    }
+
+
 }

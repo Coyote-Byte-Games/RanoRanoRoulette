@@ -2,15 +2,26 @@ using Unity;
 using UnityEngine;
 public class BeachBallPlayerAction1 : IPlayerAction
 {
+
     private BeachBallModifier mod;
     public BeachBallPlayerAction1(BeachBallModifier modSource)
     {
         this.mod = modSource;
     }
 
+    public void DecrementCD()
+    {
+        return;
+    }
+
     public Sprite GetIcon()
     {
         return mod.GetIcon();
+    }
+
+    public bool OnCoolDown()
+    {
+       return false;
     }
 
     void IPlayerAction.Run()

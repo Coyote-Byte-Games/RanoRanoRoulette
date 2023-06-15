@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-// [CreateAssetMenu(menuName ="My Assets/Level Generator")]
-public class LevelGenerator : UnityEngine.Object
+
+[CreateAssetMenu(menuName ="My Assets/Level Generator")]
+public class LevelGenerator : ScriptableObject
 {
 
 
@@ -31,10 +32,17 @@ public class LevelGenerator : UnityEngine.Object
     public GameObject[] traps;
     public GameObject flag;
 
+    public int numOfChunks = 25;
+
     // [SerializeField]
     // private GameObject trap1;
 
     public GameManagerScript manager;
+
+    public void Awake()
+    {
+        this.numOfChunks = SettingsScript.chunkNum;
+    }
 
     public LevelGenerator(GameManagerScript gameManager, Tilemap tm, Tilemap bgtm, RuleTile tile, Tile bgtile, Tile[] garnish, LevelSlice[] textures, GameObject[] traps)
     {
@@ -59,6 +67,20 @@ public class LevelGenerator : UnityEngine.Object
         }
     }
     public void GenerateLevelChunksWithEndpoint(int numOfChunks)
+    {
+        var slices = GenerateRandomChunkSlices(numOfChunks);
+        int i = 0;
+        while (i < numOfChunks)
+        {
+            GenerateLevelChunk(slices, i); //I really don't know man
+
+            i++;
+        }
+        GenerateLevelEndpoint(slices, i - 1);
+
+
+    }
+     public void GenerateLevelChunksWithEndpoint()
     {
         var slices = GenerateRandomChunkSlices(numOfChunks);
         int i = 0;
@@ -155,8 +177,8 @@ public class LevelGenerator : UnityEngine.Object
                                     //soph what the hell is that supposed to mean what have you done to forsake me now
                                     //4-25-23: lmao this probably doesnt work if the slice is extra long
 
-        // Instantiate(flag, new Vector3(relativeZero + slice.width + 10, 5, 0), Quaternion.identity);
-        flag.transform.position = new Vector3(relativeZero + slice.width + 10, 5, 0);
+        Instantiate(flag, new Vector3(relativeZero + slice.width + 10, 5, 0), Quaternion.identity);
+        // flag.transform.position = new Vector3(relativeZero + slice.width + 10, 5, 0);
 
     }
     public void GenerateLevelChunk(Texture2D[] slices, int iteration = 0)
@@ -208,7 +230,6 @@ public class LevelGenerator : UnityEngine.Object
                 {
                     //the hell algorithm
                     colorString = RoundHexRGBA(colorString);
-                    // Debug.Log(colorString);
                 }
 
                 //A "rounder" to recover corruption from god awful compression
@@ -353,7 +374,6 @@ public class LevelGenerator : UnityEngine.Object
             // output.Concat(intVersion.ToString());
             output += (intVersion.ToString("X2"));
         }
-        // Debug.Log("the output is " + output);
 
         return output;
 

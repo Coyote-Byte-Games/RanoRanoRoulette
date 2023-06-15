@@ -19,12 +19,15 @@ public class DoubleJumpModifier : UnityEngine.Object, IModifier, IMovementModifi
 
     public Sprite GetIcon()
     {
-      return (Sprite)Resources.Load("Mod Icons\\berserk");
+      return (Sprite)Resources.Load("Mod Icons\\doublejump");
 
     }
 
     
-
+public void OnNewModAdded(RanoScript rano)
+    {
+      return;
+    }
     public void OnStartEffect(RanoScript player)
     {
     }

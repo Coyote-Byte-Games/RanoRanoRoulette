@@ -25,7 +25,10 @@ public AdoptionModifier()
     {
       this.player = player;
     }
-
+public void OnNewModAdded(RanoScript rano)
+    {
+      return;
+    }
     public void SetPlayerEffects(RanoScript player)
     {
         return;
@@ -38,6 +41,6 @@ public AdoptionModifier()
 
     public Sprite GetIcon()
     {
-        return player.data.AdoptionDog.GetComponent<SpriteRenderer>().sprite;
+          return (Sprite)Resources.Load("Mod Icons\\dog");
     }
 }

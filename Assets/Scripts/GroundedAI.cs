@@ -32,6 +32,7 @@ public class GroundedAI : MonoBehaviour
 
     void Update()
     { 
+        
         //so it doesnt get caught
         this.rb.position += new Vector2(0 ,1E-4f);
         //if the enemy is far enough from the target

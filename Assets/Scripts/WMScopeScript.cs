@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WMScopeScript : MonoBehaviour
+public class WMScopeScript : FreezableMonoBehaviour
 {
     public Transform target;
     public Transform dummyHitbox;
@@ -21,6 +21,11 @@ public class WMScopeScript : MonoBehaviour
         StartCoroutine(Behaviour());
         
     }
+    public override void UnFreeze()
+    {
+        base.UnFreeze();
+        frozen = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -30,7 +35,9 @@ public class WMScopeScript : MonoBehaviour
     
         Vector2 direction = (target.position - transform.position);
 //+ Vector2.right*( transform.position.x % 5)
-        transform.position += (Vector3)(direction.normalized * speed * direction.magnitude * Time.deltaTime );
+
+    transform.position += (Vector3)(direction.normalized * speed * direction.magnitude * Time.deltaTime *( frozen ? 0: 1 ));
+    
 
         //Time based-Triggers
         
@@ -42,9 +49,15 @@ public class WMScopeScript : MonoBehaviour
         var one = 2f;
         yield return new WaitForSeconds(one);
         //Play eeiree sfx
+      
         source.PlayOneShot(creepySFX, 1 );
+      
         yield return new WaitForSeconds(4.5f-one);
         //fire
+        while (frozen)
+        {
+           yield return new WaitForSeconds(.2f); 
+        }
         Fire();
         Destroy(gameObject, 0.3f);
         yield break;

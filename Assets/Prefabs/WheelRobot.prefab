@@ -517,10 +517,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffIcons: []
   health: 1
   boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
+  popup: {fileID: 0}
   AS: {fileID: 0}
-  SFX: []
+  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
+  SFX:
+  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
 --- !u!114 &1222238376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,7 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
   target: {fileID: 0}
-  speed: 21
+  speed: 16
   aggroRange: 25
   seekTag: '"Player"'
 --- !u!114 &7015276575063002287
@@ -552,3 +556,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockBack: 555
   damage: 1
+  knockBackOverride: {x: 0, y: 0}

@@ -8,68 +8,93 @@ using UnityEngine.UI;
 using TMPro;
 public class GameManagerScript : MonoBehaviour
 {//TODO Migrate UI functions to UIManager
-public string modTimeMessage  = "Time until New Mod";
-    private UIManagerScript uiManager;
+private bool _creatingRano;
+    public string modTimeMessage = "Time until New Mod";
     public AudioClip wheelSFX;
     public AudioClip portalSFX;
+    [Space]
     public ModifierManager modMan;
-    public GameObject FlagEndpoint;
-     [SerializeField]
-    // public UnityEvent<GameObject, Vector2> InstantiateUE;
-   
-
-    public Vector3 defaultSpawnLocation;
     public GameConfig config;
+    private UIManagerScript uiManager;
+    public LevelGenerator LevelGenerator;
+    //  public LevelSlice[] sliceTextures;
+    [Space]
+    // public GameObject FlagEndpoint;
     public GameObject portal;
     public GameObject rano;
     public GameObject TMProModTimeRemaining;
     public GameObject testEnemy;
-        public GameObject button;
+    public GameObject button;
     public GameObject wall;
-    public LevelGenerator LevelGenerator;
-    public int numberOfChunks;
+
+    [Space]
     public Image gameOverFade;
-    [SerializeField]
-
-    [HideInInspector]
-    private float delayTimeElapsed;
-
-    public RuleTile currentLevelTile;
-    public Tile bgTile;
-    public Tile[] garnishTiles;
+    public Vector3 defaultSpawnLocation;
+    [Space]
     public Tilemap Tilemap;
     public Tilemap bgTilemap;
-public AudioSource audioSource;
+    // public RuleTile currentLevelTile;
+    // public Tile[] garnishTiles;
+    // public Tile bgTile;
 
-    
-    public LevelSlice[] sliceTextures;
+    [Space]
+    public int numberOfChunks;
+    private float delayTimeElapsed;
+    public AudioSource audioSource;
+
     [UnityEngine.Header("Level Generation")]
-    public GameObject[] levelTraps; 
-    private void UpdateModRemainingTime(TextMeshProUGUI element, float timeRemaining,  string defaultTextVal = "Time until new mod:")
+    public GameObject[] levelTraps;
+
+
+   
+    private void UpdateModRemainingTime(TextMeshProUGUI element, float timeRemaining, string text = "Time until new mod:")
     {
-      
-      element.text = $"{defaultTextVal} {timeRemaining.ToString("F1")}";
+string strong;
+        if (text == string.Empty)
+        {
+        strong =text;
+            
+        }
+        else
+        {
+        strong = $"{text} {timeRemaining.ToString("F1")}";
+            
+        }
+        element.text = strong;
     }
     public void CleanupAfterRanoKeelsOver()
     {
         modMan.Reset();
-        data.Reset();
     }
-  
+
     public IEnumerator CreateRano(Vector3 spawnLocation)
     {
-        yield return new WaitForSeconds(1);
-          var port = Instantiate(portal, spawnLocation ,Quaternion.identity);
+
+        if (_creatingRano)
+        {
+            yield break;
+        }
+        _creatingRano = true;
+
+        rano.transform.position = spawnLocation;
+
+        rano.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        rano.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        var port = Instantiate(portal, spawnLocation, Quaternion.identity);
         audioSource.PlayOneShot(portalSFX);
         yield return new WaitForSeconds(1);
         rano.SetActive(true);
-        rano.transform.position = spawnLocation;
+        rano.GetComponentInChildren<SpriteRenderer>().enabled = true;
+        rano.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+
+
         rano.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10000));
         yield return new WaitForSeconds(.75f);
         Destroy(port);
-        
 
-          yield break;
+        _creatingRano = false;
+        yield break;
     }
 
 
@@ -77,49 +102,49 @@ public AudioSource audioSource;
     {
         try
         {
-             Instantiate(testEnemy, new Vector3(x,y,0) ,Quaternion.identity);
+            Instantiate(testEnemy, new Vector3(x, y, 0), Quaternion.identity);
         }
         catch (System.Exception e)
         {
-            
+
             throw e;
         }
-       
+
     }
     public void SpawnButton(float x, float y, GameObject parent)
     {
         try
         {
-            var buttonInstance = Instantiate(button, new Vector3(x,y,0) ,Quaternion.identity, parent.transform);
+            var buttonInstance = Instantiate(button, new Vector3(x, y, 0), Quaternion.identity, parent.transform);
             //use the parent gameobject to parent this and any other trap instances to the same parent object
         }
         catch (System.Exception e)
         {
-            
+
             throw e;
         }
-       
+
     }
- 
-    
-    
-     public void SpawnWall(float x, float y, GameObject parent)
+
+
+
+    public void SpawnWall(float x, float y, GameObject parent)
     {
         try
         {
-            var wallInstance = Instantiate(wall, new Vector3(x,y,0) ,Quaternion.identity, parent.transform);
+            var wallInstance = Instantiate(wall, new Vector3(x, y, 0), Quaternion.identity, parent.transform);
             // wallInstance.transform.SetParent(parent.transform);
         }
 
         catch (System.Exception e)
         {
-            
+
             throw e;
         }
-       
+
     }
     //doing this for the unityEvent
-       void GetCurrentLevelTheme()
+    void GetCurrentLevelTheme()
     {
 
     }
@@ -130,20 +155,20 @@ public AudioSource audioSource;
     }
     public IEnumerator LoadGameOverScene()
     {
-        for (;;)
+        for (; ; )
         {
             yield return new WaitForSeconds(.1f);
-        gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
+            gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
             yield return new WaitForSeconds(1.75f);
             SceneManager.LoadScene(((int)SceneEnum.GAMEOVER));
         }
     }
 
 
-    public bool startUpDelayFinished = false;
+
     public GameData data;
     public GameObject WheelPrefab;
-    public int modifierInterval;
+
     public GameObject player;
     // public GameObject wheel;
     private WheelScript wheelScript;
@@ -158,7 +183,8 @@ public AudioSource audioSource;
         // InstantiateUE.AddListener(( GameObject go, Vector2 pos) => Instantiate(go, pos, Quaternion.identity));
 
         StartCoroutine((CreateRano(defaultSpawnLocation)));
-        LevelGenerator.manager = this;
+        
+        
         wheelScript = WheelPrefab.GetComponent<WheelScript>();
         StartCoroutine(nameof(BeginNewMod));
 
@@ -168,20 +194,20 @@ public AudioSource audioSource;
     {
         for (; ; )
         {
-            
+
             for (delayTimeElapsed = 0; delayTimeElapsed < modStartupTime; delayTimeElapsed += Time.deltaTime)
             {
                 yield return null;
             }
-           
+
             // LaunchNewModifier();
-            startUpDelayFinished = true;
+            modMan.startUpDelayFinished = true;
             Debug.Log("This message should never appear twice. If it does, there is a bug in modifier generation.");
             yield break;
         }
 
     }
-    
+
     void OnEnable()
     {
         // modMan.AssignModToggles(data.inspectorModToggles);
@@ -189,14 +215,20 @@ public AudioSource audioSource;
     }
     void Awake()
     {
-       
-        modMan.NabCommonMods(data.modSOs);
+        Debug.Log("Seed "+ GameConfig.GetSeed());
+        UnityEngine.Random.InitState(GameConfig.GetSeed());
 
-        data.mods = modMan.GenerateRandomMods(data.numOfMods);
 
-        LevelGenerator = new LevelGenerator(this, Tilemap, bgTilemap, currentLevelTile, bgTile, garnishTiles, sliceTextures, levelTraps);
-        LevelGenerator.flag = FlagEndpoint;
-        LevelGenerator.GenerateLevelChunksWithEndpoint(numberOfChunks);
+        modMan.NabCommonMods(modMan.modSOs);
+
+        modMan.mods = modMan.GenerateRandomMods(modMan.startingModNumber);
+
+        //setting the scene deps of the levelgenerator
+        LevelGenerator.Tilemap = Tilemap;
+        LevelGenerator.bgTilemap = bgTilemap;
+        LevelGenerator.manager = this;
+
+        LevelGenerator.GenerateLevelChunksWithEndpoint();
     }
 
     // Update is called once per frame
@@ -205,11 +237,11 @@ public AudioSource audioSource;
         UpdateModRemainingTime(TMProModTimeRemaining.GetComponent<TextMeshProUGUI>(), GetTimeUntilNewMod() + (modStartupTime - delayTimeElapsed), modTimeMessage);
 
         //checking if we need a new modifier
-        if (startUpDelayFinished)
+        if (modMan.startUpDelayFinished)
         {
             timeElapsed += Time.deltaTime;
         }
-        if (timeElapsed >= modifierInterval)
+        if (timeElapsed >= modMan.modifierInterval)
         {
             timeElapsed = 0;
             LaunchNewModifier();
@@ -221,27 +253,29 @@ public AudioSource audioSource;
     private float GetTimeUntilNewMod()
     {
 
-       return startUpDelayFinished?  modifierInterval - timeElapsed : (modifierInterval - timeElapsed);//make this return the time truly waited when were hung on the thing
+        return modMan.startUpDelayFinished ? modMan.modifierInterval - timeElapsed : (modMan.modifierInterval - timeElapsed);//make this return the time truly waited when were hung on the thing
     }
 
     //: Generates a new modifier. Includes the entire phase of spawning the wheel, spinning, choosing the modifier and ending.
     void LaunchNewModifier()
     {
         //if out of mods
-        if (data.numOfMods < 1)
+        if (modMan.GetNumOfMods() < 1)
         {
-            // Debug.Log("NO MORE MODS FOR YOU AAHAHAHAHAHAHAAAAAA  there wer e none to begin with.");
-            modTimeMessage = "Remaining bananas: ";
+            modTimeMessage = string.Empty;
             return;
         }
         FindObjectOfType<AudioSource>().PlayOneShot(wheelSFX);
         var wheelInstance = Instantiate(WheelPrefab, Vector3.zero, Quaternion.identity);
+        
+        // wheelInstance.iconParam = 
         Destroy(wheelInstance, 3);
         IModifier newMod = wheelScript.Launch();
+        
         //:the modifier is null at this point
         player.GetComponent<RanoScript>().AddModifier(newMod);
 
-        data.numOfMods--;
+        modMan.numOfMods--;
         // i am having a stroke
 
 

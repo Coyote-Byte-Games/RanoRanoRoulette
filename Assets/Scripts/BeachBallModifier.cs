@@ -8,7 +8,10 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
      public bool bounceEnabled; 
      private GameObject slamEffect;
     public float crashThreshold;
-
+public void OnNewModAdded(RanoScript rano)
+    {
+      return;
+    }
     
     public IEnumerator ContinuousEffect(RanoScript player)
     {
@@ -46,9 +49,8 @@ public class BeachBallModifier : UnityEngine.Object, IModifier, IMovementModifie
 
     public Sprite GetIcon()
     {
-            //    return player.data.FatRanoIcon;
-            // Debug.Log("haha fortnite  " + (Sprite)Resources.Load("Mod Icons\\BeachBall") is null);
-            return (Sprite)Resources.Load("Mod Icons\\BeachBall");
+           
+            return (Sprite)Resources.Load("Mod Icons\\beachball");
     }
 
     public void OnEndEffect(RanoScript player)
@@ -114,12 +116,12 @@ private Vector2 oldDirection;
         bounceToggle = new BeachBallPlayerState1(this);
         player.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         player.gameObject.GetComponent<CircleCollider2D>().enabled =true;
-
+        player.jumpSFX = player.soundManager.GetClip(SFXManagerSO.Sound.dodgeball);
         
 
         player.jumpRadius += 2;
-        player.rb.mass -= .5f;
-        player.rb.gravityScale = 3;
+        // player.rb.mass -= .5f;
+        // player.rb.gravityScale = 3;
         
         player.rb.constraints = UnityEngine.RigidbodyConstraints2D.None;
         player.UpdateSprite(player.data.FatRano); 

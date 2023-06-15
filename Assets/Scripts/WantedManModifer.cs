@@ -49,4 +49,9 @@ public class WantedManModifier : UnityEngine.Object, IModifier, IMovementModifie
       }
       
     }
+
+    public void OnNewModAdded(RanoScript rano)
+    {
+      return;
+    }
 }

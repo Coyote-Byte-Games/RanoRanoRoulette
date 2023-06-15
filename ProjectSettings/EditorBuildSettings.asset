@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial.unity
     guid: 385772f0bd3ffea4285ab75dac7a011c
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/GL.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/GameOverScene.unity

@@ -10,7 +10,10 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
    
-    
+    // public OnDestroy()
+    // {
+
+    // }
    public static MenuScript instance;
    public GameConfig config;
    public bool usingMouse = true;
@@ -22,7 +25,7 @@ public class MenuScript : MonoBehaviour
             instance = this;
         else
         {
-            Destroy(instance);
+            Destroy(this);
         }
     }
 
@@ -48,6 +51,9 @@ public class MenuScript : MonoBehaviour
     }
     private IEnumerator LoadSceneSoftly(SceneEnum toLoad)
     {
+        //I DID IT
+        //I FOUND A GOOD WAY TO USE ENUMS
+        //FUCK YOU BILL GATES IM NOT GONNA DIE IN THIS CESSPOOL OF YOUR TWISTED DESIGN
         for (; ; )
         {
             yield return new WaitForSeconds(1);

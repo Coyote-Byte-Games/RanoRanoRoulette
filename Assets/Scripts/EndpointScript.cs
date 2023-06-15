@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EndpointScript : MonoBehaviour
 {
-    public GameObject manager;
     // Start is called before the first frame update
   
 
@@ -12,7 +11,9 @@ public class EndpointScript : MonoBehaviour
     {
         if (collision.gameObject.GetComponentInChildren<RanoScript>() is not null)
         {
-            manager.GetComponent<GameManagerScript>().RunCutscene(Cutscene.LEVEL_VICTORY);
-        }
+
+            // MenuScript.instance.LoadSceneSoSoSoftly(SceneEnum.GAMEOVER);
+            FindAnyObjectByType<GameManagerScript>().GameOver();        
+            }
     }
 }

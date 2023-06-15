@@ -29,6 +29,7 @@ public class ButtonScript : EntityBaseScript
         EventManager.instance.OnButtonPress(transform.parent.gameObject.GetInstanceID());
         GetComponent<SpriteRenderer>().sprite = pressedSprite;
         AS.PlayOneShot(SFX[0]);
+        GetComponent<BoxCollider2D>().enabled = false;
 
     }
 

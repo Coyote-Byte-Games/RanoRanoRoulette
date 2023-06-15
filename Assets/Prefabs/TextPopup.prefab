@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7117085740854083542}
   - component: {fileID: 7117085740854083543}
   - component: {fileID: 6355194060385641625}
-  - component: {fileID: 1490925460}
   m_Layer: 5
   m_Name: TextPopup
   m_TagString: Untagged
@@ -29,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7117085740854082600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: 100}
+  m_LocalPosition: {x: 0, y: 5, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,7 +85,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7117085740854082600}
-  m_Text: MODIFIER
+  m_Text: Sugar Rush!
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 7.01
@@ -95,14 +94,14 @@ TextMesh:
   m_TabSize: 4
   m_FontSize: 220
   m_FontStyle: 0
-  m_RichText: 0
+  m_RichText: 1
   m_Font: {fileID: 12800000, guid: 08998c9992ff5a64595ed54ee79a91aa, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
 --- !u!95 &7117085740854083543
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,7 +109,7 @@ Animator:
   m_GameObject: {fileID: 7117085740854082600}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cc3f26fca93e69d41b4038b96749a041, type: 2}
+  m_Controller: {fileID: 9100000, guid: c46e084161f96f742b0c33158afec79b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -119,20 +118,9 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6355194060385641625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7117085740854082600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeed0f4b3cf5c7340a41aafd5d13d844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1490925460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

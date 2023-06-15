@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "My Assets/Modifiers/InvertedControls", fileName = "Inverted Controls SO")]
 public class InvertedControlsModifierSO : ModifierSO
 {
-    private InvertedControlsModifier modifier;
+    private InvertedControlsModifier modifier = new InvertedControlsModifier();
 
     public override IModifier GetModifier()
     {
@@ -14,7 +14,7 @@ public class InvertedControlsModifierSO : ModifierSO
 
     public void OnEnable()
     {
-        InvertedControlsModifier modifier = new InvertedControlsModifier();
+        // InvertedControlsModifier modifier = new InvertedControlsModifier();
     }
   
 

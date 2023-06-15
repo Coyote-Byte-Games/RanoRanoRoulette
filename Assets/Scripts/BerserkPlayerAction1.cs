@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class BerserkPlayerAction1 : IPlayerAction
 {
+
     public float activeDuration = 1.5f;
     GameObject sword;
     //for the sheathing
-    GameObject swordDisplay;
     private BerserkModifier mod;
     private Rigidbody2D rb;
     public BerserkPlayerAction1(BerserkModifier modSource)
@@ -17,28 +17,18 @@ public class BerserkPlayerAction1 : IPlayerAction
         this.mod = modSource;
     }
 
-private void SheatheSword()
-{
-sword.GetComponentInChildren<SpriteRenderer>().enabled = false;
-    sword.GetComponent<BoxCollider2D>().enabled = false;
-
-swordDisplay.SetActive( true);
-}
-private void DrawSword()
-{
-    sword.GetComponentInChildren<SpriteRenderer>().enabled = true;
-    sword.GetComponent<BoxCollider2D>().enabled = true;
-
-swordDisplay.SetActive( false);
-}
 
   public IEnumerator ActiveCycle()
   {
-    DrawSword();
+    mod.DrawSword();
     yield return new WaitForSeconds(activeDuration);
-    SheatheSword();
+    mod.SheatheSword();
     yield break;
 
+  }
+  public bool OnCoolDown()
+  {
+    return false;
   }
     void IPlayerAction.Run()
     {
@@ -54,7 +44,7 @@ swordDisplay.SetActive( false);
         mod.player.animator.SetTrigger("Jump");
         mod.player.jumpsRemaining -= 1;
         sword = ((GameObject)mod.sword);
-        swordDisplay = ((GameObject)mod.sheathedSword);
+       
         //freezes the player rotation so the sword can be aimed with modifers that affect rotation (beach ball, etc.)
         mod.player.rb.freezeRotation = true;
         
@@ -91,7 +81,7 @@ swordDisplay.SetActive( false);
 
 
         mod.player.rb.AddForce(6500 * camDir);
-        mod.player.AS.PlayOneShot(mod.player.SFX[2]);
+        mod.player.AS.PlayOneShot(mod.player.soundManager.GetClip(SFXManagerSO.Sound.whoosh));
     }
 
     private IEnumerator MoveSwordInDir(Vector3 end)
@@ -133,5 +123,10 @@ swordDisplay.SetActive( false);
 
     {
         return mod.GetIcon();
+    }
+
+    public void DecrementCD()
+    {
+     return;
     }
 }
