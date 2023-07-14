@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd1ec346962be04d995cecc9540482a, type: 3}
+  m_Name: Volcano Generator
+  m_EditorClassIdentifier: 
+  currentLevelTile: {fileID: 11400000, guid: 1c2769fb0d5b43f4c8d9fefa9b4a7a38, type: 2}
+  currentLevelBGTile: {fileID: 11400000, guid: 7e48562765b31e34a8f45536875302ba, type: 2}
+  garnishGameObjects:
+  - {fileID: 7599799353921909445, guid: de2e3f0678acdcf4f844c808df2f7262, type: 3}
+  - {fileID: 7599799353921909445, guid: 9e2556558c621a944a452fc405912221, type: 3}
+  - {fileID: 7599799353921909445, guid: 40be73b598516554e934b29a7a4971b3, type: 3}
+  - {fileID: 7599799353921909445, guid: f2694ea228fc6374ab98907e3299ed91, type: 3}
+  garnishVerticalOffset: 0
+  fossilGameObjects:
+  - {fileID: 7599799353921909445, guid: cfe175ccd9c1a5242bedf3befe581d4a, type: 3}
+  Tilemap: {fileID: 0}
+  bgTilemap: {fileID: 0}
+  sliceTextures:
+  - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
+  - {fileID: 11400000, guid: 59d359c8bd8c87c4aa9df8d269f4d3f8, type: 2}
+  - {fileID: 11400000, guid: e259f8864146d82408245ddf18bb74bb, type: 2}
+  - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
+  - {fileID: 11400000, guid: 82caef9b7d4b26447aa30603cf2fed38, type: 2}
+  - {fileID: 11400000, guid: b8b529440d882884d96b6a8fe8dd6393, type: 2}
+  traps:
+  - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
+  flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+  sliceTexProbabliities: []
+  numOfChunks: 25
+  minFossilDistance: 3182
+  fossilChance: 67
+  shrubChance: 82
+  difficultyBasedGeneration: 0
+  weightBasedGeneration: 0
+  gameManager: {fileID: 0}
+  levelManager: {fileID: 11400000, guid: 88d8567237102a34ea95eec41c22478b, type: 2}

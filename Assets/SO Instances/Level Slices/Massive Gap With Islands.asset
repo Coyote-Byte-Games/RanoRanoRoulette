@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9911f47232d31249bd66b1b9aac07cc, type: 3}
+  m_Name: Massive Gap With Islands
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 6402847552631776416, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
+  traps:
+  - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
+  texture: {fileID: 2800000, guid: 979e7c822ea4e4244ae92bd35397dbaf, type: 3}
+  difficulty: 5

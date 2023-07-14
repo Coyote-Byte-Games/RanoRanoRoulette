@@ -8,24 +8,28 @@ using UnityEngine.UI;
 using TMPro;
 public class GameManagerScript : MonoBehaviour
 {//TODO Migrate UI functions to UIManager
-private bool _creatingRano;
-    public string modTimeMessage = "Time until New Mod";
+
+    public LevelManagerScript[] levels;
+    //2:11AM coding makes the best "it works" garbage
+    public GameObject fadeGO;
+    public SFXManagerSO sfxMan;
     public AudioClip wheelSFX;
-    public AudioClip portalSFX;
+    private bool _creatingRano;
+    public GameObject menuScript;
+    public string modTimeMessage = "Time until New Mod";
     [Space]
     public ModifierManager modMan;
     public GameConfig config;
     private UIManagerScript uiManager;
-    public LevelGenerator LevelGenerator;
+    // public LevelGenerator LevelGenerator;
+    public GameObject bgImage;
     //  public LevelSlice[] sliceTextures;
     [Space]
     // public GameObject FlagEndpoint;
     public GameObject portal;
     public GameObject rano;
     public GameObject TMProModTimeRemaining;
-    public GameObject testEnemy;
-    public GameObject button;
-    public GameObject wall;
+
 
     [Space]
     public Image gameOverFade;
@@ -44,21 +48,25 @@ private bool _creatingRano;
 
     [UnityEngine.Header("Level Generation")]
     public GameObject[] levelTraps;
+    public LevelManagerScript levelManager;
+    public GameObject button;
+    public GameObject wall;
+    public bool looping;
 
 
-   
+
     private void UpdateModRemainingTime(TextMeshProUGUI element, float timeRemaining, string text = "Time until new mod:")
     {
-string strong;
+        string strong;
         if (text == string.Empty)
         {
-        strong =text;
-            
+            strong = text;
+
         }
         else
         {
-        strong = $"{text} {timeRemaining.ToString("F1")}";
-            
+            strong = $"{text} {timeRemaining.ToString("F1")}";
+
         }
         element.text = strong;
     }
@@ -69,6 +77,7 @@ string strong;
 
     public IEnumerator CreateRano(Vector3 spawnLocation)
     {
+        yield return new WaitForSeconds(.25f);
 
         if (_creatingRano)
         {
@@ -81,7 +90,7 @@ string strong;
         rano.GetComponentInChildren<SpriteRenderer>().enabled = false;
         rano.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         var port = Instantiate(portal, spawnLocation, Quaternion.identity);
-        audioSource.PlayOneShot(portalSFX);
+        audioSource.PlayOneShot(sfxMan.GetClip(SFXManagerSO.Sound.portalOpen));
         yield return new WaitForSeconds(1);
         rano.SetActive(true);
         rano.GetComponentInChildren<SpriteRenderer>().enabled = true;
@@ -98,19 +107,22 @@ string strong;
     }
 
 
-    public void SpawnEnemy(int x, int y)
+    public void LoadNextLevel()
     {
-        try
+        if (( ++config.currentLevel >= levels.Length) )
         {
-            Instantiate(testEnemy, new Vector3(x, y, 0), Quaternion.identity);
+            Debug.Log("bababooey");
+           StartCoroutine(LoadSceneStylin(4));
         }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
-
+       else
+       {
+        CleanupAfterRanoKeelsOver();
+           StartCoroutine(LoadSceneStylin(((int)SceneEnum.GL)));
+    
+       }
+       
     }
+
     public void SpawnButton(float x, float y, GameObject parent)
     {
         try
@@ -148,19 +160,21 @@ string strong;
     {
 
     }
-    public void GameOver()
-    {
 
-        StartCoroutine(nameof(LoadGameOverScene));
-    }
-    public IEnumerator LoadGameOverScene()
+    public IEnumerator LoadSceneStylin(int toLoad)
     {
         for (; ; )
         {
-            yield return new WaitForSeconds(.1f);
-            gameOverFade.GetComponent<Animator>().SetTrigger("GameOver");
-            yield return new WaitForSeconds(1.75f);
-            SceneManager.LoadScene(((int)SceneEnum.GAMEOVER));
+            // yield return new WaitForSeconds(.1f);
+            fadeGO.GetComponent<Animator>().SetTrigger("GameOver");
+            yield return new WaitForSeconds(2.25f);
+            SceneManager.LoadScene(toLoad);
+            yield return new WaitForSeconds(1.5f);
+            // gameOverFade.GetComponent<Animator>().SetTrigger("Open Back Up");
+            // yield return new WaitForSeconds(1.75f);
+
+            yield break;
+
         }
     }
 
@@ -182,12 +196,17 @@ string strong;
         //To use instantiate
         // InstantiateUE.AddListener(( GameObject go, Vector2 pos) => Instantiate(go, pos, Quaternion.identity));
 
+
+
         StartCoroutine((CreateRano(defaultSpawnLocation)));
-        
-        
+
+
         wheelScript = WheelPrefab.GetComponent<WheelScript>();
         StartCoroutine(nameof(BeginNewMod));
 
+        bgImage.GetComponent<SpriteRenderer>().sprite = levelManager.bgImage;
+        bgImage.GetComponent<SpriteRenderer>().color = levelManager.bgColor + new Color(0, 0, 0, 1);
+        bgImage.transform.localScale = levelManager.bgScale;
     }
 
     private IEnumerator BeginNewMod()
@@ -215,7 +234,12 @@ string strong;
     }
     void Awake()
     {
-        Debug.Log("Seed "+ GameConfig.GetSeed());
+        // if (config.currentLevel >= levels.Length)
+        // {
+        //     config.currentLevel = 0;
+        // }
+         levelManager = levels[config.currentLevel];
+        Debug.Log("Seed " + GameConfig.GetSeed());
         UnityEngine.Random.InitState(GameConfig.GetSeed());
 
 
@@ -224,11 +248,11 @@ string strong;
         modMan.mods = modMan.GenerateRandomMods(modMan.startingModNumber);
 
         //setting the scene deps of the levelgenerator
-        LevelGenerator.Tilemap = Tilemap;
-        LevelGenerator.bgTilemap = bgTilemap;
-        LevelGenerator.manager = this;
-
-        LevelGenerator.GenerateLevelChunksWithEndpoint();
+        levelManager.generator.Tilemap = Tilemap;
+        levelManager.generator.bgTilemap = bgTilemap;
+        levelManager.generator.gameManager = this;
+        levelManager.generator.WipeTileMap();
+        levelManager.generator.GenerateLevelChunksWithEndpoint();
     }
 
     // Update is called once per frame
@@ -247,6 +271,8 @@ string strong;
             LaunchNewModifier();
 
         }
+
+
 
     }
 
@@ -267,11 +293,11 @@ string strong;
         }
         FindObjectOfType<AudioSource>().PlayOneShot(wheelSFX);
         var wheelInstance = Instantiate(WheelPrefab, Vector3.zero, Quaternion.identity);
-        
+
         // wheelInstance.iconParam = 
         Destroy(wheelInstance, 3);
         IModifier newMod = wheelScript.Launch();
-        
+
         //:the modifier is null at this point
         player.GetComponent<RanoScript>().AddModifier(newMod);
 
@@ -279,17 +305,6 @@ string strong;
         // i am having a stroke
 
 
-    }
-
-    internal void RunCutscene(Cutscene cutID)
-    {
-        // switch (cutID)
-        // {
-        //     case Cutscene.LEVEL_VICTORY:
-        //     default: throw new NotImplementedException();
-        // }
-        CleanupAfterRanoKeelsOver();
-        GameOver();
     }
 }
 //todo create new comments, docs, debug? explain, function?

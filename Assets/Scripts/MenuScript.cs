@@ -14,6 +14,7 @@ public class MenuScript : MonoBehaviour
     // {
 
     // }
+    public GameObject fadeGO;
    public static MenuScript instance;
    public GameConfig config;
    public bool usingMouse = true;
@@ -33,7 +34,25 @@ public class MenuScript : MonoBehaviour
     public void PlayGame()
     {
         //SceneManager.GetActiveScene().buildIndex + 1
-        SceneManager.LoadScene(((int)SceneEnum.GL));
+        // SceneManager.LoadScene(((int)SceneEnum.GL));
+        config.currentLevel = 0;
+        StartCoroutine(LoadGameScene((int)SceneEnum.GL));
+    }
+     public IEnumerator LoadGameScene(int index)
+    {
+        for (; ; )
+        {
+            // yield return new WaitForSeconds(.1f);
+            fadeGO.GetComponent<Animator>().SetTrigger("GameOver");
+            yield return new WaitForSeconds(3.2f);
+            SceneManager.LoadScene(index);
+            yield return new WaitForSeconds(1.5f);
+            // gameOverFade.GetComponent<Animator>().SetTrigger("Open Back Up");
+            // yield return new WaitForSeconds(1.75f);
+
+            yield break;
+            
+        }
     }
     //  public void SetUsingMouse(bool input)
     // {

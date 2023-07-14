@@ -14,11 +14,34 @@ public class FollowerAI : MonoBehaviour
     public float nextWaypointDistance;//threshold to ge tthere
 
     Path path;
+    public LayerMask groundLayer;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
     public bool enemy;
+    private int jumpsRemaining;
     Seeker seeker;
+    public float jumpForce;
     Rigidbody2D rb;
+    public bool CanJump;
+    public GameObject jumpDetectorL; //these are for checking if the Ai needs to jump
+    public GameObject jumpDetectorR; //these are for checking if the Ai needs to jump
+    public GameObject groundCheck;
+    private void _JumpUpdate()
+    {
+        if (!Physics2D.OverlapCircle(jumpDetectorL.transform.position, .2f, groundLayer))
+        {
+            _Jump();
+        }
+    }
+    private void _Jump()
+    {
+        if (jumpsRemaining <= 0)
+        {
+            return;            
+        }
+        rb.AddForce(Vector2.up * jumpForce);
+        jumpsRemaining --;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +91,10 @@ public class FollowerAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Physics2D.OverlapCircle(groundCheck.transform.position, .2f, groundLayer))
+        {
+            jumpsRemaining = 1;
+        }
         if (path is null)
             return;
 

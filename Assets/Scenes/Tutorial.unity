@@ -123,52 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2418190
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2418192}
-  - component: {fileID: 2418191}
-  m_Layer: 0
-  m_Name: SceneManagin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2418191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2418190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b2b537016bfa4cbb8c2a0e4866895, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 0}
-  usingMouse: 1
---- !u!4 &2418192
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2418190}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.08, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 26
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &23267065
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,27 +243,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377075200cfbe3841b54814b2af3f43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modTimeMessage: New mod in
+  levels:
+  - {fileID: 11400000, guid: a68596bd99484734c89f298473aa7cb8, type: 2}
+  fadeGO: {fileID: 1249331820}
+  sfxMan: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
   wheelSFX: {fileID: 8300000, guid: 02a56be9366b2634cb59dbef6f0bf788, type: 3}
-  portalSFX: {fileID: 8300000, guid: 4c2bc2d48c7e60040b4452a33fba5984, type: 3}
+  menuScript: {fileID: 0}
+  modTimeMessage: New mod in
   modMan: {fileID: 11400000, guid: 550d13c84b49dd044800da7968ec9e11, type: 2}
   config: {fileID: 11400000, guid: bf54749c5e3dc094abf3e8015455d8fa, type: 2}
-  LevelGenerator: {fileID: 11400000, guid: fefaed88156c6fb44b2b8a48022961ec, type: 2}
+  bgImage: {fileID: 1782102545}
   portal: {fileID: 4224019269176027774, guid: 013c9c61f2fb65f4f84cbb553e25d16f, type: 3}
   rano: {fileID: 1125366860}
   TMProModTimeRemaining: {fileID: 1384630905}
-  testEnemy: {fileID: 1222238375}
-  button: {fileID: 1131075907333223369, guid: 8a8fe28ec8dd16c4f90045f02d06f424, type: 3}
-  wall: {fileID: 5338485435785377109, guid: cbadce7ccb40acf45b9f1ac1f3fd3174, type: 3}
   gameOverFade: {fileID: 1249331824}
-  defaultSpawnLocation: {x: 0, y: 5, z: 0}
+  defaultSpawnLocation: {x: 5, y: 5, z: 0}
   Tilemap: {fileID: 1037304686}
   bgTilemap: {fileID: 209344799}
   numberOfChunks: 25
   audioSource: {fileID: 1282554108}
   levelTraps:
   - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
-  data: {fileID: 11400000, guid: 6992705295689db4cb83b8955fb83db2, type: 2}
+  levelManager: {fileID: 11400000, guid: a68596bd99484734c89f298473aa7cb8, type: 2}
+  button: {fileID: 1131075907333223369, guid: 8a8fe28ec8dd16c4f90045f02d06f424, type: 3}
+  wall: {fileID: 5338485435785377109, guid: cbadce7ccb40acf45b9f1ac1f3fd3174, type: 3}
+  data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   WheelPrefab: {fileID: 3152704776237088668, guid: 755954c9e8922204fb2b1e0d7c74e2d9, type: 3}
   player: {fileID: 1125366860}
   modStartupTime: 0
@@ -320,451 +278,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1222238387, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: AS
-      value: 
-      objectReference: {fileID: 1282554108}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: pseudoDetectionRadius
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].name
-      value: WEIRD HAND DUDE
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].name
-      value: WEIRD HANDYMAN
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].Lsprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].Rsprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].Lsprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].Rsprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].sentences.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].sentences.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].sentences.Array.data[0]
-      value: stay away from me you weird marshmellow creep
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].sentences.Array.data[1]
-      value: Are you...
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].sentences.Array.data[2]
-      value: Swelling????????
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].sentences.Array.data[3]
-      value: ...
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].sentences.Array.data[0]
-      value: Foiled again, Reiner. You're helpless in your current state!
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].sentences.Array.data[1]
-      value: presuming you don't use the Q button to switch your current STATUS;
-        in this case, that would disable your bounce.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].sentences.Array.data[2]
-      value: 'ESPECIALLY if you don''t use E to swap your current swappable status
-        or RIGHT MOUSE BUTTON to switch actions. '
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.data[0].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.data[0].sentence
-      value: Hey, kid. Want some candy?
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.data[1].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.data[1].sentence
-      value: C'mon... y'know you want it...
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[0].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[0].sentence
-      value: Ah. Oh. That is a very large sword.  It looks good on you...
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[1].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[1].sentence
-      value: ...Given you dont use the [LEFT MOUSE BUTTON] to swing and
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[2].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[2].sentence
-      value: throw yourself in the direction of your cursor, cutting though anything
-        in the way.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[3].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[3].sentence
-      value: ...
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.data[0].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.data[0].sentence
-      value: no nope not doing that get away from me you marshmellow freak
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.data[1].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.data[1].sentence
-      value: ...Are you... inflating???
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[0].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[0].sentence
-      value: 'Well, you''re totally useless in that state! '
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[1].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[1].sentence
-      value: given you don't press [RIGHT MOUSE BUTTON] to switch your active [ACTION].
-        In this case, that would equip the bouce of the your beach ball mod.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[2].Speaking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[2].sentence
-      value: Or use the Q button to toggle your [STATUS], in this case, disengaging
-        your bounce.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.data[0].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[0].dialouges.Array.data[1].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[0].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[1].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[2].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].dialouges.Array.data[3].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.data[0].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].dialouges.Array.data[1].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[0].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[1].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].dialouges.Array.data[2].OwnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
       propertyPath: dialouges.Array.data[0].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1125366865}
     - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1560720115}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 1560720115}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
       propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1125366865}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1560720115}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1125366865}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1125366865}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetDetectionRadius
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: BeginDialougeAtIndex
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AddModifier
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: BeginDialougeAtIndex
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AddModifier
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: AddModifier
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: TalkativeNPC, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: TalkativeNPC, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: RanoScript, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: TalkativeNPC, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: RanoScript, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: RanoScript, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[1].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: ModifierSO, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[2].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: ModifierSO, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: ModifierSO, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 1560720122, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
       propertyPath: AS
       value: 
       objectReference: {fileID: 1282554108}
     - target: {fileID: 1560720122, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: boom
+      propertyPath: soundManager
       value: 
-      objectReference: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-    - target: {fileID: 1560720122, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: SFX.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560720122, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-      propertyPath: SFX.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
+      objectReference: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
     - target: {fileID: 6402847552631776416, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
       propertyPath: m_Name
       value: NPC Robot
@@ -817,8 +346,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1222238387, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
 --- !u!1 &115390782
 GameObject:
@@ -902,6 +430,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   edge: {fileID: 0}
   z: 0
+  moves: 0
 --- !u!4 &140046271
 Transform:
   m_ObjectHideFlags: 0
@@ -961,6 +490,53 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!1 &144490239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144490240}
+  - component: {fileID: 144490241}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &144490240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144490239}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144490241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144490239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96b2b537016bfa4cbb8c2a0e4866895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeGO: {fileID: 1249331820}
+  config: {fileID: 11400000, guid: bf54749c5e3dc094abf3e8015455d8fa, type: 2}
+  usingMouse: 1
 --- !u!1 &186878639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2700,6 +2276,7 @@ MonoBehaviour:
   knockBack: 222
   damage: 1
   knockBackOverride: {x: 1, y: 0}
+  shitlist: []
 --- !u!61 &781917894
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3957,11 +3534,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206254520}
   m_CullTransparentMesh: 1
---- !u!1 &1222238375 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6402847552631776416, guid: a2e4a7c829b7ad941beac9e48cdef5fa, type: 3}
-  m_PrefabInstance: {fileID: 784563415}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1249331820
 GameObject:
   m_ObjectHideFlags: 0
@@ -4935,6 +4507,10 @@ PrefabInstance:
       propertyPath: dialouges.Array.data[3].actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: ModifierSO, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 1773304396935740637, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6402847552631776416, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
       propertyPath: m_Name
       value: NPC Robot_1
@@ -5280,17 +4856,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548791828}
   m_CullTransparentMesh: 1
---- !u!114 &1560720115 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1560720115, guid: fbe0d3ec481f00b4caefb5e8a4406777, type: 3}
-  m_PrefabInstance: {fileID: 98568894}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef2809a0d3fe054f92ee89aacee959e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1591836363
 GameObject:
   m_ObjectHideFlags: 0

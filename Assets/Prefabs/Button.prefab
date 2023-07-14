@@ -73,10 +73,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  buffIcons: []
   boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
+  popup: {fileID: 0}
   AS: {fileID: 0}
-  SFX:
-  - {fileID: 8300000, guid: 9d625a271b7d3d1409f555ea35d7869f, type: 3}
+  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
   pressedSprite: {fileID: 907216408, guid: 66850b0e2b346bf44abe4db0f27954a9, type: 3}
 --- !u!212 &1497616184366894770
 SpriteRenderer:

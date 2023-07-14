@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84c8102e80190e49a73ee9ea0f1c48a, type: 3}
+  m_Name: Tutorial LM
+  m_EditorClassIdentifier: 
+  enemyDispenser: {fileID: 11400000, guid: 24feb2d00dfbff647a06607b3a80182b, type: 2}
+  generator: {fileID: 11400000, guid: fefaed88156c6fb44b2b8a48022961ec, type: 2}
+  bgImage: {fileID: 21300000, guid: 641d251b4b664994e985a678b69ec239, type: 3}
+  bgScale: {x: 2, y: 2}
+  bgColor: {r: 0.6313726, g: 0.4627451, b: 0.54901963, a: 1}

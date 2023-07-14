@@ -22,7 +22,6 @@ public class AutoScroller :FreezableMonoBehaviour
 
 
 
-
     public Camera cam;
     public EdgeCollider2D edge;
 
@@ -30,6 +29,10 @@ public class AutoScroller :FreezableMonoBehaviour
     float width, height;
 
     public int z;
+        
+    [Header ("Fun settings")]
+    public bool moves;
+
     public bool IsObjectBehind(GameObject other)
     {
         return other.transform.position.x > -width / 2;
@@ -86,7 +89,7 @@ public class AutoScroller :FreezableMonoBehaviour
         //a scalar to determine how much zoom we need
         float zoomDemand = player.transform.position.y;
         var zoomVariable = Mathf.Clamp((zoomDemand / 2), 0, 25);
-        if (!frozen)
+        if (!frozen && moves)
         {
             var distanceScaler = Mathf.Clamp(Vector2.Distance(transform.position + 50 * Vector3.left, player.transform.position) / ease, .5f, 1);
             transform.position += new Vector3((speed + momentumAccumulated) * distanceScaler, 0, 0) * Time.deltaTime;

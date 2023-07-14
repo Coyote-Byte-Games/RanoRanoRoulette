@@ -38,7 +38,7 @@ public class TalkativeNPC : MonoBehaviour
         public void BeginDialougeAtIndex(int index)
     {
         Dialouge chosen = dialouges[index];
-        FindObjectOfType<DialougeScript>().BeginDialouge(chosen);
+        FindAnyObjectByType<DialougeScript>(FindObjectsInactive.Include).BeginDialouge(chosen);
     }
     public void Shaddup()
     {

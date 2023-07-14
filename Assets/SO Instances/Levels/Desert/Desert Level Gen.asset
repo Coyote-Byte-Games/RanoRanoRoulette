@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd1ec346962be04d995cecc9540482a, type: 3}
+  m_Name: Desert Level Gen
+  m_EditorClassIdentifier: 
+  currentLevelTile: {fileID: 11400000, guid: 88842020ef877ca4e92aa8b8e517d62f, type: 2}
+  currentLevelBGTile: {fileID: 11400000, guid: 214a67725472d87448249479a0f6c473, type: 2}
+  garnishGameObjects:
+  - {fileID: 7599799353921909445, guid: 284ec2cc2482ab546aaf66912f012808, type: 3}
+  - {fileID: 7599799353921909445, guid: 5f8778aae4bc1e245a9e981829c5e805, type: 3}
+  - {fileID: 7599799353921909445, guid: 3636d86bdbf301f489cfd3a473840fa6, type: 3}
+  - {fileID: 7599799353921909445, guid: 29177cb2fc221bb4784173efb98e8523, type: 3}
+  - {fileID: 7599799353921909445, guid: 3636d86bdbf301f489cfd3a473840fa6, type: 3}
+  - {fileID: 7599799353921909445, guid: 3636d86bdbf301f489cfd3a473840fa6, type: 3}
+  garnishVerticalOffset: 0
+  fossilGameObjects:
+  - {fileID: 7599799353921909445, guid: 40342af471645c04e98b40875c221d20, type: 3}
+  Tilemap: {fileID: 0}
+  bgTilemap: {fileID: 0}
+  sliceTextures:
+  - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
+  - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
+  - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
+  - {fileID: 11400000, guid: 39261843cb349804e922c6299c4af5b2, type: 2}
+  - {fileID: 11400000, guid: d0d5678fae7a80043a243783a8ff62de, type: 2}
+  - {fileID: 11400000, guid: 0a28653578d1ad746a127c3f4f39630d, type: 2}
+  - {fileID: 11400000, guid: 8bcc48748ab666c459d1115e124d2a57, type: 2}
+  traps:
+  - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
+  flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+  sliceTexProbabliities: []
+  numOfChunks: 25
+  minFossilDistance: 585
+  fossilChance: 1
+  shrubChance: 49
+  difficultyBasedGeneration: 0
+  weightBasedGeneration: 0
+  gameManager: {fileID: 0}
+  levelManager: {fileID: 11400000, guid: 9d5a47305bf48c24189d8480ad5813cb, type: 2}

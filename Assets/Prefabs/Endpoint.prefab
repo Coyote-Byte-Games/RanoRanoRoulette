@@ -258,6 +258,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 950704846525344329}
     m_Modifications:
+    - target: {fileID: -422802535559477319, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+      propertyPath: m_Size.x
+      value: 28.889385
+      objectReference: {fileID: 0}
+    - target: {fileID: -422802535559477319, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+      propertyPath: m_Size.y
+      value: 12.706793
+      objectReference: {fileID: 0}
+    - target: {fileID: -422802535559477319, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.95217705
+      objectReference: {fileID: 0}
+    - target: {fileID: -422802535559477319, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+      propertyPath: m_Offset.y
+      value: 2.7954988
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173155258692485703, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6193567499417224826, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -302,6 +322,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6434620127203736194, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1133930930, guid: 53833ec2b5a3d5e459178e6c74eb6fbd, type: 3}
     - target: {fileID: 6462181041658482663, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
       propertyPath: m_LocalScale.x
       value: 32

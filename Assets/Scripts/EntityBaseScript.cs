@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class EntityBaseScript : FreezableMonoBehaviour
 {
-
+    public int health = 1;
     [Space]
     public GameObject[] buffIcons;
     [Space]
 
+    private bool dead;
 
-    public int health = 1;
     public GameObject boom;
     public GameObject popup;
+    [HideInInspector]
     public AudioSource AS;
     public SFXManagerSO soundManager;
-    public AudioClip[] SFX;
+
+    
 
 
     public void CreatePopup(string text, int index)
@@ -26,6 +28,17 @@ public class EntityBaseScript : FreezableMonoBehaviour
         var script = popupInst.GetComponent<CharacterPopupScript>();
         script.SetText(text);
         script.SetImageExtra(Instantiate(buffIcons[index]));
+        //someday ill make a central manager for these, Or just use resoures again
+
+
+    }
+    public void CreatePopup(string text)
+    {
+        var popupInst = Instantiate(popup, transform.position, Quaternion.identity);
+        Destroy(popupInst, 1f);
+        var script = popupInst.GetComponent<CharacterPopupScript>();
+        script.SetText(text);
+        script.SetImageExtra(null);
         //someday ill make a central manager for these, Or just use resoures again
 
 
@@ -44,7 +57,11 @@ public class EntityBaseScript : FreezableMonoBehaviour
 
     internal virtual void die()
     {
-
+        if (dead)
+        {
+            return;
+        }
+        dead = true;
         try
         {
             var npcness = GetComponent<TalkativeNPC>();
@@ -59,33 +76,25 @@ public class EntityBaseScript : FreezableMonoBehaviour
 
         var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
 
+        Debug.Log($"Stinking it up {AS == null} {soundManager == null}");
         AS.PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.boom)); //kaboom
+        // soundManager.PlayClip((SFXManagerSO.Sound.boom));
 
-        Destroy(kablooey, .25f);
+
+        // Destroy(kablooey, .25f);
         Destroy(gameObject);
     }
 
-    public void Start()
+
+    public virtual void Start()
     {
-        if (AS is null)
-        {
-            AS = FindAnyObjectByType<AudioSource>();
-        }
+
+        AS = FindAnyObjectByType<AudioSource>();
+
 
     }
     public void OnCollisionEnter2D(Collision2D other)
     {
-
-        var script = other.gameObject.GetComponent<DamagingObjectScript>();
-
-        if (script is not null)
-        {
-            if (script.shitlist.Contains(gameObject.layer) || true)
-            {
-                TakeDamage(script.GetDamage());
-                Debug.Log("lmaaoooooooooooooooo im dead");
-            }
-        }
 
     }
     public void Update()

@@ -6,19 +6,33 @@ using UnityEngine;
 public class FreezableMonoBehaviour : MonoBehaviour
 {
     internal bool frozen;
-    private RigidbodyConstraints2D ownConstraints;
+    internal Vector2 ownVelocity;
+    internal RigidbodyConstraints2D ownConstraints;
 
     public virtual void UnFreeze()
     {
         try
         {
-            frozen = true;
-            GetComponent<Rigidbody2D>().constraints = ownConstraints;
-            GetComponent<Animator>().enabled = true;
+            var rb = GetComponentInChildren<Rigidbody2D>();
+            frozen = false;
+            rb.constraints = ownConstraints;
+           
+
+            rb.velocity = ownVelocity;
+            
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("shat the bed " + e);
+        }
+        try
+        {
+             GetComponentInChildren<Animator>().enabled = true;
         }
         catch (System.Exception)
         {
-
+            
+            
         }
 
 
@@ -31,8 +45,10 @@ public class FreezableMonoBehaviour : MonoBehaviour
 
         try
         {
-            var rb = GetComponent<Rigidbody2D>();
+            var rb = GetComponentInChildren<Rigidbody2D>();
             ownConstraints = rb.constraints;
+            ownVelocity = rb.velocity; 
+            rb.velocity = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         catch (System.Exception)
@@ -41,7 +57,7 @@ public class FreezableMonoBehaviour : MonoBehaviour
         }
         try
         {
-            GetComponent<Animator>().enabled = false;
+            GetComponentInChildren<Animator>().enabled = false;
 
         }
         catch (System.Exception)
@@ -52,6 +68,10 @@ public class FreezableMonoBehaviour : MonoBehaviour
 
 
 
+    }
+    public void Awake()
+    {
+// rb = GetComponentInChildren<Rigidbody2D>();
     }
 
 }

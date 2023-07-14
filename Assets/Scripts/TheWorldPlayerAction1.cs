@@ -29,7 +29,10 @@ public class TheWorldPlayerAction1 : UnityEngine.Object, IPlayerAction
             }
             else
             {
-                item.Freeze();
+                foreach (var fMB in item.GetComponents<FreezableMonoBehaviour>())
+                {
+                fMB.Freeze();
+                }
             }
         }
         var goArray = FindObjectsOfType(typeof(GameObject));

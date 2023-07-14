@@ -13,6 +13,18 @@ public class FlamePillarScript : FreezableMonoBehaviour
     // public Sprite texture;
     public GameObject segmentPrefab;
     private Vector2 beam;
-
+    private Rigidbody2D rb;
+    public void Start()
+    {
+         rb =GetComponent<Rigidbody2D>(); 
+    }
+    public void FixedUpdate()
+    {
+        
+        if (!frozen)
+        {
+        rb.SetRotation(rb.rotation + rotationSpeed);
+        }
+    }
 
 }

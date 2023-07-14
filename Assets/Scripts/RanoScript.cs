@@ -29,6 +29,10 @@ public class RanoScript : EntityBaseScript
     public short controlInversion = 1;
     public int maxHP;
     public int maxSpeed;
+    public bool unkillable;
+    public bool unmovable;
+    private Vector2 lastVelocity;
+    private bool magnetTime;
 
     //for the tags that are to be excepted from damage collisons
     public string[] tagList;
@@ -39,7 +43,6 @@ public class RanoScript : EntityBaseScript
     public Mouse mouse = Mouse.current;
     public int jumpsRemaining = 1;
     public GameManagerScript gameManager;
-
     public Image[] hearts;
     public GameData data;
     public float jumpRadius;
@@ -51,8 +54,12 @@ public class RanoScript : EntityBaseScript
     public Transform groundCheck;
     public float speed;
     public int maxJumps;
+
+    public float maxChange;
+
     public LayerMask groundLayer;
     public int jumpPower;
+    private float mangetTimeRemaining;
     public AudioClip jumpSFX;
     bool grounded;
     private PlayerInfoV2<IPlayerAction> playerActions = new PlayerInfoV2<IPlayerAction>();
@@ -100,6 +107,7 @@ public class RanoScript : EntityBaseScript
     public void EnableSpikeBoots()
     {
         this.groundCheck.GetComponent<BoxCollider2D>().enabled = true;
+        this.damagingJump = true;
     }
     void createOutLineBlur()
     {
@@ -173,6 +181,7 @@ public class RanoScript : EntityBaseScript
     private float jumpCooldown;
     public float iFrameDuration;
     private float invincibleTimeLeft;
+    private bool damagingJump = false;
 
     public int Health
     {
@@ -210,7 +219,7 @@ public class RanoScript : EntityBaseScript
 
         base.die();
         #region Scene Change
-        gameManager.GameOver();
+        gameManager.StartCoroutine( gameManager.LoadSceneStylin(((int)SceneEnum.GAMEOVER)));
         #endregion
 
 
@@ -350,6 +359,7 @@ public class RanoScript : EntityBaseScript
     {
 
         return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
+        // return Physics2D.Raycast(transform.position, Vector2.down, jumpRadius, groundLayer);
 
     }
     void OnCollisionExit2D(Collision2D col)
@@ -372,21 +382,49 @@ public class RanoScript : EntityBaseScript
         var script = col.gameObject.GetComponent<DamagingObjectScript>();
         if (script is not null)
         {
-            Vector2 directionToEnemy;
+            Vector2 directionFromEnemy;
             if (script.knockBackOverride != Vector2.zero)
             {
-                directionToEnemy = Vector2.right;
+                directionFromEnemy = Vector2.right;
             }
             else
             {
-                directionToEnemy = (rb.position - col.rigidbody.position).normalized;
+                directionFromEnemy = (rb.position - col.rigidbody.position).normalized;
             }
-            rb.AddForce(directionToEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
+            if (damagingJump && directionFromEnemy.y > .72f)
+            {
+                // string[] msgs = {"Miss!", "Dodge!", "Parry!", "Nat 20!" };
+                // var msg = msgs[ UnityEngine.Random.Range(0, msgs.Length)];
+                // CreatePopup(msg);
+                Jump();
+              
+                animator.SetTrigger("JumpTrick");
+                var entityBaseScript = script.GetComponent<EntityBaseScript>();
+                if (entityBaseScript != null)
+                {
+                    entityBaseScript.TakeDamage(1);
+                }
+
+                return;
+            }
+            if (!unmovable)
+            {
+            rb.AddForce(directionFromEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
+                
+            }
+            Debug.Log(directionFromEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime + " dsjfl;sadf");
+            {
+
+            }
             if (invincibleTimeLeft > 0)
             {
                 return;
             }
+            if (!unkillable)
+            {
             TakeDamage(script.GetDamage(), true);
+                
+            }
             // TakeDamage(script.GetDamage(), true);
 
         }
@@ -418,11 +456,29 @@ public class RanoScript : EntityBaseScript
     {
         StartCoroutine(gameManager.CreateRano(destination));
     }
+ private void FixedUpdate()
+    {
 
+        Vector2 velocity = rb.velocity;
+        Vector2 deltaVector = velocity - lastVelocity;
+        float dif = Mathf.Abs((deltaVector).magnitude) / Time.fixedDeltaTime;
+
+Debug.Log("The delta " + deltaVector.y);
+        if (dif > maxChange && Mathf.Abs(deltaVector.y) > 5)
+        {
+            // rb.velocity += lastVelocity * Vector2.right;
+            Debug.Log("fall danage time ");
+        }
+
+        lastVelocity = velocity;
+    }
     //tracking for the Slam that occurs when rano hits something at a high velocity
     // private Vector2 oldDirection;
     void Update()
     {
+
+        
+
 
 
         if (transform.position.y < -50)
@@ -430,8 +486,6 @@ public class RanoScript : EntityBaseScript
             die();
         }
 
-        //so rano doesnt get caught
-        this.rb.position += new Vector2(0, 1E-3f);
 
         #region modifiers
         if (mods.Any(item => item.GetType().GetInterfaces().Contains(typeof(IAnimationOverrideModifier))))
@@ -551,8 +605,21 @@ public class RanoScript : EntityBaseScript
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
 
+        //Old horizontal movement method; reworked since /v2.3
         rb.AddForce(new Vector2(horizontal * speed * speedModifier * controlInversion * Time.deltaTime, 0f));
+        // rb.velocity =
+        // (Vector2.right * horizontal * speed * speedModifier * controlInversion) 
+        // + (Vector2.up * rb.velocity.y); 
         animator.SetFloat("speed", horizontal);
+
+        #region Magnetic
+            //To stop rano from contantly bouncing as he runs, a raycast will keep him grounded until he jumps.
+            if (Physics2D.Raycast(groundCheck.position, Vector2.down, .1f, groundLayer) && magnetTime)
+            {
+                rb.velocity = rb.velocity * Vector2.right;
+                Debug.Log("magnet man");
+            }
+        #endregion
 
 
         var renderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
@@ -598,12 +665,31 @@ public class RanoScript : EntityBaseScript
 
     public void Jump()
     {
-        rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+
+        
+
+        //Old jump; reworked since /v2.3
+        // rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        magnetTime = false;
+        rb.velocity =
+        rb.velocity.x * Vector2.right +
+        Vector2.up * jumpPower;
+        Debug.Log("jumpin");
 
         Instantiate(jumpEffect, groundCheck.position + .8f * Vector3.up, Quaternion.identity);
-
+       StartCoroutine(TickMagnetCooldown());
     }
 
+    private IEnumerator TickMagnetCooldown()
+    {
+        for (;;)
+        {
+            
+        yield return new WaitForSeconds(.1f);
+        magnetTime = true;
+        yield break; 
+        }
+    }
 
     private void TakeDamage(int v, bool iFrames)
     {

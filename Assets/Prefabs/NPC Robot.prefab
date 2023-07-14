@@ -449,7 +449,6 @@ GameObject:
   - component: {fileID: 3009621122715397082}
   - component: {fileID: 8442262971857019067}
   - component: {fileID: 1773304396935740637}
-  - component: {fileID: 1222238387}
   - component: {fileID: 1560720115}
   - component: {fileID: 1560720116}
   - component: {fileID: 1560720122}
@@ -579,23 +578,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1222238387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402847552631776416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-  AS: {fileID: 0}
-  SFX:
-  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
 --- !u!114 &1560720115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +591,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialouges:
-  - actions:
+  - name: WEIRD HAND DUDE
+    dialouges:
+    - Speaking: 1
+      sentence: Hey, kid. Want some candy?
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: C'mon... y'know you want it...
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    actions:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
@@ -636,13 +626,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    Lsprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
-    Rsprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    sentences:
-    - Hey, kid. Want some candy?
-    - C'mon. You know you want it...
-    name: WEIRD HAND DUDE
-  - actions:
+  - name: WEIRD HAND CREEP
+    dialouges:
+    - Speaking: 1
+      sentence: Ah. Oh. That is a very large sword.  It looks good on you...
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: ...Given you dont use the [LEFT MOUSE BUTTON] to swing and
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: throw yourself in the direction of your cursor, cutting though anything
+        in the way.
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: ...
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    actions:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1560720122}
@@ -657,17 +656,81 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    Lsprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
-    Rsprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    sentences:
-    - Oh. Ah. That sword is very large, though I doubt you can move at all. But,
-      it looks very good on you...
-    - Given you aren't planning to use it via the left mouse button, swinging yourself
-      towards the cursor
-    - ...and cutting through whatever you happen to hit.
-    - ...
-    name: WEIRD HAND CREEP
-  pseudoDetectionRadius: 5
+        - m_Target: {fileID: 1560720115}
+          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
+          m_MethodName: SetDetectionRadius
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 300
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1560720115}
+          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
+          m_MethodName: BeginDialougeAtIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: WEIRD HAND DUDE
+    dialouges:
+    - Speaking: 1
+      sentence: no nope not doing that get away from me you marshmellow freak
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: ...Are you... inflating???
+      OwnSprite: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
+    actions:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
+          m_MethodName: AddModifier
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
+            m_ObjectArgumentAssemblyTypeName: ModifierSO, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1560720115}
+          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
+          m_MethodName: BeginDialougeAtIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: WEIRD HANDYMAN
+    dialouges:
+    - Speaking: 1
+      sentence: 'Well, you''re totally useless in that state! '
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: given you don't press [RIGHT MOUSE BUTTON] to switch your active
+        [ACTION]. In this case, that would equip the bouce of the your beach ball
+        mod.
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    - Speaking: 1
+      sentence: Or use the Q button to toggle your [STATUS], in this case, disengaging
+        your bounce.
+      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
+    actions: []
+  pseudoDetectionRadius: 20
 --- !u!114 &1560720116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,6 +746,7 @@ MonoBehaviour:
   knockBack: 5.91
   damage: 1
   knockBackOverride: {x: 0, y: 0}
+  shitlist: []
 --- !u!114 &1560720122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,3 +759,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa00e6b7e57b1c41b78f0f0aa77d379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffIcons: []
+  health: 1
+  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
+  popup: {fileID: 0}
+  AS: {fileID: 0}
+  soundManager: {fileID: 0}
+  SFX:
+  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}

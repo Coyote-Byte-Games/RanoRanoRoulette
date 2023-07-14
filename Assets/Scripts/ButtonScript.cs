@@ -8,10 +8,7 @@ public class ButtonScript : EntityBaseScript
     private bool beenPressed = false;
     public Sprite pressedSprite;
     // Start is called before the first frame update
-    void Start()
-    {
-        AS = FindAnyObjectByType<AudioSource>();
-    }
+   
     public void OnCollisionEnter2D(Collision2D col)
     {
         //lazy as hell
@@ -28,7 +25,7 @@ public class ButtonScript : EntityBaseScript
     {
         EventManager.instance.OnButtonPress(transform.parent.gameObject.GetInstanceID());
         GetComponent<SpriteRenderer>().sprite = pressedSprite;
-        AS.PlayOneShot(SFX[0]);
+        FindAnyObjectByType<AudioSource>().PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.click));
         GetComponent<BoxCollider2D>().enabled = false;
 
     }

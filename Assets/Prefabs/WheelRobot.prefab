@@ -416,9 +416,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 744263657
+  m_SortingLayer: 1
+  m_SortingOrder: 1100
   m_Sprite: {fileID: 21300000, guid: 8a89690136495e5468c869fed1212475, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -540,8 +540,16 @@ MonoBehaviour:
   boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
   target: {fileID: 0}
   speed: 16
+  CanJump: 0
+  jumpForce: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   aggroRange: 25
   seekTag: '"Player"'
+  jumpDetectorL: {fileID: 0}
+  jumpDetectorR: {fileID: 0}
+  groundCheck: {fileID: 0}
 --- !u!114 &7015276575063002287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,3 +565,4 @@ MonoBehaviour:
   knockBack: 555
   damage: 1
   knockBackOverride: {x: 0, y: 0}
+  shitlist: []

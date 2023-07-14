@@ -24,9 +24,9 @@ TagManager:
   - PP
   - Friendly Attack Clip
   - Talkative
-  - 
-  - 
-  - 
+  - GroundCollideNoCharacters
+  - Enemy Attack
+  - Enemy Attack Noclip
   - 
   - 
   - 

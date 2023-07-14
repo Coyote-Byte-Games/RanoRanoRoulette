@@ -15,7 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/GL.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/GameOverScene.unity
-    guid: 2cc2d93d060c15b429e6a717faf71bd6
+    path: Assets/Scenes/New gameover.unity
+    guid: ddbab5426d2dbdd4390fed19bff334e3
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: c9acbfdd535d6024080472231f7fbbd4
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: eab8a6ea962673e4284550c99af94cff, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 2967b2f620d519f4cb128088337dd5ad, type: 2}

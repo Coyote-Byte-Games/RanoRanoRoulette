@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd1ec346962be04d995cecc9540482a, type: 3}
+  m_Name: GL Level Generator
+  m_EditorClassIdentifier: 
+  currentLevelTile: {fileID: 11400000, guid: 0f5f30fec04a6d64cbdf1aa9bc78c4e1, type: 2}
+  currentLevelBGTile: {fileID: 11400000, guid: 9e4054b6f96bcba45b6bdd8368d599c8, type: 2}
+  garnishGameObjects:
+  - {fileID: 7599799353921909445, guid: ccffaf3b3461ec44c9f5ba4e5f378a0a, type: 3}
+  - {fileID: 7599799353921909445, guid: 3636d86bdbf301f489cfd3a473840fa6, type: 3}
+  - {fileID: 7599799353921909445, guid: d09c88b1df6091443be85031d93b5aa2, type: 3}
+  - {fileID: 7599799353921909445, guid: ce750bc2ba0e5a241ab1d4303e908657, type: 3}
+  garnishVerticalOffset: 0
+  fossilGameObjects: []
+  Tilemap: {fileID: 0}
+  bgTilemap: {fileID: 0}
+  sliceTextures:
+  - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
+  - {fileID: 11400000, guid: bf7c75381faa55443bf08b0eb612a1f0, type: 2}
+  - {fileID: 11400000, guid: 5399459e316b5e04c8124b007ba6f6df, type: 2}
+  - {fileID: 11400000, guid: e259f8864146d82408245ddf18bb74bb, type: 2}
+  - {fileID: 11400000, guid: 8bcc48748ab666c459d1115e124d2a57, type: 2}
+  traps:
+  - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
+  flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+  sliceTexProbabliities: []
+  numOfChunks: 25
+  minFossilDistance: 585
+  fossilChance: 1
+  shrubChance: 67
+  difficultyBasedGeneration: 0
+  weightBasedGeneration: 0
+  gameManager: {fileID: 0}
+  levelManager: {fileID: 11400000, guid: 5c4ae02f1fbe80049aaf561ad8feff3c, type: 2}
