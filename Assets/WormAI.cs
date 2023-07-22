@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormAI : EnemyTraitScript
+public class WormAI : MonoBehaviour
 {
     // Start is called before the first frame update
 
+
     private bool doneScanning = false;
     private Transform[] nodes;
+    [Header("Other Scripts")]
+    public EntityBaseScript entityBase;
+    public EnemyTraits enemyTraits;
 
     [Header("Body")]
     public GameObject childObjectPrefab;
@@ -21,6 +25,8 @@ public class WormAI : EnemyTraitScript
 
     [Header("Fun stuff")]
     public bool gravity;
+    public ParticleSystem particles;
+    
 
     ///<summary>
     ///For every single child the transform has, that node will move slightly towards the node in front of it. That is, if we were to say node[0] is the original, each node n will move towards node n-1
@@ -38,28 +44,12 @@ public class WormAI : EnemyTraitScript
             //If first child node, go for main object
             if (i == 0)
             {
-                // Vector3 movementVector = currentnode.transform.position + transform.position;
-                // //first we must negate the movement by the parent
-                // currentnode.transform.position = -transform.position;
-                // //assigning the value of accumulation towards the target.
-                // currentnode.transform.position +=
-                // (movementVector += Vector3.MoveTowards(
-                // currentnode.transform.position,
-                // transform.position,
-                // maxNodeDistanceDelta));
-                Debug.Log("really wormin' it out over here");
-                // currentnode.position = Vector3.MoveTowards(currentnode.position, transform.position, speed * Time.deltaTime);
                 currentnode.position = transform.position - (Vector3)transform.GetComponent<Rigidbody2D>().velocity.normalized * distancebetweenLinks;
-                // currentnode.LookAt(transform.position);
-                
             }
             //If not the first child node, go for n-1
             else
             {
-                // currentnode.position = Vector3.MoveTowards(currentnode.position, nodes[i-1].position, speed * Time.deltaTime);
                 currentnode.position = nodes[i-1].position - (nodes[i-1].position - currentnode.position).normalized * distancebetweenLinks;
-                // currentnode.LookAt(nodes[i-1]);
-
             }
         }
     }
@@ -74,15 +64,23 @@ public class WormAI : EnemyTraitScript
         }
         yield break;
     }
-    public override void Start()
+    private bool TargetInRange()
     {
-        base.Start();
+        return Vector2.Distance(target.transform.position, transform.position) <= enemyTraits.aggroRange;
+    }
+    public void Start()
+    {
+        entityBase.OnDeath += DeathSubby;
+        enemyTraits.EnableSearchingVFX(particles, TargetInRange);
+
+
         // traits = GetComponent<EnemyTraitScript>();
         StartCoroutine(Scan());
         nodes = new Transform[numberOfNodes];
         for (int i = 0; i < numberOfNodes; i++)
         {
-            var ob = Instantiate(childObjectPrefab, new Vector3(0, -distancebetweenLinks * (i + 1), 0) + transform.position, Quaternion.identity);
+            //-distancebetweenLinks * (i + 1)
+            var ob = Instantiate(childObjectPrefab, new Vector3(0, 0, 0) + transform.position, Quaternion.identity);
             ob.name = $"{name}'s Worm Node {i}";
             nodes[i] = ob.transform;
             // nodes[i].GetComponent<WormNode>().SetID(i);
@@ -100,7 +98,7 @@ public class WormAI : EnemyTraitScript
     // Update is called once per frame
     void Update()
     {
-        if (doneScanning && Vector2.Distance(target.transform.position, transform.position) <= aggroRange)
+        if (doneScanning && TargetInRange())
         {
 
             var rb = GetComponent<Rigidbody2D>();
@@ -117,9 +115,9 @@ public class WormAI : EnemyTraitScript
 
     }
     
-    internal override void die()
+    //subscribe to death event
+    private void DeathSubby()
     {
-        base.die();
         //it wasnt really stopping before
         GetComponent<BoxCollider2D>().enabled = false;
         //so fucking metal bro

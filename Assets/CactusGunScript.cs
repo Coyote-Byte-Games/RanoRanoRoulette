@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CactusGunScript : FreezableMonoBehaviour
+public class CactusGunScript : MonoBehaviour
 {
     [Header("Shooting Variables")]
 
@@ -20,7 +20,8 @@ public class CactusGunScript : FreezableMonoBehaviour
 
     public Transform firingPoint;
     public PrimitiveAirAI primAi;
-    public EnemyTraitScript traits;
+    public EnemyTraits traits;
+    public EntityBaseScript entityBase;
     [HideInInspector]
     public Animator rendererAnimatior;
     [HideInInspector]
@@ -28,20 +29,20 @@ public class CactusGunScript : FreezableMonoBehaviour
     [HideInInspector]
     public Transform target;
     private Vector2 firingPointDefault;
+     public FreezeBehaviour freezeBehaviour;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponentInChildren<Rigidbody2D>();
     }
-    public override void UnFreeze()
+    public void UnFreeze()
     {
-        base.UnFreeze();
-        frozen = false;
         rendererAnimatior.enabled = true;
     }
     void Start()
     {
+        entityBase.Start();
         firingPointDefault =
         firingPoint.localPosition;
 
@@ -67,8 +68,9 @@ public class CactusGunScript : FreezableMonoBehaviour
                 for (; ; )
                 {
                     yield return new WaitForSeconds(shootInterval);
-                    if (!frozen && (Vector2.Distance(transform.position, target.position) < traits.aggroRange))
+                    if (!freezeBehaviour.frozen && (Vector2.Distance(transform.position, target.position) < traits.aggroRange))
                     {
+                        entityBase.GetAudioSource().PlayOneShot(entityBase.soundManager.GetClip(SFXManagerSO.Sound.gunShot), 0.05f);
                         rendererAnimatior.SetBool("Firing", true);
                         float spread = UnityEngine.Random.Range(-(totalSpread / 2), totalSpread / 2);
 
@@ -98,7 +100,7 @@ public class CactusGunScript : FreezableMonoBehaviour
 
         if (primAi.DoneScanning())
         {
-            if (!frozen)
+            if (!freezeBehaviour.frozen)
             {
                 target = primAi.target;
                 Vector2 direction = -((Vector2)target.transform.position - rb.position).normalized;

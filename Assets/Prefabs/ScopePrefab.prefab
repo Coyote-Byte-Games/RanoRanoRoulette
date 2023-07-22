@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7396453693072963333}
   - component: {fileID: 1120337395120521071}
+  - component: {fileID: 3437174988880866413}
   m_Layer: 0
   m_Name: ScopePrefab
   m_TagString: Untagged
@@ -129,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9aadfcdcec825a4990e8a6e6b3748e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freezeBehaviour: {fileID: 3437174988880866413}
   target: {fileID: 0}
   dummyHitbox: {fileID: 3392289013365957193, guid: 45fdb2b07f995884a8d5e4e42ec49363, type: 3}
   source: {fileID: 0}
@@ -137,3 +139,15 @@ MonoBehaviour:
   kaboomSFX: {fileID: 8300000, guid: 9042a58cd6a2ba24c88798af3bb518a0, type: 3}
   speed: 3
   volume: 1
+--- !u!114 &3437174988880866413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9111670419681932042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

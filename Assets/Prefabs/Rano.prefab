@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2006948885}
   - component: {fileID: 6389660735267327266}
   - component: {fileID: 447408696}
-  m_Layer: 15
+  - component: {fileID: 1665331726}
+  m_Layer: 10
   m_Name: groundCheck
   m_TagString: FriendlyAttack
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401191874}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.019, y: -0.9, z: 0}
+  m_LocalPosition: {x: 0.019000053, y: -0.9, z: 0}
   m_LocalScale: {x: 0.50023544, y: 0.03079621, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68,7 +69,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.050140858, y: -37.007717}
+  m_Offset: {x: 0.7905414, y: -44.56805}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -79,7 +80,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.864835, y: 20.747263}
+  m_Size: {x: 7.2901196, y: 56.8404}
   m_EdgeRadius: 0
 --- !u!114 &447408696
 MonoBehaviour:
@@ -94,6 +95,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rano: {fileID: 1125366861}
+--- !u!114 &1665331726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401191874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 0
+  damage: 1
+  knockBackOverride: {x: 0, y: 0}
+  shitlist: []
 --- !u!1 &1800894679
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +140,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4921784106421325468}
   m_Father: {fileID: 5435428177351176527}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -212,16 +230,18 @@ GameObject:
   - component: {fileID: 1543954866}
   - component: {fileID: 1543954867}
   - component: {fileID: 1125366867}
-  - component: {fileID: 1125366861}
   - component: {fileID: 2713467092282420840}
-  - component: {fileID: 1125366869}
+  - component: {fileID: 1125366861}
+  - component: {fileID: 8910078825549950884}
+  - component: {fileID: 5870253997113241908}
+  - component: {fileID: 1125366871}
   m_Layer: 11
   m_Name: Rano
   m_TagString: Player
   m_Icon: {fileID: 2800000, guid: 884be9fe4f866ed47b01c61a8ea8357f, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5435428177351176527
 Transform:
   m_ObjectHideFlags: 0
@@ -303,65 +323,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.3898162
---- !u!114 &1125366861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952295967668447974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0f4fae44f4af647b93a9d26c09831f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  buffIcons:
-  - {fileID: 2774278615401589344, guid: ffad0585a4f562941a4b4181e43607c5, type: 3}
-  - {fileID: 2774278615401589344, guid: 9fc8792d0cd92684489038af7b2046ab, type: 3}
-  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-  popup: {fileID: 1827648047147231049, guid: bee44d33c7bf8d2409c159b62423aa64, type: 3}
-  AS: {fileID: 0}
-  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
-  ActionModBox: {fileID: 0}
-  blurMat: {fileID: 2100000, guid: d838d1caf9043d34fb2ead5e7f49e7eb, type: 2}
-  blurInvertedMat: {fileID: 2100000, guid: ee2a8090732c7774281a9fb09c62ae82, type: 2}
-  borderDeathMax: 2
-  animator: {fileID: 40269224}
-  StateModBox: {fileID: 0}
-  crashThreshold: 15.35
-  rb: {fileID: 0}
-  controlInversion: 1
-  maxHP: 3
-  maxSpeed: 74
-  tagList: []
-  jumpEffect: {fileID: 13614053474268261, guid: d8324afa8b3946b4b908295f95ac8385, type: 3}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  borderLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  jumpsRemaining: 1
-  gameManager: {fileID: 0}
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
-  jumpRadius: 1.8
-  speedModifier: 1
-  HKeyToggle: 0
-  groundCheck: {fileID: 401191875}
-  speed: 4500
-  maxJumps: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  jumpPower: 50
-  jumpSFX: {fileID: 0}
-  iFrameDuration: 1
 --- !u!114 &2713467092282420840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +401,7 @@ MonoBehaviour:
   m_DefaultActionMap: Rano Action Map
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1125366869
+--- !u!114 &1125366861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -449,9 +410,125 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952295967668447974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c82a2489254154cb2b3fca0f55e78e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d0f4fae44f4af647b93a9d26c09831f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionModBox: {fileID: 0}
+  blurMat: {fileID: 2100000, guid: d838d1caf9043d34fb2ead5e7f49e7eb, type: 2}
+  blurInvertedMat: {fileID: 2100000, guid: ee2a8090732c7774281a9fb09c62ae82, type: 2}
+  entityBase: {fileID: 8910078825549950884}
+  animator: {fileID: 40269224}
+  StateModBox: {fileID: 0}
+  crashThreshold: 15.35
+  rb: {fileID: 1543954867}
+  jumpEffect: {fileID: 13614053474268261, guid: d8324afa8b3946b4b908295f95ac8385, type: 3}
+  gameManager: {fileID: 0}
+  bootPrefab: {fileID: 2895403402528962216, guid: 88b1424587152b842a22b6f32f086d94, type: 3}
+  hatHolder: {fileID: 3140182831276358886}
+  groundCheck: {fileID: 401191875}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  jumpSFX: {fileID: 0}
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  data: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
+  controlInversion: 1
+  maxSpeed: 74
+  jumpPower: 50
+  speed: 4500
+  jumpsUsed: 0
+  borderDeathMax: 2
+  extraJumps: 0
+  jumpRadius: 1.8
+  speedModifier: 1
+  iFrameDuration: 1
+--- !u!114 &8910078825549950884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952295967668447974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b275f715d1851440bc63f4707be1465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unmovable: 0
+  unkillable: 0
+  iFrameDuration: 1
+  damagingTags: []
+  damagingLayers:
+    serializedVersion: 2
+    m_Bits: 786944
+  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
+  render: {fileID: 1800894681}
+  AS: {fileID: 0}
+  maxHP: 3
+--- !u!114 &5870253997113241908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952295967668447974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf8b2402ecffc04686550392d7f430c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffIcons: []
+--- !u!114 &1125366871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952295967668447974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 200
+  damage: 0
+  knockBackOverride: {x: 0, y: 0}
+  shitlist: []
+--- !u!1 &3140182831276358886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4921784106421325468}
+  m_Layer: 15
+  m_Name: hat holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4921784106421325468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140182831276358886}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5500002, y: -1.35, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1800894680}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7573652155467861609
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 459128720387790014}
   - component: {fileID: 5925328563887575520}
   - component: {fileID: 6363138685157503397}
-  - component: {fileID: 7805094522779754152}
-  m_Layer: 9
+  - component: {fileID: 636223857235188348}
+  m_Layer: 18
   m_Name: dummyHB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7805094522779754152
+--- !u!114 &636223857235188348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,9 +262,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1492621804411830024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBack: 200
+  knockBack: 0
   damage: 1
   knockBackOverride: {x: 0, y: 0}
+  shitlist: []

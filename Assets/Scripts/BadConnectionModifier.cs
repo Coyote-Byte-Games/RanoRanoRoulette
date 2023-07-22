@@ -10,16 +10,17 @@ public class BadConnectionModifier : UnityEngine.Object, IModifier, IMovementMod
     public IEnumerator ContinuousEffect(RanoScript rano)
     {
 
-            yield return new WaitForSeconds(4f);
-
+         yield return new WaitForSeconds(4f);
         for (; ; )
-        {
-            
+        { 
+
             Vector2 priorPosition = rano.rb.position;
             yield return new WaitForSeconds(1f);
-            rano.soundManager.PlayClip(SFXManagerSO.Sound.AOL);
+            
+            rano.entityBase.soundManager.PlayClip(SFXManagerSO.Sound.AOL);
             rano.rb.position = priorPosition;
             yield return new WaitForSeconds(8f);
+           
         }
 
     }
@@ -48,7 +49,12 @@ public void OnNewModAdded(RanoScript rano)
         return (Sprite)Resources.Load("Mod Icons\\badconnection");
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
+    {
+        return;
+    }
+
+    public void OnEndEffect(RanoScript player)
     {
         return;
     }

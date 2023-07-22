@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovementModifier
 {
+    private Shader normalShader;
     public RanoScript player;
     public IEnumerator ContinuousEffect(RanoScript RanoScript)
     {
-
-    //     foreach(var elem in player.gameObject.GetComponentsInChildren<SpriteRenderer>()){
-    //      elem.material.shader = player.data.invertedShader;}
-    //    yield return new WaitForSeconds(player.gameManager.modifierInterval + .01f);
        yield break;
     }
 
     public void OnStartEffect(RanoScript player)
     {
-        player.controlInversion *= -1;
+        player.controlInversion = -1;
+        player.gameObject.GetComponentInChildren<SpriteRenderer>().material.shader = player.data.invertedShader;
+
     }
      public override string ToString()
     {
@@ -28,9 +27,9 @@ public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovement
           this.player = player;
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
-       player.gameObject.GetComponentInChildren<SpriteRenderer>().material.shader = player.data.invertedShader;
+        normalShader = player.gameObject.GetComponentInChildren<SpriteRenderer>().material.shader;
     }
 
     public Sprite GetIcon()
@@ -41,5 +40,11 @@ public class InvertedControlsModifier : UnityEngine.Object, IModifier, IMovement
     public void OnNewModAdded(RanoScript rano)
     {
       return;
+    }
+
+    public void OnEndEffect(RanoScript player)
+    {
+       player.controlInversion = 1;
+       player.gameObject.GetComponentInChildren<SpriteRenderer>().material.shader = normalShader;
     }
 }

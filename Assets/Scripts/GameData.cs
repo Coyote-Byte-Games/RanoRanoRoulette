@@ -15,6 +15,7 @@ public class GameData : ScriptableObject
     public PhysicsMaterial2D normalMat;
     public Sprite FatRano;
     public Shader invertedShader;
+    public Shader normalShader;
 
 
     [SerializeField]

@@ -7,18 +7,18 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class RanoScript : EntityBaseScript
+public class RanoScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject ActionModBox;
     public Material blurMat;
+    private bool allModsSupressedActive;
+    //Modifiers added during a supression
+    private List<ModifierSO> supressedModifiers;
     public Material blurInvertedMat;
-    private SpriteRenderer renderer;
+    public EntityBaseScript entityBase;
 
 
-    private float[] actionCooldowns;
-    public float borderDeathMax;
-    private float borderDeathTimer;
     public Animator animator;
 
     public GameObject StateModBox;
@@ -26,42 +26,54 @@ public class RanoScript : EntityBaseScript
     public float crashThreshold;
     //todo make hotbar box spawn multiple
     public Rigidbody2D rb;
-    public short controlInversion = 1;
-    public int maxHP;
-    public int maxSpeed;
-    public bool unkillable;
-    public bool unmovable;
+
     private Vector2 lastVelocity;
-    private bool magnetTime;
+
+    public Vector2 OldVelocity()
+    {
+        return lastVelocity;
+    }
 
     //for the tags that are to be excepted from damage collisons
-    public string[] tagList;
     public GameObject jumpEffect;
-    public LayerMask enemyLayer;
-    public LayerMask borderLayer;
-    public Keyboard kb = Keyboard.current;
-    public Mouse mouse = Mouse.current;
-    public int jumpsRemaining = 1;
     public GameManagerScript gameManager;
-    public Image[] hearts;
-    public GameData data;
-    public float jumpRadius;
-    public float speedModifier = 1;
-    public bool HKeyToggle;
-    public List<IModifier> mods = new List<IModifier>();
-    BoxCollider2D bc;
+    public GameObject bootPrefab;
+    public GameObject hatHolder;
+
     [SerializeField]
     public Transform groundCheck;
-    public float speed;
-    public int maxJumps;
-
-    public float maxChange;
-
     public LayerMask groundLayer;
-    public int jumpPower;
-    private float mangetTimeRemaining;
     public AudioClip jumpSFX;
-    bool grounded;
+    public Image[] hearts;
+    public GameData data;
+    public List<IModifier> mods = new List<IModifier>();
+
+    #region Primitives
+    public short controlInversion = 1;
+    public int maxSpeed;
+    private bool magnetTime;
+    public int jumpPower;
+    public float speed;
+    public int jumpsUsed = 0;
+    public float borderDeathMax;
+    private float borderDeathTimer;
+    private int startingJumps = 1;
+    public int extraJumps = 0;
+    private float shitAcceleration;
+    public float jumpRadius;
+    public Dictionary<string, float> speedModifiers = new Dictionary<string, float>();
+    #endregion
+
+    #region Private / Hidden
+
+    private float modEnableCD; 
+
+    private SpriteRenderer renderer;
+
+    private Keyboard kb = Keyboard.current;
+    private Mouse mouse = Mouse.current;
+    #endregion
+    BoxCollider2D bc;
     private PlayerInfoV2<IPlayerAction> playerActions = new PlayerInfoV2<IPlayerAction>();
     private PlayerInfoV2<IPlayerState> playerStates = new PlayerInfoV2<IPlayerState>();
 
@@ -93,21 +105,31 @@ public class RanoScript : EntityBaseScript
     ////             throw new NotImplementedException("whoooooooooooOOOOOOPS we did [not] add in functionality for that !!!! ! ! ! ! ! Please contact HR at femboygaming2002@gmail.com");
     ////         }
     ////     }
+    public void AddAccessory(GameObject accessory, string name)
+    {
+        var accessor = Instantiate(accessory);
+        accessor.name = name;
+        accessor.transform.SetParent(hatHolder.transform);
+        accessor.transform.localPosition = Vector2.zero;
+        accessories.Add(accessor);
+        // hatHolder.transform
+    }
     void Awake()
     {
         this.playerActions = new PlayerInfoV2<IPlayerAction>();
         this.playerStates = new PlayerInfoV2<IPlayerState>();
         renderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        this.jumpSFX = soundManager.GetClip(SFXManagerSO.Sound.boing);
+        this.jumpSFX = entityBase.soundManager.GetClip(SFXManagerSO.Sound.boing);
     }
     public void IWantRanosHead()
     {
-        die();
+        entityBase.die();
     }
     public void EnableSpikeBoots()
     {
         this.groundCheck.GetComponent<BoxCollider2D>().enabled = true;
         this.damagingJump = true;
+        AddAccessory(bootPrefab, "boots");
     }
     void createOutLineBlur()
     {
@@ -128,7 +150,7 @@ public class RanoScript : EntityBaseScript
         var ogColor = renderer.color;
         while (invincibleTimeLeft > 0)
         {
-            renderer.color = renderer.color - new Color(0, 0, 0, switcher ? 1 * renderer.color.a : -1 * renderer.color.a);
+            renderer.color = renderer.color - new Color(0, 0, 0, switcher ? 1 * ogColor.a : -1 * ogColor.a);
             switcher = !switcher;
             yield return new WaitForSeconds(.1f);
         }
@@ -165,61 +187,83 @@ public class RanoScript : EntityBaseScript
     }
     void Start()
     {
+        SubscribeEventHandlers();
+
         //The timer that kills when getting too cozy with the border
         borderDeathTimer = borderDeathMax;
 
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         // groundCheck = transform.GetChild(1).GetChild(0).gameObject.transform;
-        this.Health = maxHP;
 
     }
 
+    private void SubscribeEventHandlers()
+    {
+        entityBase.OnDeath += DeathEventHandler;
+        entityBase.OnHealthChanged += HealthChangedEventHandler;
+        entityBase.OnTakeDamage += TakeDamageEventHandler;
+    }
 
-
-    private int _hp;
     private float jumpCooldown;
     public float iFrameDuration;
     private float invincibleTimeLeft;
     private bool damagingJump = false;
 
-    public int Health
-    {
+    public List<GameObject> accessories = new List<GameObject>();
+    //BTW I hate this so so so so so so much. Is this what Uncle Bob would've wanted?
+    //These are all being passed by reference, so it's okay, right?s
+    private Dictionary<string, IEnumerator> modContinuousEffects = new Dictionary<string, IEnumerator>();
 
-        set
+    // public int Health
+    // {
+
+    //     set
+    //     {
+
+    //         for (int i = 0; i < hearts.Length; i++)
+    //         {
+    //             if (value <= 0)
+    //             {
+    //                 die();
+    //             }
+    //             if (i < value)
+    //             {
+    //                 hearts[i].enabled = true;
+
+    //             }
+    //             else
+    //             {
+    //                 hearts[i].enabled = false;
+    //             }
+    //         }
+    //         _hp = value;
+    //         //  lastSetHealth = value;
+    //     }
+    //     get { return _hp; }
+    // }
+    private void HealthChangedEventHandler(object sender, HealthChangedEventArgs e)
+    {
+        for (int i = 0; i < hearts.Length; i++)
         {
-
-            for (int i = 0; i < hearts.Length; i++)
+            if (i < e.newValue)
             {
-                if (value <= 0)
-                {
-                    die();
-                }
-                if (i < value)
-                {
-                    hearts[i].enabled = true;
-
-                }
-                else
-                {
-                    hearts[i].enabled = false;
-                }
+                hearts[i].enabled = true;
             }
-            _hp = value;
-            //  lastSetHealth = value;
+            else
+            {
+                hearts[i].enabled = false;
+            }
         }
-        get { return _hp; }
     }
-
-    private void die()
+    private void DeathEventHandler()
     {
 
-        gameManager.CleanupAfterRanoKeelsOver();
+        gameManager.CleanupForLevelReload(false);
 
 
-        base.die();
         #region Scene Change
-        gameManager.StartCoroutine( gameManager.LoadSceneStylin(((int)SceneEnum.GAMEOVER)));
+        gameManager.StartCoroutine(gameManager.LoadSceneStylin(((int)SceneEnum.GAMEOVER)));
         #endregion
 
 
@@ -233,7 +277,7 @@ public class RanoScript : EntityBaseScript
 
             ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
-        catch (System.NullReferenceException e)
+        catch (System.NullReferenceException)
         {
             return;
         }
@@ -258,7 +302,7 @@ public class RanoScript : EntityBaseScript
         {
             ActionHotbarAnimate(playerActions.GetItem().GetIcon());
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return;
         }
@@ -278,7 +322,7 @@ public class RanoScript : EntityBaseScript
               icon
               );
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return;
         }
@@ -321,6 +365,10 @@ public class RanoScript : EntityBaseScript
     }
     public void AddModifier(ModifierSO modSO)
     {
+        if (allModsSupressedActive)
+        {
+            supressedModifiers.Add(modSO);
+        }
         AddModifier(modSO.GetModifier());
     }
     public static bool IsPointerOverUIObject()
@@ -332,23 +380,38 @@ public class RanoScript : EntityBaseScript
     {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
     }
+    public bool HasModiifer(IModifier mod)
+    {
+        if (mods.Any(item => item.GetType() == ((mod).GetType())))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool HasModiifer(Type mod)
+    {
+        return mods.Any(item => item.GetType() == mod);
+    }
     public void AddModifier(IModifier mod)//! this may be broken, idk
     {
 
-        if (mods.Any(item => item.GetType() == ((mod).GetType())))
+        if (HasModiifer(mod))
         {
             return;
         }
 
         this.mods.Add(mod);
         mod.SetPlayer(this);
-        mod.OnStartEffect(this);
-        mod.SetPlayerEffects(this);//yes i know this is terrible it smells like garbage but blame unity for no
+        mod.SetPermenantEffects(this);
+        EnableModifier(mod);
+
         foreach (var preExistingMod in mods)
         {
             preExistingMod.OnNewModAdded(this);
         }
-        StartCoroutine(mod.ContinuousEffect(this));
 
         //todo end effect
         //find a way to set the player effects in the player script
@@ -358,132 +421,215 @@ public class RanoScript : EntityBaseScript
     public bool Grounded()
     {
 
-        return Physics2D.OverlapCircle(groundCheck.position, jumpRadius, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position - (.1f * Vector3.up), jumpRadius, groundLayer);
         // return Physics2D.Raycast(transform.position, Vector2.down, jumpRadius, groundLayer);
 
     }
     void OnCollisionExit2D(Collision2D col)
     {
-        if (col.gameObject.layer == groundLayer)
-        {
-            jumpsRemaining--;
-            jumpCooldown = .02f;
-        }
+
     }
     void OnCollisionEnter2D(Collision2D col)
     {
 
-        if (col.otherCollider.gameObject.CompareTag("FriendlyAttack"))
-        {
-            return;
-        }
+        // if (col.otherCollider.gameObject.CompareTag("FriendlyAttack"))
+        // {
+        //     return;
+        // }
+        // if (script is not null)
+        // {
+        //     Vector2 directionFromEnemy;
+        //     if (script.knockBackOverride != Vector2.zero)
+        //     {
+        //         directionFromEnemy = Vector2.right;
+        //     }
+        //     else
+        //     {
+        //         directionFromEnemy = (rb.position - col.rigidbody.position).normalized;
+        //     }
+        //     if (damagingJump && directionFromEnemy.y > .6f)
+        //     {
+        //         // string[] msgs = {"Miss!", "Dodge!", "Parry!", "Nat 20!" };
+        //         // var msg = msgs[ UnityEngine.Random.Range(0, msgs.Length)];
+        //         // CreatePopup(msg);
+        //         Jump(false, true);
 
+        //         animator.SetTrigger("JumpTrick");
+        //         jumpsUsed = 0;
+        //         var entityBaseScript = script.GetComponent<EntityBaseScript>();
+        //         if (entityBaseScript != null)
+        //         {
+        //             entityBaseScript.TakeDamage(1, false);
+        //         }
 
-        var script = col.gameObject.GetComponent<DamagingObjectScript>();
-        if (script is not null)
-        {
-            Vector2 directionFromEnemy;
-            if (script.knockBackOverride != Vector2.zero)
-            {
-                directionFromEnemy = Vector2.right;
-            }
-            else
-            {
-                directionFromEnemy = (rb.position - col.rigidbody.position).normalized;
-            }
-            if (damagingJump && directionFromEnemy.y > .72f)
-            {
-                // string[] msgs = {"Miss!", "Dodge!", "Parry!", "Nat 20!" };
-                // var msg = msgs[ UnityEngine.Random.Range(0, msgs.Length)];
-                // CreatePopup(msg);
-                Jump();
-              
-                animator.SetTrigger("JumpTrick");
-                var entityBaseScript = script.GetComponent<EntityBaseScript>();
-                if (entityBaseScript != null)
-                {
-                    entityBaseScript.TakeDamage(1);
-                }
+        //         return;
+        //     }
 
-                return;
-            }
-            if (!unmovable)
-            {
-            rb.AddForce(directionFromEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
-                
-            }
-            Debug.Log(directionFromEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime + " dsjfl;sadf");
-            {
+        //     if (!unmovable)
+        //     {
+        //         rb.AddForce(directionFromEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
 
-            }
-            if (invincibleTimeLeft > 0)
-            {
-                return;
-            }
-            if (!unkillable)
-            {
-            TakeDamage(script.GetDamage(), true);
-                
-            }
-            // TakeDamage(script.GetDamage(), true);
+        //     }
 
-        }
+        //     if (invincibleTimeLeft > 0)
+        //     {
+        //         return;
+        //     }
+        //     if (!unkillable)
+        //     {
+        //          entityBase.TakeDamage(script.GetDamage(), true);
+
+        //     }
+        //     // TakeDamage(script.GetDamage(), true);
+
+        // }
+        // if ((bool)col.otherCollider.gameObject.GetComponent<EnemyTraits>())
+        // {
+        //      Vector2 directionFromEnemy = (rb.position - col.rigidbody.position).normalized;
+        // if (damagingJump && directionFromEnemy.y > .6f)
+        //     {
+        //         // string[] msgs = {"Miss!", "Dodge!", "Parry!", "Nat 20!" };
+        //         // var msg = msgs[ UnityEngine.Random.Range(0, msgs.Length)];
+        //         // CreatePopup(msg);
+        //         Jump(false, true);
+
+        //         animator.SetTrigger("JumpTrick");
+        //         jumpsUsed = 0;
+        //         var entityBaseScript = col.gameObject.GetComponent<EntityBaseScript>();
+        //         if (entityBaseScript != null)
+        //         {
+        //             entityBaseScript.TakeDamage(1, false);
+        //         }
+
+        //         return;
+        //     }
+        // }
+
     }
 
+    public void TakeDamageEventHandler()
+    {
 
+
+        invincibleTimeLeft = iFrameDuration;
+
+        StartCoroutine(IFrameFlicker());
+        
+    }
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("FriendlyAttack"))
+        var dialougeScript = col.gameObject.GetComponent<DialougeScript>();
+        if (dialougeScript is not null)
         {
-            return;
-        }
-
-        var script = col.gameObject.GetComponent<DamagingObjectScript>();
-        if (script is not null)
+            dialougeScript.BeginDialouge();
+        } 
+        var supression = col.gameObject.GetComponent<ModSupressionFieldScript>();
+        //Handle Modifier Supression Field
+        if (supression is not null)//Collision
         {
-            if (invincibleTimeLeft > 0)
+            allModsSupressedActive = true;
+            GetComponent<BuffableBehaviour>().CreatePopup("Clean, at last.", BuffableBehaviour.BuffIcon.Clean);
+            foreach (var item in mods)
             {
-                return;
+                DisableModifier(item);
             }
-            TakeDamage(script.GetDamage(), true);
-            // TakeDamage(script.GetDamage(), true);
+        }
+    }
+    public void OnTriggerExit2D(Collider2D col)
+    {
+        var supression = col.gameObject.GetComponent<ModSupressionFieldScript>();
+        //Handle Modifier Supression Field
+        if (supression is not null )//Collision
+        {
+            Debug.Log("Left supression field");
+            allModsSupressedActive = false;
 
+            //Add the modifiers only once we leave the supression zone
+            if (modEnableCD < 0)
+            {
+                modEnableCD = .1f;
+            mods.ForEach(x => EnableModifier(x));
+                
+            }
         }
     }
 
+    private void EnableModifier(IModifier mod)
+    {
+
+        mod.OnStartEffect(this);
+        RegisterAndScheduleModContFX(mod);
+
+
+
+    }
+
+    private void RegisterAndScheduleModContFX(IModifier mod)
+    {
+
+        //Should be fine to do this as:
+            //delegates are classes
+            //Arg is a Func, a delegate and thus a class
+            //classes are passed by reference, unlike structs passed by value 
+            //right?!?!
+
+        //AAAAAAAAAGHHHH
+        if (!this.modContinuousEffects.ContainsKey(mod.ToString()))
+        {
+        this.modContinuousEffects.Add(mod.ToString(), mod.ContinuousEffect(this));    
+        }
+        
+        //hahahah FML
+        StartCoroutine(modContinuousEffects[mod.ToString()]);
+
+    }
+
+    private void DisableModifier(IModifier mod)
+    {
+            mod.OnEndEffect(this);
+            //HUH?!?!?!?!?!?!??!?!?!?!?!?!?!?!
+            StopCoroutine(modContinuousEffects[mod.ToString()]);
+    }
+
+    public float GetHomemadeAcceleration()
+    {
+        return shitAcceleration;
+    }
     public void Respawn(Vector3 destination)
     {
         StartCoroutine(gameManager.CreateRano(destination));
     }
- private void FixedUpdate()
+    private void FixedUpdate()
     {
 
-        Vector2 velocity = rb.velocity;
-        Vector2 deltaVector = velocity - lastVelocity;
-        float dif = Mathf.Abs((deltaVector).magnitude) / Time.fixedDeltaTime;
-
-Debug.Log("The delta " + deltaVector.y);
-        if (dif > maxChange && Mathf.Abs(deltaVector.y) > 5)
+        for (int i = 0; i < hatHolder.transform.childCount; i++)
         {
-            // rb.velocity += lastVelocity * Vector2.right;
-            Debug.Log("fall danage time ");
+            hatHolder.transform.GetChild(i).transform.localPosition = Vector2.zero;
         }
 
-        lastVelocity = velocity;
+        // Vector2 velocity = rb.velocity;
+        // Vector2 deltaVector = velocity - lastVelocity;
+        // shitAcceleration = (deltaVector).magnitude / Time.fixedDeltaTime;
+        // float dif = Mathf.Abs(shitAcceleration);
+
+        // if (dif > maxChange && Mathf.Abs(deltaVector.y) > 5)
+        // {
+        //     // rb.velocity += lastVelocity * Vector2.right;
+        // }
+
+        // lastVelocity = velocity;
     }
     //tracking for the Slam that occurs when rano hits something at a high velocity
     // private Vector2 oldDirection;
     void Update()
     {
 
-        
-
-
+        modEnableCD -= Time.deltaTime;
 
         if (transform.position.y < -50)
         {
-            die();
+            entityBase.die();
         }
 
 
@@ -527,7 +673,10 @@ Debug.Log("The delta " + deltaVector.y);
 
         if (Grounded() && jumpCooldown <= -1)
         {
-            jumpsRemaining = maxJumps;
+            jumpsUsed = 0;
+        }
+        if (!Grounded())
+        {
         }
         jumpCooldown -= Time.deltaTime;
         invincibleTimeLeft -= Time.deltaTime;
@@ -606,41 +755,55 @@ Debug.Log("The delta " + deltaVector.y);
         float horizontal = Input.GetAxisRaw("Horizontal");
 
         //Old horizontal movement method; reworked since /v2.3
-        rb.AddForce(new Vector2(horizontal * speed * speedModifier * controlInversion * Time.deltaTime, 0f));
+
+        rb.AddForce(new Vector2(horizontal * speed * GetSpeedModifier() * controlInversion * Time.deltaTime, 0f));
         // rb.velocity =
         // (Vector2.right * horizontal * speed * speedModifier * controlInversion) 
         // + (Vector2.up * rb.velocity.y); 
         animator.SetFloat("speed", horizontal);
 
         #region Magnetic
-            //To stop rano from contantly bouncing as he runs, a raycast will keep him grounded until he jumps.
-            if (Physics2D.Raycast(groundCheck.position, Vector2.down, .1f, groundLayer) && magnetTime)
-            {
-                rb.velocity = rb.velocity * Vector2.right;
-                Debug.Log("magnet man");
-            }
+        //To stop rano from contantly bouncing as he runs, a raycast will keep him grounded until he jumps.
+        if (Physics2D.Raycast(groundCheck.position, Vector2.down, .1f, groundLayer) && magnetTime)
+        {
+            rb.velocity = rb.velocity * Vector2.right;
+        }
         #endregion
 
 
         var renderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 
+        bool flippin = false;
+        bool doingAnything = false;
         switch (horizontal)
         {
             case 1:
-                renderer.flipX = false;
+                flippin = false;
+                doingAnything = !false;
                 break;
             case -1:
-                renderer.flipX = true;
+                flippin = true;
+                doingAnything = !false;
                 break;
             default:
                 //do not modify the turn if no input
+                doingAnything = false;
                 break;
+
+        }
+        foreach (var item in renderer.gameObject.GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (doingAnything)
+            {
+                item.flipX = flippin;
+
+            }
+
         }
 
-        //for toggling bounce on the thing
 
-
-        if (jumpsRemaining > 0 && kb.spaceKey.wasPressedThisFrame && !(jumpCooldown > 0))
+        //Core jump logic
+        if ((GetJumpsAvailable() > 0) && kb.spaceKey.wasPressedThisFrame && !(jumpCooldown > 0))
         {
             // rb.velocity += new Vector2(0, ( jumpPower*2000 * Time.deltaTime));
 
@@ -651,62 +814,93 @@ Debug.Log("The delta " + deltaVector.y);
             }
             jumpCooldown = .02f;
 
-            Jump();
-            AudioClip correctJumpSFX = (Grounded()) ? jumpSFX : soundManager.GetClip(SFXManagerSO.Sound.whoosh);
-            AS.PlayOneShot(correctJumpSFX);
+            AudioClip correctJumpSFX = (Grounded()) ? jumpSFX : entityBase.soundManager.GetClip(SFXManagerSO.Sound.whoosh);
+            //Jump's sfx can be overridden
+            Jump(!Grounded(), jumpSFX: correctJumpSFX);
 
 
-            jumpsRemaining -= 1;
 
 
         }
     }
 
+    private float GetSpeedModifier()
+    {
+        float product = 1;
+        try
+        {
+            product = speedModifiers.Values.Aggregate((a, x) => a * x);
+        }
+        catch (System.Exception)
+        {
 
-    public void Jump()
+        }
+        return product;
+    }
+
+    public int GetJumpsAvailable()
+    {
+        if (Grounded())
+        {
+            return startingJumps + extraJumps;
+        }
+        else
+        {
+            return (extraJumps) - jumpsUsed;
+        }
+    }
+
+    //fixme jank as hell
+    public void Jump(bool useJumpCredit, bool overrideBerserk = false, bool playSound = true, AudioClip jumpSFX = null)
     {
 
-        
+        if (useJumpCredit)
+        {
+            jumpsUsed++;
+
+        }
+        if (overrideBerserk && HasModiifer(typeof(BerserkModifier)))
+        {
+            rb.velocity =
+               rb.velocity.x * Vector2.right +
+               Vector2.up * jumpPower * BerserkModifier.jumpDivider;
+        }
+        else
+        {
+            rb.velocity =
+               rb.velocity.x * Vector2.right +
+               Vector2.up * jumpPower;
+        }
+
+
 
         //Old jump; reworked since /v2.3
         // rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         magnetTime = false;
-        rb.velocity =
-        rb.velocity.x * Vector2.right +
-        Vector2.up * jumpPower;
-        Debug.Log("jumpin");
+
 
         Instantiate(jumpEffect, groundCheck.position + .8f * Vector3.up, Quaternion.identity);
-       StartCoroutine(TickMagnetCooldown());
+        StartCoroutine(TickMagnetCooldown());
+        if (!playSound)
+        {
+            return;
+        }
+        AudioClip correctSFX = jumpSFX ? jumpSFX : entityBase.soundManager.GetClip(SFXManagerSO.Sound.boing);
+        entityBase.AS.PlayOneShot(correctSFX);
+
     }
 
     private IEnumerator TickMagnetCooldown()
     {
-        for (;;)
+        for (; ; )
         {
-            
-        yield return new WaitForSeconds(.1f);
-        magnetTime = true;
-        yield break; 
+
+            yield return new WaitForSeconds(.1f);
+            magnetTime = true;
+            yield break;
         }
     }
 
-    private void TakeDamage(int v, bool iFrames)
-    {
-
-
-        if (v < 0 && invincibleTimeLeft > 0)
-        {
-            // Health = lastSetHealth;
-            return;
-        }
-        float frameDuration = iFrames ? iFrameDuration : 0;
-        Health -= v;
-        invincibleTimeLeft = frameDuration;
-        StartCoroutine(IFrameFlicker());
-
-
-    }
     public void TickCooldowns()
     {
         foreach (var item in playerActions)
@@ -717,7 +911,7 @@ Debug.Log("The delta " + deltaVector.y);
 
     internal void UpdateSprite(Sprite sprite)
     {
-        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = sprite;
+        renderer.sprite = sprite;
     }
 
     public void AddState(IPlayerState state)
@@ -727,7 +921,7 @@ Debug.Log("The delta " + deltaVector.y);
         {
             StateHotbarAnimate(playerStates.GetItem().GetIcon());
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
             return;
         }
@@ -745,7 +939,6 @@ Debug.Log("The delta " + deltaVector.y);
 
     internal void SetAlpha(float v)
     {
-        Debug.Log("setting alpha");
 
         foreach (var item in GetComponentsInChildren<SpriteRenderer>(true))
         {
@@ -758,5 +951,32 @@ Debug.Log("The delta " + deltaVector.y);
         renderer.color = tmp;
     }
 
+    internal void RemoveAction(IPlayerAction action)
+    {
+        this.playerActions.RemoveItem(action);
+        try
+        {
 
+            ActionHotbarAnimate(playerActions.GetItem().GetIcon());
+        }
+        catch (System.NullReferenceException)
+        {
+            return;
+        }
+    }
+
+    internal void RemoveSpikeBoots()
+    {
+        this.groundCheck.GetComponent<BoxCollider2D>().enabled = false;
+        this.damagingJump = false;
+        RemoveAccessory("boots");
+    }
+
+    internal void RemoveAccessory(string v)
+    {
+        var fugitive = accessories.Find(x => x.name == v);
+        accessories.Remove(fugitive);
+        Destroy(fugitive);
+    }
 }
+

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormNode : EnemyTraitScript
+public class WormNode : EnemyTraits
 {
     //Because it was a bitch to get nodes to follow the worm, our best option was to follow as independent
     private GameObject pseudoParent;

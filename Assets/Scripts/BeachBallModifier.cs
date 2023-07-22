@@ -17,6 +17,8 @@ public void OnNewModAdded(RanoScript rano)
     {
        for(;;)
        {
+        player.UpdateSprite(player.data.FatRano); 
+
         if (player.Grounded() && player.rb.sharedMaterial == player.data.normalMat && bounceEnabled) //if the player isnt bouncy but grounded
         {
             yield return new WaitForSeconds(.2f);
@@ -62,38 +64,26 @@ public void OnNewModAdded(RanoScript rano)
         
     }
 
-private Vector2 oldDirection;
+
 //to invoke repeating?
     private void HandleImpactFX()
     {
-        //only want this to happen if the bounce is enabled
-        if (!bounceEnabled)
-        {
-            return;
-        }
-        if (oldDirection == null)
-        {
-            oldDirection =  player.rb.velocity;
-            return;
-        }
+        //fuck it
 
-        float newSpeed = player.rb.velocity.sqrMagnitude;
+        // //only want this to happen if the bounce is enabled
+        // if (!bounceEnabled)
+        // {
+        //     return;
+        // }
+        
 
-        if (oldDirection.sqrMagnitude - crashThreshold * crashThreshold >= newSpeed)
-        {
-            //do the crash
-
-            //Get the tan(pointer towards the direction of the body), then turn it to degrees.
-            // + 180 degrees to reverse. Since 0 deg on transform means its facing down, but 90 deg collision would be facing right, we need to remove 90 degrees to change the behaviour
-            //and then i screwed with the math via guess and check
-            var direction =  Mathf.Atan2(oldDirection.y, oldDirection.x)*Mathf.Rad2Deg -240; 
+        // var direction = Quaternion.Euler(0, 0, player.GetShitAcceleration());
+        // if (Mathf.Abs(player.GetHomemadeAcceleration()) > player.slamCutoff)
+        // {
+        // Instantiate(slamEffect, player.transform.position, direction);
             
-            Quaternion rotation = Quaternion.Euler(0,0,direction);
-            Instantiate(slamEffect, player.groundCheck.position, rotation);
+        // }
 
-        }
-
-    oldDirection = player.rb.velocity;
     }
 
     public void OnStartEffect(RanoScript player)
@@ -106,17 +96,23 @@ private Vector2 oldDirection;
          this.player = player;
          crashThreshold = player.crashThreshold;
          slamEffect = player.jumpEffect;
-         slamEffect.transform.lossyScale.Set(2f,2f,0f);
+         slamEffect.transform.lossyScale.Set(3f,5f,0f);
+
 
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
+
+
+
+
+        player.hatHolder.transform.localScale = new Vector2(2.5f,2.5f);
         slamAction = new BeachBallPlayerAction1(this);
         bounceToggle = new BeachBallPlayerState1(this);
         player.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         player.gameObject.GetComponent<CircleCollider2D>().enabled =true;
-        player.jumpSFX = player.soundManager.GetClip(SFXManagerSO.Sound.dodgeball);
+        player.jumpSFX = player.entityBase.soundManager.GetClip(SFXManagerSO.Sound.dodgeball);
         
 
         player.jumpRadius += 2;
@@ -124,7 +120,6 @@ private Vector2 oldDirection;
         // player.rb.gravityScale = 3;
         
         player.rb.constraints = UnityEngine.RigidbodyConstraints2D.None;
-        player.UpdateSprite(player.data.FatRano); 
         player.rb.sharedMaterial = player.data.bouncyMat;
         player.GetCollider().sharedMaterial = player.data.bouncyMat;
         player.GetComponent<CircleCollider2D>().radius = 2f;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2465687164430718116}
   - component: {fileID: -3906262331154539971}
   - component: {fileID: 1983806051411356003}
+  - component: {fileID: -6820900499490587178}
   m_Layer: 15
   m_Name: Berserk Sword
   m_TagString: FriendlyAttack
@@ -94,6 +95,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6820900499490587178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3949176563716016812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 500
+  damage: 1
+  knockBackOverride: {x: 0, y: 0}
+  shitlist: []
 --- !u!1 &5346919212641859611
 GameObject:
   m_ObjectHideFlags: 0

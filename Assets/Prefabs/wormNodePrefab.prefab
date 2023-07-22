@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3816609667129364877}
   - component: {fileID: 2256876290074447589}
   - component: {fileID: -2607672257481245093}
-  - component: {fileID: -6342952111921662728}
   - component: {fileID: -676030014208016175}
-  m_Layer: 9
+  - component: {fileID: 4055338222824052862}
+  - component: {fileID: -630413510324492342}
+  m_Layer: 19
   m_Name: wormNodePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5ac656d1cee9f4348aead69de6638e77, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6daae3f3051958c41ae0e2375dff2cb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,35 +123,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.54585075, y: -1.501092}
+  m_Offset: {x: 0.8621702, y: -1.2585583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 25.6, y: 25.6}
+    oldSize: {x: 32, y: 32}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 24.508297, y: 19.04978}
+  m_Size: {x: 35.06845, y: 35.07028}
   m_EdgeRadius: 0
---- !u!114 &-6342952111921662728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7378513016042109512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 500
-  damage: 1
-  knockBackOverride: {x: 0, y: 0}
-  shitlist: []
 --- !u!114 &-676030014208016175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,9 +148,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b275f715d1851440bc63f4707be1465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
-  buffIcons: []
-  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-  popup: {fileID: 0}
-  AS: {fileID: 0}
+  unmovable: 0
+  unkillable: 0
+  iFrameDuration: 0
+  damagingTags: []
+  damagingLayers:
+    serializedVersion: 2
+    m_Bits: 0
   soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
+  render: {fileID: 3816609667129364877}
+  AS: {fileID: 0}
+  maxHP: 1
+--- !u!114 &4055338222824052862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378513016042109512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 0
+  damage: 1
+  knockBackOverride: {x: 0, y: 0}
+  shitlist: []
+--- !u!114 &-630413510324492342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378513016042109512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

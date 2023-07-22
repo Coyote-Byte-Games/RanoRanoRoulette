@@ -6,19 +6,20 @@ public class TheWorldModifier : UnityEngine.Object, IModifier, IAttackModifier, 
     public TheWorldPlayerAction1 stopTimeAction;
     public RanoScript player;
     //todo fix actions, array?
-   
+
     public TheWorldModifier()
     {
         stopTimeAction = new TheWorldPlayerAction1(this);
-    }public void OnNewModAdded(RanoScript rano)
+    }
+    public void OnNewModAdded(RanoScript rano)
     {
-      return;
+        return;
     }
     public void SetPlayer(RanoScript player)
     {
         this.player = player;
     }
-  
+
 
     public IEnumerator ContinuousEffect(RanoScript player)
     {
@@ -27,11 +28,13 @@ public class TheWorldModifier : UnityEngine.Object, IModifier, IAttackModifier, 
 
     public void OnEndEffect(RanoScript player)
     {
-
+    player.RemoveAction(stopTimeAction);
     }
 
     public void OnStartEffect(RanoScript player)
     {
+        player.AddAction(stopTimeAction);
+
     }
 
     public override string ToString()
@@ -39,16 +42,15 @@ public class TheWorldModifier : UnityEngine.Object, IModifier, IAttackModifier, 
         return "The World!";
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
- 
-       player.AddAction(stopTimeAction);
+
 
     }
-   
+
     public Sprite GetIcon()
     {
-    //    return player.data.
-    return (Sprite)Resources.Load("Mod Icons\\theworld");
+        //    return player.data.
+        return (Sprite)Resources.Load("Mod Icons\\theworld");
     }
 }

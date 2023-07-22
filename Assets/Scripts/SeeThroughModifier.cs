@@ -5,6 +5,8 @@ using UnityEngine;
 public class SeeThroughModifier : UnityEngine.Object, IModifier, IMovementModifier
 {
     public RanoScript player;
+    //Making a constant just breaks it
+    // private float targetValue
     public void OnNewModAdded(RanoScript rano)
     {
           player.SetAlpha(.4f);
@@ -16,7 +18,7 @@ public class SeeThroughModifier : UnityEngine.Object, IModifier, IMovementModifi
 
     public void OnStartEffect(RanoScript player)
     {
-        return;
+          player.SetAlpha(.4f);
     }
      public override string ToString()
     {
@@ -35,8 +37,13 @@ public class SeeThroughModifier : UnityEngine.Object, IModifier, IMovementModifi
        return (Sprite)Resources.Load("Mod Icons\\seethrough");
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
-          player.SetAlpha(.4f);
+      return;
+    }
+
+    public void OnEndEffect(RanoScript player)
+    {
+        player.SetAlpha(1);
     }
 }

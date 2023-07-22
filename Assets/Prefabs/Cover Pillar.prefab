@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 3506500055839874642}
   - component: {fileID: -1803666736586869843}
   - component: {fileID: 7246977695319881491}
+  - component: {fileID: -4257746834516676276}
   m_Layer: 0
   m_Name: Cover Pillar
   m_TagString: Untagged
@@ -161,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length: 0
   rotationSpeed: 2
+  freezeBehaviour: {fileID: -4257746834516676276}
   child: {fileID: 0}
   segmentPrefab: {fileID: 0}
 --- !u!50 &7246977695319881491
@@ -184,6 +186,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-4257746834516676276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599508599837604904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7352392240345383450
 GameObject:
   m_ObjectHideFlags: 0

@@ -82,7 +82,6 @@ public class AdoptionDogScriptv2 : MonoBehaviour
         //If the character can jump, is on the ground, and the direction justifies jumping, jump
         if (CanJump() && ShouldJump())// 
         {
-            Debug.Log("doggi jump!!!!!!");
             // rb.AddForce(Vector2.up * jumpModifier * Time.deltaTime, ForceMode2D.Impulse);
             rb.velocity = rb.velocity.x * Vector2.right + Vector2.up * jumpModifier;
         }

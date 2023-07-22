@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GroundedAI : MonoBehaviour
 {
-    public GameObject boom;
     public GameObject target;
 
     public int speed;

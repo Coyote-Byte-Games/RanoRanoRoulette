@@ -6,23 +6,21 @@ public class SugarRushModifier : UnityEngine.Object, IModifier, IMovementModifie
 {
     public RanoScript player;
     
-    [SerializeField]
-    // public SFXManagerSO soundManager;
     public IEnumerator ContinuousEffect(RanoScript rano)
     {
 
         for (; ; )
         {
-            
-            rano.speedModifier *= 2f;
-            rano.CreatePopup("Speed Up", 1);
+            rano.speedModifiers[name] = 2;
+            rano.GetComponent<BuffableBehaviour>().CreatePopup("Speed Up", BuffableBehaviour.BuffIcon.GenericBuff);
 
             yield return new WaitForSeconds(10);
-            rano.speedModifier *= (.75f) / 2f;
+            rano.speedModifiers[name] = .75f;
+
   
-            rano.CreatePopup("Speed Down", 0);
+            rano.GetComponent<BuffableBehaviour>().CreatePopup("Speed Down", BuffableBehaviour.BuffIcon.GenericDebuff);
             yield return new WaitForSeconds(10);
-            rano.speedModifier /= .75f;
+            rano.speedModifiers[name] = .75f;
 
         }
 
@@ -33,7 +31,7 @@ public class SugarRushModifier : UnityEngine.Object, IModifier, IMovementModifie
     }
     public void OnStartEffect(RanoScript player)
     {
-        return;
+        
     }
     public override string ToString()
     {
@@ -52,7 +50,13 @@ public class SugarRushModifier : UnityEngine.Object, IModifier, IMovementModifie
         return (Sprite)Resources.Load("Mod Icons\\sugarrush");
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
+    {
+        //establish the value in speedModifiers
+        player.speedModifiers.Add(this.ToString(), 1);
+    }
+
+    public void OnEndEffect(RanoScript player)
     {
         return;
     }

@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GLShooterScript : FreezableMonoBehaviour
+public class GLShooterScript : MonoBehaviour
 {
+    public FreezeBehaviour freezeBehaviour;
     public Transform target;
     public int aggroRange = 100;
     public float shootInterval;
@@ -24,7 +25,7 @@ public class GLShooterScript : FreezableMonoBehaviour
         for(;;)
         {
             yield return new WaitForSeconds(shootInterval);
-            if (Vector2.Distance(transform.position, target.position) < aggroRange && !frozen)
+            if (Vector2.Distance(transform.position, target.position) < aggroRange && !freezeBehaviour.frozen)
             {
             StartCoroutine(Fire());
                 
@@ -47,7 +48,7 @@ public class GLShooterScript : FreezableMonoBehaviour
         rendererAnimatior.SetTrigger("Firing");
         yield return new WaitForSeconds(.3f);
         var rocket = Instantiate(rocketPrefab, firingPoint.position, Quaternion.identity );
-        rocket.GetComponent<EntityBaseScript>().AS =  FindFirstObjectByType<AudioSource>();
+        // rocket.GetComponent<EntityBaseScript>().AS =  FindFirstObjectByType<AudioSource>();
         rocket.GetComponent<RocketScript>().target = target;
         
         yield break;

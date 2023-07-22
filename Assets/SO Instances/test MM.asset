@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8183567fdd3cc45b944b219ffdc1c0, type: 3}
+  m_Name: test MM
+  m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
+  modSOs:
+  - {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
+  - {fileID: 11400000, guid: 0fb0ab96418cb53438bb1e264679e1f1, type: 2}
+  - {fileID: 11400000, guid: a2c347d5bf7d66345b723ad13fb84fb2, type: 2}
+  startingModNumber: 3
+  numOfMods: 3
+  difficulty: 0
+  startUpDelayFinished: 1
+  modifierInterval: 3

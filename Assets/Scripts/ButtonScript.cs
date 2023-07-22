@@ -25,7 +25,7 @@ public class ButtonScript : EntityBaseScript
     {
         EventManager.instance.OnButtonPress(transform.parent.gameObject.GetInstanceID());
         GetComponent<SpriteRenderer>().sprite = pressedSprite;
-        FindAnyObjectByType<AudioSource>().PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.click));
+        GetAudioSource().PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.click));
         GetComponent<BoxCollider2D>().enabled = false;
 
     }

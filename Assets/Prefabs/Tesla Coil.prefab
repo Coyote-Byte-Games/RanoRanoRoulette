@@ -94,7 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1993060843613911442}
   - component: {fileID: -3344110159417105392}
-  - component: {fileID: -7614803385026591241}
+  - component: {fileID: 8856181054425117663}
+  - component: {fileID: 2637846768875808203}
   m_Layer: 9
   m_Name: Tesla Coil
   m_TagString: Untagged
@@ -191,8 +192,10 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
   renderer: {fileID: 3805981402458636237}
+  longStick: {fileID: 0}
   length: 19
---- !u!114 &-7614803385026591241
+  freezeBehaviour: {fileID: 8856181054425117663}
+--- !u!114 &8856181054425117663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,8 +204,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8259558364007026521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBack: 555
+--- !u!114 &2637846768875808203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8259558364007026521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 1000
   damage: 1
+  knockBackOverride: {x: 1, y: 0}
+  shitlist: []

@@ -12,36 +12,45 @@ public class DoubleJumpModifier : UnityEngine.Object, IModifier, IMovementModifi
         yield break;
     }
 
-  public override string ToString()
+    public override string ToString()
     {
         return "Double Jump!";
     }
 
     public Sprite GetIcon()
     {
-      return (Sprite)Resources.Load("Mod Icons\\doublejump");
+        return (Sprite)Resources.Load("Mod Icons\\doublejump");
 
     }
 
-    
-public void OnNewModAdded(RanoScript rano)
+
+    public void OnNewModAdded(RanoScript rano)
     {
-      return;
+        return;
     }
     public void OnStartEffect(RanoScript player)
     {
+        player.extraJumps += 1;
+        player.AddAccessory(player.data.DJWings, "wings");
     }
 
     public void SetPlayer(RanoScript player)
     {
-       this.player = player;
+        this.player = player;
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
-       player.maxJumps += 1;
-      //  player.animator = GameData.ranoAnim;
-       wings = Instantiate( player.data.DJWings,(player.transform.position), Quaternion.identity );
-       wings.transform.SetParent(player.transform.GetChild(1)); 
+
+        //  player.animator = GameData.ranoAnim;
+        //  wings = Instantiate( player.data.DJWings,(player.transform.position), Quaternion.identity );
+        //  wings.transform.SetParent(player.transform.GetChild(1));
+
+    }
+
+    public void OnEndEffect(RanoScript player)
+    {
+       player.extraJumps = 0;
+       player.RemoveAccessory("wings");
     }
 }

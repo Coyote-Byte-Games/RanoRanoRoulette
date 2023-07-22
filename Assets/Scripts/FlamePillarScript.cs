@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlamePillarScript : FreezableMonoBehaviour
+public class FlamePillarScript : MonoBehaviour
 {
     
     public int length;
     public float rotationSpeed;
-
+    public FreezeBehaviour freezeBehaviour;
     private GameObject[] segments;
     public GameObject child;
     // public Sprite texture;
@@ -21,7 +21,7 @@ public class FlamePillarScript : FreezableMonoBehaviour
     public void FixedUpdate()
     {
         
-        if (!frozen)
+        if (!  freezeBehaviour.frozen)
         {
         rb.SetRotation(rb.rotation + rotationSpeed);
         }

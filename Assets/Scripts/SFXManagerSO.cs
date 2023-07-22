@@ -5,6 +5,7 @@ using UnityEngine;
 public class SFXManagerSO : ScriptableObject
 {
 public AudioClip[] clips;
+public AudioClip[] tracks;
 public enum Sound
 {
     boom,
@@ -21,9 +22,17 @@ public enum Sound
     Timemovesagain,
     chainsaw
 }
+public enum Music
+{
+  VictoryJingle
+}
 public AudioClip GetClip(Sound sound)
 {
     return clips[((int)sound)];
+}
+public AudioClip GetTrack(Music track)
+{
+    return tracks[((int)track)];
 }
 public void PlayClip(Sound sound)
 {

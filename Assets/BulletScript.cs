@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : FreezableMonoBehaviour
+public class BulletScript : MonoBehaviour
 {
+    public FreezeBehaviour freezeBehaviour;
     public int speed;
     private TrailRenderer trail;
     private float trailTempTime;
-    public override void Freeze()
+    public void Freeze()
     {
-        base.Freeze();
+        
         try
         {
         GetComponent<FruityFlyScript>().frozen = true;
@@ -22,9 +23,8 @@ public class BulletScript : FreezableMonoBehaviour
            //sometimes the thing destroys as this is being called, nothing to really do about it
         }
     }
-    public override void UnFreeze()
+    public void UnFreeze()
     {
-        base.UnFreeze();
         GetComponent<FruityFlyScript>().frozen =false;
 
         trail.time = trailTempTime;

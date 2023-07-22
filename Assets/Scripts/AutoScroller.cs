@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class AutoScroller :FreezableMonoBehaviour
+public class AutoScroller :MonoBehaviour
 {
+    public FreezeBehaviour freezeBehaviour;
     public GameConfig config;
     private int ownSpeed;
     public int speed;
     public int ease;
+    public float levelScaler =1.2f;
     public int mainZoom;
     public int screenWidth; //for setting bounds
     public GameObject player;
@@ -47,13 +49,13 @@ public class AutoScroller :FreezableMonoBehaviour
     {
 
     }
-    public override void Freeze()
+    public void Freeze()
     {
         ownSpeed = speed;
         this.speed = 0;
 
     }
-     public override void UnFreeze()
+     public void UnFreeze()
     {
         this.speed = ownSpeed;
         
@@ -61,6 +63,10 @@ public class AutoScroller :FreezableMonoBehaviour
    
     void Start()
     {
+
+freezeBehaviour.OnFreeze += Freeze;
+freezeBehaviour.OnUnfreeze += UnFreeze;
+
         mainZoom = config.zoom == 0 ? mainZoom : config.zoom;
         speed = config.scrollSpeed == 0 ? speed : config.scrollSpeed;
         edge = GetComponent<EdgeCollider2D>();
@@ -84,15 +90,17 @@ public class AutoScroller :FreezableMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      
 
         //a scalar to determine how much zoom we need
         float zoomDemand = player.transform.position.y;
         var zoomVariable = Mathf.Clamp((zoomDemand / 2), 0, 25);
-        if (!frozen && moves)
+        if (!freezeBehaviour.frozen && moves)
         {
+              //Make the autoscroller faster for every level cleared
+            float levelScale = Mathf.Pow( levelScaler, config.currentLevel);
             var distanceScaler = Mathf.Clamp(Vector2.Distance(transform.position + 50 * Vector3.left, player.transform.position) / ease, .5f, 1);
-            transform.position += new Vector3((speed + momentumAccumulated) * distanceScaler, 0, 0) * Time.deltaTime;
+            transform.position += new Vector3((speed + momentumAccumulated) * distanceScaler * levelScale, 0, 0) * Time.deltaTime;
             transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().position.y - transform.position.y, 0) * 10 * Time.deltaTime;
 
         }
@@ -106,7 +114,7 @@ public class AutoScroller :FreezableMonoBehaviour
         Setbounds();
 
         //also kill any ranos that fall behind
-        if ((player.transform.position.x + 50) < this.transform.position.x)
+        if ((player.transform.position.x + 49.5f) < this.transform.position.x)
         {
          player.GetComponent<RanoScript>().Respawn(player.transform.position + new Vector3(100, 100, 0));
         }

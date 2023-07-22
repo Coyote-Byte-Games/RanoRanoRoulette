@@ -146,11 +146,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9141533916214176498}
-  - component: {fileID: 8192496698829697314}
-  - component: {fileID: 4710456383590795974}
-  - component: {fileID: 1139808461}
   - component: {fileID: 806015662643337139}
+  - component: {fileID: 4710456383590795974}
+  - component: {fileID: 8192496698829697314}
+  - component: {fileID: 5447524596583375923}
   - component: {fileID: 5348053927540928066}
+  - component: {fileID: 276013520358195093}
   m_Layer: 17
   m_Name: Grasslands Shooter
   m_TagString: Untagged
@@ -175,66 +176,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8192496698829697314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851879252011113387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e38794ae9cc65042a556bb5f3afb618, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  aggroRange: 100
-  shootInterval: 5
-  firingPoint: {fileID: 4959530598339904679}
-  rendererAnimatior: {fileID: 3321780544231258569}
-  rocketPrefab: {fileID: 2141453548319808409, guid: 6833a858100cca24daf847ac401c2c8a, type: 3}
-  primAi: {fileID: 5348053927540928066}
---- !u!50 &4710456383590795974
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851879252011113387}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 5
---- !u!114 &1139808461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851879252011113387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buffIcons: []
-  health: 1
-  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-  popup: {fileID: 0}
-  AS: {fileID: 0}
-  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
-  SFX:
-  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
 --- !u!61 &806015662643337139
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -261,6 +202,59 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2939007, y: 1.093343}
   m_EdgeRadius: 0
+--- !u!50 &4710456383590795974
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851879252011113387}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5
+--- !u!114 &8192496698829697314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851879252011113387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e38794ae9cc65042a556bb5f3afb618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezeBehaviour: {fileID: 5447524596583375923}
+  target: {fileID: 0}
+  aggroRange: 100
+  shootInterval: 5
+  firingPoint: {fileID: 4959530598339904679}
+  rendererAnimatior: {fileID: 3321780544231258569}
+  rocketPrefab: {fileID: 2141453548319808409, guid: 6833a858100cca24daf847ac401c2c8a, type: 3}
+  primAi: {fileID: 5348053927540928066}
+--- !u!114 &5447524596583375923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851879252011113387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5348053927540928066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,3 +268,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!114 &276013520358195093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851879252011113387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b275f715d1851440bc63f4707be1465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  unmovable: 0
+  unkillable: 0
+  iFrameDuration: 0
+  damagingTags: []
+  damagingLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
+  render: {fileID: 3997750691697175277}
+  AS: {fileID: 0}
+  maxHP: 1

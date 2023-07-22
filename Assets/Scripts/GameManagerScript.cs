@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour
 {//TODO Migrate UI functions to UIManager
 
     public LevelManagerScript[] levels;
+    public GameObject gridLevelParent;
     //2:11AM coding makes the best "it works" garbage
     public GameObject fadeGO;
     public SFXManagerSO sfxMan;
@@ -70,9 +71,15 @@ public class GameManagerScript : MonoBehaviour
         }
         element.text = strong;
     }
-    public void CleanupAfterRanoKeelsOver()
+    public void CleanupForLevelReload(bool changingLevel = false)
     {
         modMan.Reset();
+        rano.GetComponent<EntityBaseScript>().Health = rano.GetComponent<EntityBaseScript>().maxHP;
+        if (changingLevel)
+        {
+            GameConfig.seed++;
+
+        }
     }
 
     public IEnumerator CreateRano(Vector3 spawnLocation)
@@ -109,18 +116,18 @@ public class GameManagerScript : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        if (( ++config.currentLevel >= levels.Length) )
+        if ((++config.currentLevel >= levels.Length))
         {
             Debug.Log("bababooey");
-           StartCoroutine(LoadSceneStylin(4));
+            StartCoroutine(LoadSceneStylin(4));
         }
-       else
-       {
-        CleanupAfterRanoKeelsOver();
-           StartCoroutine(LoadSceneStylin(((int)SceneEnum.GL)));
-    
-       }
-       
+        else
+        {
+            CleanupForLevelReload(changingLevel:true);
+            StartCoroutine(LoadSceneStylin(((int)SceneEnum.GL)));
+
+        }
+
     }
 
     public void SpawnButton(float x, float y, GameObject parent)
@@ -238,27 +245,28 @@ public class GameManagerScript : MonoBehaviour
         // {
         //     config.currentLevel = 0;
         // }
-         levelManager = levels[config.currentLevel];
+        modMan.numOfMods = modMan.startingModNumber;
+
+        levelManager = levels[config.currentLevel];
         Debug.Log("Seed " + GameConfig.GetSeed());
         UnityEngine.Random.InitState(GameConfig.GetSeed());
 
 
-        modMan.NabCommonMods(modMan.modSOs);
-
-        modMan.mods = modMan.GenerateRandomMods(modMan.startingModNumber);
+        modMan.PrepareMods();
 
         //setting the scene deps of the levelgenerator
         levelManager.generator.Tilemap = Tilemap;
         levelManager.generator.bgTilemap = bgTilemap;
         levelManager.generator.gameManager = this;
         levelManager.generator.WipeTileMap();
-        levelManager.generator.GenerateLevelChunksWithEndpoint();
+        levelManager.generator.GenerateLevelChunks();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateModRemainingTime(TMProModTimeRemaining.GetComponent<TextMeshProUGUI>(), GetTimeUntilNewMod() + (modStartupTime - delayTimeElapsed), modTimeMessage);
+        Debug.Log("seed " + GameConfig.GetSeed());
 
         //checking if we need a new modifier
         if (modMan.startUpDelayFinished)

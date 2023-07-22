@@ -7,10 +7,12 @@ using UnityEngine.Events;
 public class DialougeNode
 {
   //determines the highlighted sprite
-  public bool Speaking;
+  public bool RSpeaking;
+  public bool LSpeaking;
 
   public string sentence;
   
-  public Sprite OwnSprite;
+  public Sprite RSprite;
+  public Sprite LSprite;
 
 }

@@ -34,7 +34,7 @@ public class BerserkPlayerAction1 : IPlayerAction
     {
         //To allow for restarting in case of double jump
       
-        if (mod.player.jumpsRemaining <= 0)
+        if (mod.player.GetJumpsAvailable() <= 0)
         {
             return;
         }
@@ -42,7 +42,7 @@ public class BerserkPlayerAction1 : IPlayerAction
         mod.player.StartCoroutine(ActiveCycle());
         // rb = sword.GetComponent<Rigidbody2D>();
         mod.player.animator.SetTrigger("Jump");
-        mod.player.jumpsRemaining -= 1;
+        mod.player.jumpsUsed += 1;
         sword = ((GameObject)mod.sword);
        
         //freezes the player rotation so the sword can be aimed with modifers that affect rotation (beach ball, etc.)
@@ -81,7 +81,7 @@ public class BerserkPlayerAction1 : IPlayerAction
 
 
         mod.player.rb.AddForce(6500 * camDir);
-        mod.player.AS.PlayOneShot(mod.player.soundManager.GetClip(SFXManagerSO.Sound.whoosh));
+        mod.player.entityBase.AS.PlayOneShot(mod.player.entityBase.soundManager.GetClip(SFXManagerSO.Sound.whoosh));
     }
 
     private IEnumerator MoveSwordInDir(Vector3 end)

@@ -24,7 +24,6 @@ public class WantedManModifier : UnityEngine.Object, IModifier, IMovementModifie
 
     public void OnStartEffect(RanoScript player)
     {
-    scopePrefab.GetComponent<WMScopeScript>().target = player.transform;
     }
 
     public void SetPlayer(RanoScript player)
@@ -34,9 +33,9 @@ public class WantedManModifier : UnityEngine.Object, IModifier, IMovementModifie
        scopePrefab.GetComponent<WMScopeScript>().source = player.gameManager.audioSource;
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
-     
+      scopePrefab.GetComponent<WMScopeScript>().target = player.transform;
     }
        public IEnumerator ContinuousEffect(RanoScript RanoScript)
     {
@@ -51,6 +50,11 @@ public class WantedManModifier : UnityEngine.Object, IModifier, IMovementModifie
     }
 
     public void OnNewModAdded(RanoScript rano)
+    {
+      return;
+    }
+
+    public void OnEndEffect(RanoScript player)
     {
       return;
     }

@@ -160,10 +160,10 @@ GameObject:
   - component: {fileID: 3324787746732065840}
   - component: {fileID: -8484716965059270959}
   - component: {fileID: 6052301417615123782}
-  - component: {fileID: -2985894297172431147}
   - component: {fileID: 4292224105761650981}
   - component: {fileID: -1997218101533992141}
   - component: {fileID: -9050820574095660295}
+  - component: {fileID: 6293883258387639757}
   m_Layer: 18
   m_Name: bullet prefab
   m_TagString: Untagged
@@ -260,22 +260,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &-2985894297172431147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9014863732540497031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: -200
-  damage: 1
-  knockBackOverride: {x: 0, y: 0}
-  shitlist: []
 --- !u!61 &4292224105761650981
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -314,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aae53bd385c5d6479ce0c1e16fb13b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freezeBehaviour: {fileID: 0}
   speed: 240
 --- !u!114 &-9050820574095660295
 MonoBehaviour:
@@ -329,3 +314,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frozen: 0
   timeicanbealivebeforeijustkeelover: 1
+--- !u!114 &6293883258387639757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014863732540497031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

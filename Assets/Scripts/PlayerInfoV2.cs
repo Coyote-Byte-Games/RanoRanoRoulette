@@ -78,4 +78,9 @@ public class PlayerInfoV2<T> : IEnumerable where T : IModifierTrait
     {
         return GetEnumerator();
     }
+
+    internal void RemoveItem(T item)
+    {
+      this.Items.Remove(item);
+    }
 }

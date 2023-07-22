@@ -51,7 +51,6 @@ public class SettingsScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("failed ass");
         }
         return;
     }

@@ -14,18 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   modSOs:
-  - {fileID: 11400000, guid: edcda08dd6d5439488463083684c0d2b, type: 2}
-  - {fileID: 11400000, guid: 84b4a9e4f7d94f34e8564e3e7f1251a6, type: 2}
+  - {fileID: 11400000, guid: ce03e4dcaab3388459d5fb28db40f963, type: 2}
   - {fileID: 11400000, guid: a2c347d5bf7d66345b723ad13fb84fb2, type: 2}
   - {fileID: 11400000, guid: 0fb0ab96418cb53438bb1e264679e1f1, type: 2}
-  - {fileID: 11400000, guid: c7921fa815dcf2f48bc6f49b6b58d097, type: 2}
-  - {fileID: 11400000, guid: fd5035cdaff6d5340949233d66df7c0f, type: 2}
-  - {fileID: 11400000, guid: a0ad9db472279db4d86490a345e76bb1, type: 2}
-  - {fileID: 11400000, guid: 81bd550c830e1224b89d3a0d62a3fbb9, type: 2}
-  - {fileID: 11400000, guid: ce03e4dcaab3388459d5fb28db40f963, type: 2}
-  - {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
-  startingModNumber: 4
-  numOfMods: 4
+  startingModNumber: 3
+  numOfMods: 0
   difficulty: 0
   startUpDelayFinished: 1
-  modifierInterval: 15
+  modifierInterval: 3

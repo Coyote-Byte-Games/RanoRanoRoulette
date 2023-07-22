@@ -6,6 +6,7 @@ public class AdoptionModifier : UnityEngine.Object, IModifier, ICompanionModifie
 {
     public RanoScript player;
     public GameObject dogPrefab;
+    private GameObject doggoInstance = null;
     public IEnumerator ContinuousEffect(RanoScript RanoScript)
     {
       yield break;
@@ -17,8 +18,8 @@ public AdoptionModifier()
     public void OnStartEffect(RanoScript player)
     {
         this.dogPrefab = player.data.AdoptionDog;
-        var dogInstance = Instantiate(dogPrefab, player.transform.position + Vector3.up*10, Quaternion.identity);
-        dogInstance.GetComponent<AdoptionDogScript>().SetTarget(player);
+        doggoInstance = Instantiate(dogPrefab, player.transform.position + Vector3.up*10, Quaternion.identity);
+        doggoInstance.GetComponent<AdoptionDogScript>().SetTarget(player);
     }
 
     public void SetPlayer(RanoScript player)
@@ -29,7 +30,7 @@ public void OnNewModAdded(RanoScript rano)
     {
       return;
     }
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
         return;
     }
@@ -43,4 +44,12 @@ public void OnNewModAdded(RanoScript rano)
     {
           return (Sprite)Resources.Load("Mod Icons\\dog");
     }
+
+    public void OnEndEffect(RanoScript player)
+    {
+    
+
+        Destroy( doggoInstance);
+    }
+    
 }

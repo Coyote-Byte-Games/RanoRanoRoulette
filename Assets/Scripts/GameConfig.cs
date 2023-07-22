@@ -7,7 +7,7 @@ public class GameConfig : ScriptableObject
 {
     public int zoom = 25;
     public int scrollSpeed;
-    private static int seed = -2;
+    public static int seed = -2;
     public int currentLevel = 0;
     public static int GetSeed()
     {

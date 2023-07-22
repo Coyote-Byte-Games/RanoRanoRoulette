@@ -5,6 +5,7 @@ using UnityEngine;
 public class PrimitiveAirAI : MonoBehaviour
 {
     bool doneScanning = false;
+    [HideInInspector]
     public Transform target;
 
     // Start is called before the first frame update

@@ -9,13 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7833314651344774862}
-  - component: {fileID: -1760792168029823551}
   - component: {fileID: 1798390737}
-  - component: {fileID: 1798390733}
-  - component: {fileID: 1798390736}
   - component: {fileID: -9206061685577405074}
-  - component: {fileID: -4508511342112874726}
-  m_Layer: 18
+  - component: {fileID: -1760792168029823551}
+  - component: {fileID: 1798390736}
+  - component: {fileID: -8284474044796495319}
+  - component: {fileID: 4069770641423089587}
+  - component: {fileID: 7974939009135502785}
+  - component: {fileID: 5591593369925786112}
+  m_Layer: 9
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 6be38d22f4757c547aaf761b257be583, type: 3}
@@ -38,24 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1760792168029823551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141453548319808409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a530e669f32ed842b45dd94316297fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  render: {fileID: 0}
-  target: {fileID: 0}
-  timeout: 4
-  traits: {fileID: -4508511342112874726}
-  speed: 19
-  ai: {fileID: 1798390736}
 --- !u!50 &1798390737
 Rigidbody2D:
   serializedVersion: 4
@@ -64,7 +48,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141453548319808409}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -75,37 +59,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1798390733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141453548319808409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 422.74
-  damage: 1
-  knockBackOverride: {x: 0, y: 0}
-  shitlist: []
---- !u!114 &1798390736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141453548319808409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a34217c24dd20f4bb85e0e5c9f33455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!61 &-9206061685577405074
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -132,7 +87,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1446848, y: 0.52551585}
   m_EdgeRadius: 0
---- !u!114 &-4508511342112874726
+--- !u!114 &-1760792168029823551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,15 +96,91 @@ MonoBehaviour:
   m_GameObject: {fileID: 2141453548319808409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb38b78fa2c880742ad50e00efb6ddac, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a530e669f32ed842b45dd94316297fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezeBehaviour: {fileID: -8284474044796495319}
+  entityBase: {fileID: 4069770641423089587}
+  target: {fileID: 0}
+  timeout: 4
+  speed: 19
+--- !u!114 &1798390736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141453548319808409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a34217c24dd20f4bb85e0e5c9f33455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!114 &-8284474044796495319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141453548319808409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ae98ed06ca4241849a615628fe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4069770641423089587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141453548319808409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b275f715d1851440bc63f4707be1465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  buffIcons: []
-  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-  popup: {fileID: 0}
-  AS: {fileID: 0}
+  unmovable: 0
+  unkillable: 0
+  iFrameDuration: 0
+  damagingTags: []
+  damagingLayers:
+    serializedVersion: 2
+    m_Bits: 0
   soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
+  render: {fileID: 2645084208119395709}
+  AS: {fileID: 0}
+  maxHP: 1
+--- !u!114 &7974939009135502785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141453548319808409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10796c27b2009449e6dd091c63252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 200
+  damage: 1
+  knockBackOverride: {x: 0, y: 0}
+  shitlist: []
+--- !u!114 &5591593369925786112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141453548319808409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cc2c67aa7c63f4a85b01606d835a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   aggroRange: 0
 --- !u!1 &2664085354911885405
 GameObject:
@@ -161,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 554511870303999136}
   - component: {fileID: 2012406427997563883}
-  m_Layer: 18
+  m_Layer: 9
   m_Name: trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +333,7 @@ GameObject:
   - component: {fileID: 917492770352634834}
   - component: {fileID: 1767302304377610579}
   - component: {fileID: 6003569259574043515}
-  m_Layer: 18
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5113,7 +5144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464056814669508701}
   - component: {fileID: 2645084208119395709}
-  m_Layer: 18
+  m_Layer: 9
   m_Name: render
   m_TagString: Untagged
   m_Icon: {fileID: 0}

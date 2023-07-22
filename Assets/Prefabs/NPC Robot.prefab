@@ -1,106 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &73449288
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 73449289}
-  - component: {fileID: 73449291}
-  - component: {fileID: 73449290}
-  m_Layer: 16
-  m_Name: Detector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &73449289
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73449288}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &73449291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73449288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be9c4691f47ede4fb4e606d75b74ab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentReaction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1560720115}
-        m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
-        m_MethodName: BeginDialougeAtIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  parentNegativeReaction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1560720115}
-        m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
-        m_MethodName: Shaddup
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!61 &73449290
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73449288}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.28990698, y: 1.2176054}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 12.132396, y: 3.4352107}
-  m_EdgeRadius: 0
 --- !u!1 &638042010561638938
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7338997621309057136
 SpriteRenderer:
@@ -215,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &678768767918407535
 SpriteRenderer:
@@ -299,7 +198,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &859843304880154464
 SpriteRenderer:
@@ -383,7 +282,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024789403357579323}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8870286715921641906
 SpriteRenderer:
@@ -450,8 +349,9 @@ GameObject:
   - component: {fileID: 8442262971857019067}
   - component: {fileID: 1773304396935740637}
   - component: {fileID: 1560720115}
-  - component: {fileID: 1560720116}
   - component: {fileID: 1560720122}
+  - component: {fileID: 526674802317579371}
+  - component: {fileID: 5176438087969073298}
   m_Layer: 9
   m_Name: NPC Robot
   m_TagString: Untagged
@@ -471,11 +371,11 @@ Transform:
   m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 73449289}
   - {fileID: 1825811813173794648}
   - {fileID: 2445220425779822614}
   - {fileID: 7059973476591073155}
   - {fileID: 5092350336067080029}
+  - {fileID: 4165513848355669700}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -590,163 +490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef2809a0d3fe054f92ee89aacee959e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialouges:
-  - name: WEIRD HAND DUDE
-    dialouges:
-    - Speaking: 1
-      sentence: Hey, kid. Want some candy?
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: C'mon... y'know you want it...
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    actions:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
-          m_MethodName: AddModifier
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 84b4a9e4f7d94f34e8564e3e7f1251a6, type: 2}
-            m_ObjectArgumentAssemblyTypeName: ModifierSO, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1560720115}
-          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
-          m_MethodName: BeginDialougeAtIndex
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: WEIRD HAND CREEP
-    dialouges:
-    - Speaking: 1
-      sentence: Ah. Oh. That is a very large sword.  It looks good on you...
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: ...Given you dont use the [LEFT MOUSE BUTTON] to swing and
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: throw yourself in the direction of your cursor, cutting though anything
-        in the way.
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: ...
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    actions:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1560720122}
-          m_TargetAssemblyTypeName: TutorialNPCBehaviourPack, Assembly-CSharp
-          m_MethodName: RunCustomEvent
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1560720115}
-          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
-          m_MethodName: SetDetectionRadius
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 300
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1560720115}
-          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
-          m_MethodName: BeginDialougeAtIndex
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: WEIRD HAND DUDE
-    dialouges:
-    - Speaking: 1
-      sentence: no nope not doing that get away from me you marshmellow freak
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: ...Are you... inflating???
-      OwnSprite: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
-    actions:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: RanoScript, Assembly-CSharp
-          m_MethodName: AddModifier
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 1279d496e111959468892c20083a03fa, type: 2}
-            m_ObjectArgumentAssemblyTypeName: ModifierSO, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1560720115}
-          m_TargetAssemblyTypeName: TalkativeNPC, Assembly-CSharp
-          m_MethodName: BeginDialougeAtIndex
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: WEIRD HANDYMAN
-    dialouges:
-    - Speaking: 1
-      sentence: 'Well, you''re totally useless in that state! '
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: given you don't press [RIGHT MOUSE BUTTON] to switch your active
-        [ACTION]. In this case, that would equip the bouce of the your beach ball
-        mod.
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    - Speaking: 1
-      sentence: Or use the Q button to toggle your [STATUS], in this case, disengaging
-        your bounce.
-      OwnSprite: {fileID: 21300000, guid: b184fc683a63cce4ebb1cbe2f235fbaf, type: 3}
-    actions: []
-  pseudoDetectionRadius: 20
---- !u!114 &1560720116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402847552631776416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bc9d46c5ef375488821ef2c582bcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 5.91
-  damage: 1
-  knockBackOverride: {x: 0, y: 0}
-  shitlist: []
 --- !u!114 &1560720122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,11 +502,150 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa00e6b7e57b1c41b78f0f0aa77d379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffIcons: []
-  health: 1
-  boom: {fileID: 1492621804411830024, guid: a9c1d4915369f244daadd786765f27c0, type: 3}
-  popup: {fileID: 0}
+--- !u!114 &526674802317579371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402847552631776416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b275f715d1851440bc63f4707be1465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unmovable: 0
+  unkillable: 0
+  iFrameDuration: 0
+  damagingTags: []
+  damagingLayers:
+    serializedVersion: 2
+    m_Bits: 33792
+  soundManager: {fileID: 11400000, guid: daa14b95856c76b4fad8d1478dc6ee5f, type: 2}
+  render: {fileID: 0}
   AS: {fileID: 0}
-  soundManager: {fileID: 0}
-  SFX:
-  - {fileID: 8300000, guid: c531d9818636047449046414ad592943, type: 3}
+  maxHP: 66666656
+--- !u!114 &5176438087969073298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402847552631776416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cc2c67aa7c63f4a85b01606d835a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggroRange: 0
+--- !u!1 &8047857016897579767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4165513848355669700}
+  - component: {fileID: 98568897}
+  - component: {fileID: 98568896}
+  m_Layer: 9
+  m_Name: Dialouge Driver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4165513848355669700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047857016897579767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8024789403357579323}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &98568897
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047857016897579767}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.12931824, y: 0}
+  serializedVersion: 2
+  m_Radius: 17.397055
+--- !u!114 &98568896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047857016897579767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b3432b410fa424f9bdeb7f98af4bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialouges:
+  - name: trapped soul
+    dialouges:
+    - RSpeaking: 1
+      LSpeaking: 0
+      sentence: Get me outta here
+      RSprite: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
+      LSprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
+    actions:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 98568896}
+          m_TargetAssemblyTypeName: DialougeScript, Assembly-CSharp
+          m_MethodName: BeginNextDialouge
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: trapped (moreso) soul
+    dialouges:
+    - RSpeaking: 1
+      LSpeaking: 0
+      sentence: let it end
+      RSprite: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
+      LSprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
+    actions:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 526674802317579371}
+          m_TargetAssemblyTypeName: EntityBaseScript, Assembly-CSharp
+          m_MethodName: set_Health
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  dialougeMasterObject: {fileID: 0}
+  wordsGUI: {fileID: 0}
+  rCharacterName: {fileID: 0}
+  Lsprite: {fileID: 0}
+  Rsprite: {fileID: 0}

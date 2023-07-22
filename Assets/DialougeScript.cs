@@ -7,60 +7,77 @@ using UnityEngine.UI;
 
 public class DialougeScript : MonoBehaviour
 {
-    private List<char> punctuation = new List<char>(){'.', '!', ',', '?'};
-    private Queue<DialougeNode> dialouges;
+    
     // public Queue<string> sentences;
     //jesus this naming is really bad
+    public DialougeContainer[] dialouges;
+    [Header("Canvas objects")]
     public GameObject dialougeMasterObject;
-    public TMPro.TextMeshProUGUI name;
-    public TMPro.TextMeshProUGUI dialouge;
-    public Image Lsprite;
+    public TMPro.TextMeshProUGUI wordsGUI;
+    public TMPro.TextMeshProUGUI rCharacterName;
+    // public TMPro.TextMeshProUGUI lCharacterName;
+    public GameObject Lsprite;
     public GameObject Rsprite;
     private List<UnityEvent> events;
+    private Queue<DialougeNode> dialougeQueue;
+    private int dialougeIndex = 0;
+    private readonly List<char> punctuation = new List<char>(){'.', '!', ',', '?'};
+
+
     // Start is called before the first frame update
     void Start()
     {
-        dialouges = new Queue<DialougeNode>();
+        dialougeQueue = new Queue<DialougeNode>();
         this.events = new List<UnityEvent>();
-        Rsprite = dialougeMasterObject.transform.GetChild(1).gameObject;
     }
-
-    
-    // Update is called once per frame
-    void Update()
+public void Shaddup()
     {
-        
+        FindObjectOfType<DialougeScript>().EndConvo();
     }
-    public void BeginDialouge(Dialouge dialougeDataHolder)
+    
+    
+     public void BeginNextDialouge()
+    {
+        DialougeContainer chosen = dialouges[dialougeIndex++];
+        StartDialougeContainer(chosen);
+    }
+        public void BeginDialougeAtIndex(int index)
+    {
+        DialougeContainer chosen = dialouges[index];
+        FindAnyObjectByType<DialougeScript>(FindObjectsInactive.Include).StartDialougeContainer(chosen);
+    }
+    public void BeginDialouge()
+    {
+        //This is just so we have a public interfaces
+        StartDialougeContainer(dialouges[0]);
+    } 
+    //Starts a dialougeContainer.
+    private void StartDialougeContainer(DialougeContainer dialougeDataHolder)
     {
 
         dialougeMasterObject.gameObject.SetActive(true);
-        //  Lsprite.sprite = dialouge.Lsprite;
-        //  Rsprite = dialouge.Rsprite;
-        
         //add all of the Dialouge level items
-        name.text = dialougeDataHolder.name;
-        dialouges.Clear();
+        rCharacterName.text = dialougeDataHolder.name;
+        dialougeQueue.Clear();
         this.events = new List<UnityEvent>(dialougeDataHolder.actions);
-       
         //add all of the incoming dialouge
         //we're just gonna do the crap implement first
         //todo: make this not shit
         foreach (var item in dialougeDataHolder.dialouges)
         {
-            dialouges.Enqueue(item);
+            dialougeQueue.Enqueue(item);
         }
         //begin converstation with new dialouge in
         DisplayNextSentence();
     }
     public void DisplayNextSentence()
     {
-        if (dialouges.Count == 0)
+        if (dialougeQueue.Count == 0)
         {
             EndConvo();
             return;
         }
-        DialougeNode iteration = dialouges.Dequeue();
+        DialougeNode iteration = dialougeQueue.Dequeue();
         
 
 
@@ -68,18 +85,19 @@ public class DialougeScript : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(TypeOutSentence(iteration.sentence));
 
-        Rsprite.GetComponent<Image>().sprite = iteration.OwnSprite;
+        Rsprite.GetComponent<Image>().sprite = iteration.RSprite;
+        Lsprite.GetComponent<Image>().sprite = iteration.LSprite;
       
     }
     private IEnumerator TypeOutSentence(string input)
     {
 
-        dialouge.text = string.Empty;
+        wordsGUI.text = string.Empty;
         var sentence = input;
         foreach (char item in input.ToCharArray())
         {
                 float waitTime = 0.01f;
-                dialouge.text += item;
+                wordsGUI.text += item;
                 if (punctuation.Contains(item))
                 {
                     waitTime = .5f;

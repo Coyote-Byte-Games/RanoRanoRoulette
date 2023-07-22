@@ -8,7 +8,7 @@ using UnityEngine;
 public class ModifierManager : ScriptableObject
 {
 
-private static System.Random rng;
+    private static System.Random rng;
 
 
 
@@ -33,27 +33,27 @@ private static System.Random rng;
 
     public List<IModifier> mods = new List<IModifier>();
 
-// private IList<T> Shuffle<T>(IList<T> list)  
-// {  
-// System.Random localRng = new System.Random(GameConfig.GetSeed());  
+    // private IList<T> Shuffle<T>(IList<T> list)  
+    // {  
+    // System.Random localRng = new System.Random(GameConfig.GetSeed());  
 
-//     int n = list.Count;  
-//     while (n > 1) {  
-//         n--;  
-//         int k = localRng.Next(n + 1);  
-//         T value = list[k];  
-//         list[k] = list[n];  
-//         list[n] = value;  
-//     }  
-//     return list;
-// }
+    //     int n = list.Count;  
+    //     while (n > 1) {  
+    //         n--;  
+    //         int k = localRng.Next(n + 1);  
+    //         T value = list[k];  
+    //         list[k] = list[n];  
+    //         list[n] = value;  
+    //     }  
+    //     return list;
+    // }
 
-    public void RemoveTypes(Type args)
+    public List<IModifier> RemoveTypes(Type args, List<IModifier> input)
     {
         List<IModifier> killList = new List<IModifier>();
         // foreach (var interf in args)
         // {
-        foreach (var item in commonMods)
+        foreach (var item in input)
         {
             if (item.GetType().GetInterfaces().Contains(args))
             {
@@ -63,17 +63,18 @@ private static System.Random rng;
         }
         foreach (var item in killList)
         {
-            commonMods.Remove(item);
+            input.Remove(item);
         }
+        return input;
 
     }
     public void OnEnable()
     {
         numOfMods = startingModNumber;
         //If the game is released and not in testing, use the settings. Otherwise, the value in the editor will take place.
-        #if !UNITY_EDITOR
+#if !UNITY_EDITOR
         modifierInterval = SettingsScript.modInterval;
-        #endif
+#endif
         //Because of the way Rano is spawned, haVing the mods start before Rano himself even spawns breaks the game. This also stops the game from being totally destroyed.
         if (modifierInterval < 3)
         {
@@ -84,125 +85,97 @@ private static System.Random rng;
     {
         numOfMods = startingModNumber;
     }
-    public void NabCommonMods(ModifierSO[] collection)
+    public List<IModifier> NabCommonMods(ModifierSO[] source)
     {
-        rng = new System.Random(GameConfig.GetSeed());  
+        //Make sure the seed is working
+        rng = new System.Random(GameConfig.GetSeed());
 
-        collection = collection.OrderBy(_ => rng.Next()).ToArray();//(ModifierSO[])Shuffle(collection);
+//order with seed
+        source = source.OrderBy(_ => rng.Next()).ToArray();
 
-        
-   
-        //mods that cannot exist thanks to mutual exlusives
+        //Filtering with mutual exclusives, 
+        #region Blacklistlist
+
         List<Type> blackList = new List<Type>();
+        //The list used forward to carry the mods we want to use
+        List<IModifier> usableList = new List<IModifier>();
+        IEnumerable modsInExclusives = new List<IModifier>();
 
-
-        List<IModifier> copy = new List<IModifier>();
-        foreach (var item in collection)
+        foreach (var item in source)
         {
-            var mod = item.GetModifier();
-            if (blackList.Contains(mod.GetType()))
+            var currentMod = item.GetModifier();
+            if ( blackList.Contains(currentMod.GetType()))
             {
-                Debug.Log("caught moron " + mod.GetType());
+                Debug.Log("caught moron " + currentMod.GetType());
                 continue;
             }
 
-
-
-
-            copy.Add(mod);
-            IEnumerable modsInExclusives = new List<IModifier>();
+            usableList.Add(currentMod);
+            
+            //modsInExclusives holds the mods that cannot be added to the pool because other mods conflict
             try
             {
                 modsInExclusives = mutualExlusives
-                .Where(thing => thing.Any(x => x == mod.GetType()))
+                .Where(thing => thing.Any(x => x == currentMod.GetType()))
                 .Select(thing => thing).Aggregate((a, b) => a.Concat(b).ToList());
             }
             catch (System.Exception)
             {
                 //do nothin'
             }
-
-            //concat is like addrange but it returns a value
-                Debug.Log(modsInExclusives.GetType());
-
-            foreach (Type shitter in modsInExclusives)
+            foreach (Type notAllowed in modsInExclusives)
             {
-                Debug.Log("here is the sauce, boss " + shitter.ToString());
-                blackList.Add(shitter);
+                blackList.Add(notAllowed);
             }
+            blackList.Add(currentMod.GetType());
 
+            #endregion
 
             //a list of pairs that describe mutual exclusive mods. Get all the pairs that contain this mod, and remove ALL mods in that list (since we aren't going to use the one we've found here again)
 
 
         }
-        commonMods.AddRange(copy);
-        commonMods.ForEach(x => Debug.Log("new spice " + x));
+        usableList.OrderBy(_ => rng.Next());
+        Debug.Log("rng 2 is seeded as " + GameConfig.GetSeed());
+        //prevent duplicates via distinct
+        return (usableList);
     }
 
-    public static List<IModifier> commonMods = new List<IModifier>()
 
-
-    {
-        //  new BerserkModifier(),
-        // //  new BeachBallModifier(),
-        //  new InvertedControlsModifier(),
-        //  new DoubleJumpModifier(),
-        //  new WantedManModifier(),
-        //      new WantedManModifier(),
-
-        //  new WantedManModifier(),
-
-        //  new WantedManModifier(),
-
-        //  new WantedManModifier(),
-        //  new WantedManModifier(),
-        //  new WantedManModifier(),
-        //  new WantedManModifier(),
-        //  new WantedManModifier(),
-
-
-
-
-
-    };
-
-
-    // public void OnEnabled()
-    // {
-    //     this.NabCommonMods(modSOs);
-    // }
-     public int GetNumOfMods()
+    //made to flush out dupicates
+   
+    
+    public int GetNumOfMods()
     {
         // return new List<int> { numOfMods, commonMods.Count }.Min();
         return numOfMods;
     }
-    
 
-    public List<IModifier> GenerateRandomMods(int numOfMods)
+
+    public List<IModifier> GenerateRandomMods(List<IModifier> commonMods)
     {
         var output = new List<IModifier>();
-        List<IModifier> copy = commonMods;
+        List<IModifier> commonModsCopy = commonMods;
 
         //A the desired mod count is below the mods available
         //B we don't have enough mods to satisfy the demand, so we simply lower the demand
         int threshold = GetNumOfMods();
+        UnityEngine.Random.InitState(GameConfig.GetSeed());
 
         for (int i = 0; i < threshold; i++)
         {
-
-            int n = UnityEngine.Random.Range(0, copy.Count);//why is it count and not length why can you not be normal bill gates is dead to me
+            int n = UnityEngine.Random.Range(0, commonModsCopy.Count - 1);//why is it count and not length why can you not be normal bill gates is dead to me
 
 
             //attempted fix at duplicate modifiers
             IModifier item;
 
-            item = copy[(n)];
+            item = commonModsCopy[(n)];
 
 
 
-            output.Add(copy[n]);
-            copy.RemoveAt(n);
+            output.Add(commonModsCopy[n]);
+            commonModsCopy.RemoveAt(n);
         }
 
 
@@ -216,5 +189,11 @@ private static System.Random rng;
 
     }
 
+    internal void PrepareMods()
+    {
+        NabCommonMods(modSOs);
+        //previously passed in modMan.startingModNumber
+        mods = GenerateRandomMods(NabCommonMods(modSOs));
 
+    }
 }

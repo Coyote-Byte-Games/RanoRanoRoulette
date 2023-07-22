@@ -5,24 +5,22 @@ using UnityEngine;
 public class groundCheckScript : MonoBehaviour
 {
     public RanoScript rano;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
      public void OnCollisionEnter2D(Collision2D other)
     {
-        var script = other.gameObject.GetComponent<DamagingObjectScript>();
-        if (script is not null) //This line might just be the closest thing to e^iPi = 1
+        var script = other.gameObject.GetComponentInChildren<EnemyTraits>();
+        if (other.gameObject.layer != 6)
         {
             //emulate jump when hitting
-            rano.Jump();
+            rano.Jump(useJumpCredit: false, overrideBerserk:true, playSound: true);
+
+             rano.animator.SetTrigger("JumpTrick");
+                rano.jumpsUsed = 0;
+                var entityBaseScript = script.GetComponent<EntityBaseScript>();
+                if (entityBaseScript != null)
+                {
+                    entityBaseScript.TakeDamage(1, false);
+                }
         }
     }
 }

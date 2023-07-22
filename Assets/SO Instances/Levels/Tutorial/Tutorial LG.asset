@@ -15,6 +15,7 @@ MonoBehaviour:
   currentLevelTile: {fileID: 11400000, guid: cfe77b40ffde3ab49b37d5f075136b22, type: 2}
   currentLevelBGTile: {fileID: 11400000, guid: 00f965d2d4c1b95438226fadbe3cbcb3, type: 2}
   garnishGameObjects: []
+  garnishWeights: []
   garnishVerticalOffset: 0
   fossilGameObjects: []
   Tilemap: {fileID: 0}
@@ -23,7 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 17f91a762510e244d9eeb41bb1dcc5a4, type: 2}
   traps:
   - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
-  flag: {fileID: 3838578756149291213, guid: 4978c5aa1f9cbb94c8c68a1c10904314, type: 3}
+  flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
   sliceTexProbabliities: []
   numOfChunks: 25
   minFossilDistance: 0

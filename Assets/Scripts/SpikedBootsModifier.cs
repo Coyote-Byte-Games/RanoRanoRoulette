@@ -36,8 +36,13 @@ public void OnNewModAdded(RanoScript rano)
         return (Sprite)Resources.Load("Mod Icons\\spikedboots");
     }
 
-    public void SetPlayerEffects(RanoScript player)
+    public void SetPermenantEffects(RanoScript player)
     {
         return;
+    }
+
+    public void OnEndEffect(RanoScript player)
+    {
+       player.RemoveSpikeBoots();
     }
 }
