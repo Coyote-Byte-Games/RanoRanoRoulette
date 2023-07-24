@@ -16,7 +16,7 @@ public class GameData : ScriptableObject
     public Sprite FatRano;
     public Shader invertedShader;
     public Shader normalShader;
-
+    public Material spriteUnlit;
 
     [SerializeField]
     public GameObject BerserkSword, BerserkSwordSheathed, AdoptionDog, DJWings, WantedManPrefab;

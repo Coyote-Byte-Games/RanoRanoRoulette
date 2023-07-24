@@ -349,7 +349,6 @@ GameObject:
   - component: {fileID: 8442262971857019067}
   - component: {fileID: 1773304396935740637}
   - component: {fileID: 1560720115}
-  - component: {fileID: 1560720122}
   - component: {fileID: 526674802317579371}
   - component: {fileID: 5176438087969073298}
   m_Layer: 9
@@ -490,18 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef2809a0d3fe054f92ee89aacee959e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1560720122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402847552631776416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa00e6b7e57b1c41b78f0f0aa77d379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &526674802317579371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,12 +594,17 @@ MonoBehaviour:
       sentence: Get me outta here
       RSprite: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
       LSprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
+    - RSpeaking: 1
+      LSpeaking: 0
+      sentence: please man
+      RSprite: {fileID: 21300000, guid: ab716553ea1a4de44b2f0ecc3cb28fd7, type: 3}
+      LSprite: {fileID: 21300000, guid: 1630c6794407da0428557efe8ebac778, type: 3}
     actions:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 98568896}
           m_TargetAssemblyTypeName: DialougeScript, Assembly-CSharp
-          m_MethodName: BeginNextDialouge
+          m_MethodName: BeginDialouge
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

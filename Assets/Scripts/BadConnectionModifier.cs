@@ -7,6 +7,7 @@ public class BadConnectionModifier : UnityEngine.Object, IModifier, IMovementMod
     public RanoScript player;
     [SerializeField]
     // public SFXManagerSO soundManager;
+    public bool enabled = true;
     public IEnumerator ContinuousEffect(RanoScript rano)
     {
 
@@ -18,7 +19,16 @@ public class BadConnectionModifier : UnityEngine.Object, IModifier, IMovementMod
             yield return new WaitForSeconds(1f);
             
             rano.entityBase.soundManager.PlayClip(SFXManagerSO.Sound.AOL);
+            var direction = -(rano.rb.position - priorPosition); 
+            if (direction.SqrMagnitude() > 50 * 50)
+            {
+                rano.rb.position += direction.normalized * 50;
+            }
+            else
+            {
             rano.rb.position = priorPosition;
+                
+            }
             yield return new WaitForSeconds(8f);
            
         }
@@ -58,4 +68,6 @@ public void OnNewModAdded(RanoScript rano)
     {
         return;
     }
+
+  
 }

@@ -118,7 +118,7 @@ public class EntityBaseScript : MonoBehaviour
         }
 
         //As? as what?
-        AS.PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.boom)); //kaboom
+        // FindObjectOfType< GameManagerScript>().audioSource.PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.dodgeball)); //kaboom
 
         dead = true;
         OnDeath?.Invoke();
@@ -126,15 +126,17 @@ public class EntityBaseScript : MonoBehaviour
         {
             var npcness = GetComponent<DialougeScript>();
             //cant talk if youre dead moron
-            npcness.Shaddup();
+            npcness.EndConversation();
         }
         catch (System.Exception)
         {
             //yeah im just gonna do nothing how do you like that bitch your "clean code" can go straight to hell
         }
 
+        //Unable to play its own SFX as it is dying
 
         var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
+        kablooey.GetComponent<AudioSource>().PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.boom));
 
 
 
@@ -146,11 +148,9 @@ public class EntityBaseScript : MonoBehaviour
     public virtual void Start()
     {
 
-        TryGetComponent<AudioSource>(out AS);
-        if (AS is null)
-        {
-            AS = gameObject.AddComponent<AudioSource>();
-        }
+        
+        AS = gameObject.AddComponent<AudioSource>();
+       
         rb = GetComponent<Rigidbody2D>();
         this.Health = maxHP;
 

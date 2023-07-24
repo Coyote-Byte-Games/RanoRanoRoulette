@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba000e8a91dad8249ad80a1d8dc5b946, type: 3}
+  m_Name: LS GL Long Gap With Islands
+  m_EditorClassIdentifier: 
+  slice: {fileID: 6616760364334331450, guid: d6830ab29e53e3d4da741214f5a78ef3, type: 3}
+  difficulty: 0

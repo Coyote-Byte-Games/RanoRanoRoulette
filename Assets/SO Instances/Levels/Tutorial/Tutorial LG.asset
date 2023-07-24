@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 4599508599837604904, guid: 917a7a3f48840c04190aae60ff9a8d64, type: 3}
   flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
   sliceTexProbabliities: []
-  numOfChunks: 25
+  numOfChunks: 1
   minFossilDistance: 0
   fossilChance: 0
   shrubChance: 0

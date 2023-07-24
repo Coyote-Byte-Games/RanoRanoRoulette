@@ -7,13 +7,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e84c8102e80190e49a73ee9ea0f1c48a, type: 3}
   m_Name: Volcano Manager
   m_EditorClassIdentifier: 
-  enemyDispenser: {fileID: 11400000, guid: e3953a1eb41f77c4ea1b4a2bda3070ca, type: 2}
-  generator: {fileID: 11400000, guid: dc93dbddb6931014ab1f787e1e37e652, type: 2}
+  generator: {fileID: 11400000, guid: 3f406dd9f6b8485469386b03d2ec8004, type: 2}
   bgImage: {fileID: 21300000, guid: d4e5c825d4006d14c9ef8c3aa6f675fb, type: 3}
   bgScale: {x: 1.3, y: 1.3}
   bgColor: {r: 0.8980392, g: 0.63529414, b: 0.4627451, a: 1}

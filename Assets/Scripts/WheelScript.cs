@@ -335,7 +335,11 @@ public class WheelScript : MonoBehaviour
         icon.transform.SetParent(mesh.transform);
         icon.gameObject.layer = UILayer;
         var sprite = modMan.mods[modIconIndex].GetIcon();
-        icon.AddComponent<SpriteRenderer>().sprite = sprite;
+        var spriteRenderer = icon.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = sprite;
+        //so it isnt black
+        spriteRenderer.material = data.spriteUnlit;
+        
         //for good measure
         icon.GetComponent<SpriteRenderer>().sortingOrder = 50;
         icon.transform.localScale = new Vector3(5, 5, 0);

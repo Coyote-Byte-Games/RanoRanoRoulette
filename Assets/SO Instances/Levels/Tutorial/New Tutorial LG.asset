@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b1a16fa1223404c910dcebffd3ae7a, type: 3}
+  m_Name: New Tutorial LG
+  m_EditorClassIdentifier: 
+  startingCoordinate: {x: 0, y: 0}
+  xOffset: 0
+  parent: {fileID: 0}
+  sliceSOs:
+  - {fileID: 11400000, guid: a9c85ad519a03b047ab5646fcb3fcefd, type: 2}
+  flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
+  numOfChunks: 1
+  difficultyBasedGeneration: 0
+  weightBasedGeneration: 0
+  gameManager: {fileID: 0}
+  levelManager: {fileID: 11400000, guid: a68596bd99484734c89f298473aa7cb8, type: 2}

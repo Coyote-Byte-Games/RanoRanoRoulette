@@ -255,11 +255,11 @@ public class GameManagerScript : MonoBehaviour
         modMan.PrepareMods();
 
         //setting the scene deps of the levelgenerator
-        levelManager.generator.Tilemap = Tilemap;
-        levelManager.generator.bgTilemap = bgTilemap;
+        // levelManager.generator.Tilemap = Tilemap;
+        // levelManager.generator.bgTilemap = bgTilemap;
         levelManager.generator.gameManager = this;
-        levelManager.generator.WipeTileMap();
-        levelManager.generator.GenerateLevelChunks();
+        // levelManager.generator.WipeTileMap();
+        levelManager.generator.GenerateLevelChunks(gridLevelParent);
     }
 
     // Update is called once per frame

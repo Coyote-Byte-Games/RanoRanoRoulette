@@ -40,12 +40,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: bg
+  - name: Tilemap-specific BG
+    uniqueID: 2906326371
+    locked: 0
+  - name: BG
     uniqueID: 1999716815
+    locked: 0
+  - name: MG
+    uniqueID: 1678813443
+    locked: 0
+  - name: Top Priority
+    uniqueID: 744263657
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Priority
-    uniqueID: 744263657
+  - name: FG
+    uniqueID: 2031870993
+    locked: 0
+  - name: UI-like
+    uniqueID: 208712349
     locked: 0

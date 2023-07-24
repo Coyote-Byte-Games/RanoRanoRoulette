@@ -1,0 +1,8 @@
+3 Main Objects:
+
+The speaker/dialouge trigger
+examples: Sign, NPC
+
+Triggers the dialouge. Has references to the UI object that can be interacted with to proress dialouge
+
+The UI Object:

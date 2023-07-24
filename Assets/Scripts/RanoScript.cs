@@ -12,9 +12,9 @@ public class RanoScript : MonoBehaviour
     // Start is called before the first frame update
     public GameObject ActionModBox;
     public Material blurMat;
-    private bool allModsSupressedActive;
+    private bool modsSupressed;
     //Modifiers added during a supression
-    private List<ModifierSO> supressedModifiers;
+    private List<IModifier> supressedModifiers = new List<IModifier>();
     public Material blurInvertedMat;
     public EntityBaseScript entityBase;
 
@@ -66,7 +66,7 @@ public class RanoScript : MonoBehaviour
 
     #region Private / Hidden
 
-    private float modEnableCD; 
+    private float modEnableCD;
 
     private SpriteRenderer renderer;
 
@@ -365,11 +365,15 @@ public class RanoScript : MonoBehaviour
     }
     public void AddModifier(ModifierSO modSO)
     {
-        if (allModsSupressedActive)
+        if (modsSupressed)
         {
-            supressedModifiers.Add(modSO);
+            supressedModifiers.Add(modSO.GetModifier());
         }
-        AddModifier(modSO.GetModifier());
+        else
+        {
+            AddModifier(modSO.GetModifier());
+
+        }
     }
     public static bool IsPointerOverUIObject()
     {
@@ -402,16 +406,26 @@ public class RanoScript : MonoBehaviour
         {
             return;
         }
-
-        this.mods.Add(mod);
-        mod.SetPlayer(this);
-        mod.SetPermenantEffects(this);
-        EnableModifier(mod);
-
-        foreach (var preExistingMod in mods)
+        if (modsSupressed)
         {
-            preExistingMod.OnNewModAdded(this);
+            supressedModifiers.Add(mod);
         }
+        else
+        {
+
+
+
+
+            this.mods.Add(mod);
+            mod.SetPlayer(this);
+            mod.SetPermenantEffects(this);
+            EnableModifier(mod);
+            foreach (var preExistingMod in mods)
+            {
+                preExistingMod.OnNewModAdded(this);
+            }
+        }
+
 
         //todo end effect
         //find a way to set the player effects in the player script
@@ -421,8 +435,8 @@ public class RanoScript : MonoBehaviour
     public bool Grounded()
     {
 
-        return Physics2D.OverlapCircle(groundCheck.position - (.1f * Vector3.up), jumpRadius, groundLayer);
-        // return Physics2D.Raycast(transform.position, Vector2.down, jumpRadius, groundLayer);
+        // return Physics2D.OverlapCircle(groundCheck.position - (.1f * Vector3.up), jumpRadius, groundLayer);
+        return Physics2D.Raycast(transform.position, Vector2.down, jumpRadius, groundLayer);
 
     }
     void OnCollisionExit2D(Collision2D col)
@@ -514,22 +528,31 @@ public class RanoScript : MonoBehaviour
         invincibleTimeLeft = iFrameDuration;
 
         StartCoroutine(IFrameFlicker());
-        
-    }
 
+    }
+    public void OnTriggerStay2D(Collider2D col)
+    {
+        var sticky =  col.gameObject.GetComponent<StickyPointScript>();
+        if (sticky is not null)
+        {
+            //add logic for sticking
+        }
+    }
     public void OnTriggerEnter2D(Collider2D col)
     {
+       
         var dialougeScript = col.gameObject.GetComponent<DialougeScript>();
         if (dialougeScript is not null)
         {
-            dialougeScript.BeginDialouge();
-        } 
+            dialougeScript.BeginDialougeFromStart();
+        }
         var supression = col.gameObject.GetComponent<ModSupressionFieldScript>();
         //Handle Modifier Supression Field
         if (supression is not null)//Collision
         {
-            allModsSupressedActive = true;
+            modsSupressed = true;
             GetComponent<BuffableBehaviour>().CreatePopup("Clean, at last.", BuffableBehaviour.BuffIcon.Clean);
+            StopAllCoroutines();
             foreach (var item in mods)
             {
                 DisableModifier(item);
@@ -540,17 +563,22 @@ public class RanoScript : MonoBehaviour
     {
         var supression = col.gameObject.GetComponent<ModSupressionFieldScript>();
         //Handle Modifier Supression Field
-        if (supression is not null )//Collision
+        if (supression is not null)//Collision
         {
-            Debug.Log("Left supression field");
-            allModsSupressedActive = false;
+            GetComponent<BuffableBehaviour>().CreatePopup("Impurity Reclaimed.");
 
+            Debug.Log("Left supression field");
+            modsSupressed = false;
+            foreach (var item in supressedModifiers)
+            {
+                AddModifier(item);
+            }
             //Add the modifiers only once we leave the supression zone
             if (modEnableCD < 0)
             {
-                modEnableCD = .1f;
-            mods.ForEach(x => EnableModifier(x));
-                
+                modEnableCD = .2f;
+                mods.ForEach(x => EnableModifier(x));
+
             }
         }
     }
@@ -569,27 +597,49 @@ public class RanoScript : MonoBehaviour
     {
 
         //Should be fine to do this as:
-            //delegates are classes
-            //Arg is a Func, a delegate and thus a class
-            //classes are passed by reference, unlike structs passed by value 
-            //right?!?!
+        //delegates are classes
+        //Arg is a Func, a delegate and thus a class
+        //classes are passed by reference, unlike structs passed by value 
+        //right?!?!
 
         //AAAAAAAAAGHHHH
         if (!this.modContinuousEffects.ContainsKey(mod.ToString()))
         {
-        this.modContinuousEffects.Add(mod.ToString(), mod.ContinuousEffect(this));    
+            this.modContinuousEffects.Add(mod.ToString(), mod.ContinuousEffect(this));
         }
-        
-        //hahahah FML
-        StartCoroutine(modContinuousEffects[mod.ToString()]);
 
+        //hahahah FML
+        //lets just make sure why dont we
+        StopCoroutine(modContinuousEffects[mod.ToString()]);
+        StartCoroutine(BeginModifierContinuousEffct(mod.ToString()));
+
+        // StartCoroutine(modContinuousEffects[mod.ToString()]);
+
+    }
+
+    private IEnumerator BeginModifierContinuousEffct(string v)
+    {
+        for (; ; )
+        {
+            //todo fix this when it isn't 2:49AM
+
+
+            yield return new WaitForSeconds(3f);
+            StopCoroutine(modContinuousEffects[v]);
+            StartCoroutine(modContinuousEffects[v]);
+            yield break;
+        }
     }
 
     private void DisableModifier(IModifier mod)
     {
-            mod.OnEndEffect(this);
-            //HUH?!?!?!?!?!?!??!?!?!?!?!?!?!?!
-            StopCoroutine(modContinuousEffects[mod.ToString()]);
+        mod.OnEndEffect(this);
+        //HUH?!?!?!?!?!?!??!?!?!?!?!?!?!?!
+        if (!this.modContinuousEffects.ContainsKey(mod.ToString()))
+        {
+            this.modContinuousEffects.Add(mod.ToString(), mod.ContinuousEffect(this));
+        }
+        StopCoroutine(modContinuousEffects[mod.ToString()]);
     }
 
     public float GetHomemadeAcceleration()
@@ -602,7 +652,13 @@ public class RanoScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
+        // if (!modsSupressed)
+        // {
+        //     foreach (var item in supressedModifiers)
+        //     {
+        //         AddModifier(item.GetModifier());
+        //     }
+        // }
         for (int i = 0; i < hatHolder.transform.childCount; i++)
         {
             hatHolder.transform.GetChild(i).transform.localPosition = Vector2.zero;
@@ -757,17 +813,16 @@ public class RanoScript : MonoBehaviour
         //Old horizontal movement method; reworked since /v2.3
 
         rb.AddForce(new Vector2(horizontal * speed * GetSpeedModifier() * controlInversion * Time.deltaTime, 0f));
-        // rb.velocity =
-        // (Vector2.right * horizontal * speed * speedModifier * controlInversion) 
-        // + (Vector2.up * rb.velocity.y); 
+        // rb.velocity = (new Vector2(horizontal * speed * GetSpeedModifier() * controlInversion, rb.velocity.y));
+       
         animator.SetFloat("speed", horizontal);
 
         #region Magnetic
         //To stop rano from contantly bouncing as he runs, a raycast will keep him grounded until he jumps.
-        if (Physics2D.Raycast(groundCheck.position, Vector2.down, .1f, groundLayer) && magnetTime)
-        {
-            rb.velocity = rb.velocity * Vector2.right;
-        }
+        // if (Physics2D.Raycast(groundCheck.position, Vector2.down, .1f, groundLayer) && magnetTime)
+        // {
+        //     rb.velocity = rb.velocity * Vector2.right;
+        // }
         #endregion
 
 

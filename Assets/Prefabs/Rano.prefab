@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 8910078825549950884}
   - component: {fileID: 5870253997113241908}
   - component: {fileID: 1125366871}
+  - component: {fileID: 3648455761385268278}
   m_Layer: 11
   m_Name: Rano
   m_TagString: Player
@@ -301,7 +302,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 0.6
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -443,9 +444,9 @@ MonoBehaviour:
   jumpsUsed: 0
   borderDeathMax: 2
   extraJumps: 0
-  jumpRadius: 1.8
-  speedModifier: 1
+  jumpRadius: 2.5
   iFrameDuration: 1
+  accessories: []
 --- !u!114 &8910078825549950884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +499,32 @@ MonoBehaviour:
   damage: 0
   knockBackOverride: {x: 0, y: 0}
   shitlist: []
+--- !u!61 &3648455761385268278
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952295967668447974}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.01, y: -1.6}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.65, y: 0.02}
+  m_EdgeRadius: 0
 --- !u!1 &3140182831276358886
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +627,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 744263657
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0eb276a0aaa66e345bc4e2e0600b9b85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

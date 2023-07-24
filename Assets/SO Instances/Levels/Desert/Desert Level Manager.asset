@@ -7,13 +7,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e84c8102e80190e49a73ee9ea0f1c48a, type: 3}
   m_Name: Desert Level Manager
   m_EditorClassIdentifier: 
   enemyDispenser: {fileID: 11400000, guid: 24feb2d00dfbff647a06607b3a80182b, type: 2}
-  generator: {fileID: 11400000, guid: 4aa193f7474bce34da6b5096fad0bf03, type: 2}
+  generator: {fileID: 11400000, guid: e619390dd4eccae428a8a7886d7ed5a4, type: 2}
   bgImage: {fileID: 21300000, guid: 00cdc2294fc9ec547b21edddb270324e, type: 3}
   bgScale: {x: 1.6, y: 1.6}
   bgColor: {r: 1, g: 0.87058824, b: 0.61960787, a: 0}

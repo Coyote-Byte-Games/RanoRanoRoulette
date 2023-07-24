@@ -7,9 +7,8 @@ public class LevelSliceV2 : ScriptableObject
 {
     public const int minDifficulty = 1;
     public const int maxDifficulty = 5;
+    public int rightwardOffset = 0;
     
-    public GameObject enemy = null;
-    public GameObject[] traps = null;
     public GameObject slice;
     [Range(minDifficulty,maxDifficulty)]
     public int difficulty;

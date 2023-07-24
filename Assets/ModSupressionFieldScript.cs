@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[ExecuteAlways]
 public class ModSupressionFieldScript : MonoBehaviour
 {
     // Start is called before the first frame update

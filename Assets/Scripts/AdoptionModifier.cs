@@ -51,5 +51,15 @@ public void OnNewModAdded(RanoScript rano)
 
         Destroy( doggoInstance);
     }
-    
+
+    public void EnableContinuousEffect()
+    {
+               return;
+
+    }
+
+    public void DisableContinuousEffect()
+    {
+       return;
+    }
 }

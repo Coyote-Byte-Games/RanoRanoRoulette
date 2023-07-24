@@ -8,31 +8,18 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(menuName = "My Assets/Levels/Level Generator V2")]
 public class LevelGeneratorV2 : ScriptableObject
 {
-
-    // public RuleTile currentLevelTile;
-    // public Tile currentLevelBGTile;
-    // public GameObject[] garnishGameObjects;
-    // [Range(0, 1)]
-    // public float[] garnishWeights;
-    // public float garnishVerticalOffset = 0;
-    // public GameObject[] fossilGameObjects;
-    // [HideInInspector]
-    public Tilemap Tilemap;
+    public Vector2 startingCoordinate;
+    public int xOffset = 0;
     [HideInInspector]
-    public Tilemap bgTilemap;
-    public LevelSlice[] sliceTextures;
-
-    public GameObject[] traps;
+    public GameObject parent;
+    // [HideInInspector]
+    // public Tilemap Tilemap;
+    // [HideInInspector]
+    // public Tilemap bgTilemap;
+    public LevelSliceV2[] sliceSOs;
     public GameObject flag;
     [Space]
-    public float[] sliceTexProbabliities;
-
     public int numOfChunks = 25;
-    // public int minFossilDistance;
-    // [Range(0, 100)]
-    // public int fossilChance;
-    // [Range(0, 100)]
-    // public int shrubChance = 99;
     [Header("Fun Stuff")]
     public bool difficultyBasedGeneration = false;
     public bool weightBasedGeneration = false;
@@ -51,21 +38,42 @@ public class LevelGeneratorV2 : ScriptableObject
     {
         this.numOfChunks = SettingsScript.chunkNum;
     }
-    public void WipeTileMap()
+    // public void WipeTileMap()
+    // {
+    //     Tilemap.ClearAllTiles();
+    //     bgTilemap.ClearAllTiles();
+    // }
+
+    //Ends with all the chunks done and made
+    public void GenerateLevelChunks(GameObject parent)
     {
-        Tilemap.ClearAllTiles();
-        bgTilemap.ClearAllTiles();
+        Vector2 spawnPosition = startingCoordinate;
+        List<LevelSliceV2> slices = new List<LevelSliceV2>();
+        //Get all the chunk GOs generated
+        for (int i = 0; i < numOfChunks; i++)
+        {
+            //Getting a random index
+            int index = UnityEngine.Random.Range(0, sliceSOs.Count());
+            //Getting the chunk SO from that index
+            // GameObject chunkGO = sliceSOs[index].slice;
+            //Get the gameobject
+            slices.Add(sliceSOs[index]);
+        }
+        //Begin placing them one by one, using their collider bounds to place them together
+        for (int i = 0; i < slices.Count(); i++)
+        {
+            GameObject GO = slices[i].slice;
+
+            //Get the position to spawn at
+            var instance = Instantiate(GO, spawnPosition + new Vector2( slices[i].rightwardOffset, 0), Quaternion.identity, parent.transform);
+            var tm = instance.GetComponentInChildren<Tilemap>();
+            
+            
+            spawnPosition = tm.CellToWorld(new Vector3Int( tm.cellBounds.xMax, 0, 0)) + new Vector3(xOffset, 0, 0);
+            // spawnPosition+= new Vector2( instance.GetComponentInChildren<TilemapCollider2D>().bounds.max.x, 0);
+            Debug.Log($"spawnPosition is {spawnPosition}");
+        }
+        //place endpoint with coords
+        Instantiate(flag, spawnPosition + 20f * Vector2.right, Quaternion.identity);
     }
-
-
-//Gets one of the level chunks and spawns it in
-public void GenerateLevelChunk()
-{
-
-}
-public void GenerateEndpoint()
-{
-
-}
-
 }
