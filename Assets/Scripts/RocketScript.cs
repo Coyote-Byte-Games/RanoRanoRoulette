@@ -14,11 +14,15 @@ public class RocketScript : MonoBehaviour
     public float timeout = 5;
     public int speed;
     private Rigidbody2D rb;
+    public float turnCrappiness = 0.3f;
+    public float timeToAdjust = 0.3f;
 
     private SpriteRenderer render;
     private TrailRenderer trail;
     private float trailTempTime;
     private float timeLeft;
+    private Vector2 optimalDirection = Vector2.left;
+    private Vector2 trueDirection = Vector2.left;
 
 
     public void Freeze()
@@ -50,8 +54,10 @@ public class RocketScript : MonoBehaviour
 
         entityBase.die();
     }
+    private float timer = 0;
     void Start()
     {
+        trueDirection = optimalDirection;
         freezeBehaviour.OnFreeze += Freeze;
         freezeBehaviour.OnUnfreeze += UnFreeze;
         trail = GetComponentInChildren<TrailRenderer>();
@@ -59,12 +65,21 @@ public class RocketScript : MonoBehaviour
         // traits.AS = FindFirstObjectByType<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         render = GetComponentInChildren<SpriteRenderer>();
+
+        StartCoroutine(SlowRotate(trueDirection, optimalDirection, timeToAdjust));
+        // rb.SetRotation(Quaternion.LookRotation((Vector2)target.transform.position - rb.position).normalized);
+        //   rb.velocity = speed * ((Vector2)target.transform.position - rb.position).normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+// timer += Time.deltaTime;
+// if (timer > turnCrappiness)
+// {
+//      StartCoroutine(SlowRotate(trueDirection, optimalDirection, turnCrappiness));
+// }
         if (!freezeBehaviour.frozen)
         {
             timeLeft -= Time.deltaTime;
@@ -72,14 +87,16 @@ public class RocketScript : MonoBehaviour
             {
                 Explode();
             }
+            
             //todo rotate
-            Vector2 direction = ((Vector2)target.transform.position - rb.position).normalized;
+            optimalDirection = ((Vector2)target.transform.position - rb.position).normalized;
 
-            Vector2 force = direction * speed;
 
-            rb.velocity = force;
+            Vector2 force = trueDirection * speed;
 
-            rb.SetRotation(Quaternion.LookRotation(direction));
+            rb.velocity = speed * trueDirection;
+
+            rb.SetRotation(Quaternion.LookRotation(trueDirection));
             //simple flip x
 
             render.flipX = target.position.x < transform.position.x;
@@ -87,9 +104,25 @@ public class RocketScript : MonoBehaviour
         }
 
     }
+    //vectors are structs and thus value types.
+    private IEnumerator SlowRotate(Vector3 input, Vector2 desired, float timeToAdjust)
+    {
+        for (; ; )
+        {
+            float t = 0;
+            while (t < timeToAdjust)
+            {
+                trueDirection  = Vector3.Lerp(trueDirection, optimalDirection, t/turnCrappiness);
+                t += Time.deltaTime;
+                yield return null;
+            }
+        // timeToAdjust = this.timeToAdjust;
+
+        }
+    }
     public void OnCollisionEnter2D(Collision2D other)
     {
-            Explode();
+        Explode();
 
 
     }

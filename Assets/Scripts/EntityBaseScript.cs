@@ -136,7 +136,7 @@ public class EntityBaseScript : MonoBehaviour
         //Unable to play its own SFX as it is dying
 
         var kablooey = Instantiate(boom, transform.position, Quaternion.identity);
-        kablooey.GetComponent<AudioSource>().PlayOneShot(soundManager.GetClip(SFXManagerSO.Sound.boom));
+        FindObjectOfType<GameManagerScript>().audioSource.PlayOneShot (soundManager.GetClip(SFXManagerSO.Sound.boom), 0.75f);
 
 
 
@@ -187,9 +187,7 @@ public class EntityBaseScript : MonoBehaviour
                 if (!unmovable)
                 {
                     rb.AddForce(directionFromEnemy * 99999 / 100 * script.GetKB() * Time.deltaTime);
-
                 }
-
                 if (invincibleTimeLeft > 0)
                 {
                     return;
@@ -198,14 +196,6 @@ public class EntityBaseScript : MonoBehaviour
 
             }
         }
-
-
-
-
-
-
-
-
 
     }
     public void Update()

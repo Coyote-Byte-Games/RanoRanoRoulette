@@ -14,11 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: d599e10c7df205e4b8c534a29aa7b516, type: 2}
   modSOs:
-  - {fileID: 11400000, guid: ce03e4dcaab3388459d5fb28db40f963, type: 2}
   - {fileID: 11400000, guid: a2c347d5bf7d66345b723ad13fb84fb2, type: 2}
-  - {fileID: 11400000, guid: 0fb0ab96418cb53438bb1e264679e1f1, type: 2}
-  startingModNumber: 3
+  startingModNumber: 1
   numOfMods: 0
   difficulty: 0
   startUpDelayFinished: 1
-  modifierInterval: 3
+  modifierInterval: 15

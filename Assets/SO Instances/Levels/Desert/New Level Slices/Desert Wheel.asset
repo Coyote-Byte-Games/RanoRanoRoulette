@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Desert Wheel
   m_EditorClassIdentifier: 
   rightwardOffset: 0
-  slice: {fileID: 6616760364334331450, guid: df323efa2a9c45a448323b2e658d0252, type: 3}
+  slice: {fileID: 6616760364334331450, guid: e65b28f46f67af34eac566dfef1c205c, type: 3}
   difficulty: 0

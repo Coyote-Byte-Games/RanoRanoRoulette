@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: GL LG V2
   m_EditorClassIdentifier: 
   startingCoordinate: {x: 0, y: 0}
-  xOffset: 5
+  xOffset: 0
   parent: {fileID: 0}
   sliceSOs:
-  - {fileID: 11400000, guid: d5816ed98c8edd143878f14533f15cb1, type: 2}
   - {fileID: 11400000, guid: 0f33490ff62a5a840a0ee61d87b6a2b8, type: 2}
-  - {fileID: 11400000, guid: 05b21ce18b747c64c9eaf20a55f02c06, type: 2}
-  - {fileID: 11400000, guid: 4186601bd3067214091eea726ea31c50, type: 2}
   - {fileID: 11400000, guid: c030efdc8771a4d4686e58740983cc48, type: 2}
+  - {fileID: 11400000, guid: 4186601bd3067214091eea726ea31c50, type: 2}
+  - {fileID: 11400000, guid: d5816ed98c8edd143878f14533f15cb1, type: 2}
+  - {fileID: 11400000, guid: 05b21ce18b747c64c9eaf20a55f02c06, type: 2}
   flag: {fileID: 7748504133252169278, guid: 272ab96c0b827aa42a7d61d16a1416ab, type: 3}
   numOfChunks: 25
   difficultyBasedGeneration: 0

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Volcano Worm Door
   m_EditorClassIdentifier: 
   rightwardOffset: 0
-  slice: {fileID: 6616760364334331450, guid: b3efe837237f6044aa87c95a770f96b1, type: 3}
+  slice: {fileID: 6616760364334331450, guid: bcbe475c4cfedc34dae337ba54b332a8, type: 3}
   difficulty: 0
